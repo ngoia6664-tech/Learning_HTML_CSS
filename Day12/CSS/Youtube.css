@@ -1,0 +1,371 @@
+* {
+  box-sizing: border-box;
+}
+html,body {
+  width: 100%;
+  max-width: 100%;
+  background-color: #121212;
+  color: white;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    "nav head"
+    "nav Content";
+  gap: 24px;
+  position: relative;
+  padding: 12px;
+  width: 100%;
+}
+.nav {
+  grid-area: nav;
+  z-index: 1000;
+  background-color: #121212;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 12px;
+}
+.nav::-webkit-scrollbar {
+  display: none;
+}
+.head {
+  grid-area: head;
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-template-rows: 40px 1fr;
+  grid-template-areas:
+    "find tao-thongbao-taikhoan"
+    "menu-head menu-head";
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  background-color: #121212;
+  z-index: 1000;
+}
+.head > .find {
+  display: flex;
+  border-radius: 5px;
+  padding: 0 16px;
+  align-items: center;
+  width: 100%;
+}
+.head input {
+  display: flex;
+  padding: 6px 12px;
+  border: 2px solid #242424;
+  width: 90%;
+  height: 100%;
+  background-color: #121212;
+  color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+input:focus {
+  outline: none;
+}
+.head .logo-find {
+  display: flex;
+  background-color: rgb(71, 69, 69);
+  width: 60px;
+  height: 100%;
+  padding: 4px;
+  justify-content: center;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.logo-find img {
+  width: 30px;
+  height: 100%;
+}
+.head .logo-micro {
+  width: 100%;
+  background-color: rgb(71, 69, 69);
+  width: fit-content;
+  height: 100%;
+  border-radius: 50%;
+  padding: 4px;
+  color: #121212;
+  cursor: pointer;
+}
+.logo-micro:hover {
+  background-color: aliceblue;
+}
+.logo-micro img {
+  width: 100%;
+  height: 100%;
+}
+.tao-thongbao-taikhoan {
+  display: flex;
+  gap: 12px;
+  height: 40px;
+}
+.tao-video {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(71, 69, 69);
+  color: white;
+  border-radius: 50px;
+  height: 100%;
+  flex: 1;
+  cursor: pointer;
+}
+.tao-video:hover {
+  background-color: aliceblue;
+  color: #121212;
+}
+.tao-video span {
+  font-size: 30px;
+}
+.Thongbao {
+  width: 50px;
+  border-radius: 50%;
+  height: 100%;
+  cursor: pointer;
+}
+.Thongbao img {
+  width: 90%;
+  height: 90%;
+  border-radius: 50px;
+}
+.taikhoan {
+  width: 50px;
+  border-radius: 50px;
+  height: 100%;
+  cursor: pointer;
+}
+.taikhoan img {
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+}
+.head .menu-head {
+  display: flex;
+  gap: 10px;
+}
+.menu-head button {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  flex: 1;
+  color: white;
+  background-color: #3d3c3c;
+  border: 2px solid #3d3c3c;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);}
+
+.menu-head button:hover {
+  background-color: aliceblue;
+  color: #121212;
+}
+.Content {
+  grid-area: Content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+  padding: 8px;
+  flex-wrap: wrap;
+}
+.Content > .card {
+  display: grid;
+  grid-template-rows: 200px 1fr;
+  grid-template-areas:
+    "video"
+    "info";
+  padding: 12px 0;
+  border-radius: 10px;
+
+  flex-wrap: wrap;
+  cursor: pointer;
+  transition: 0.15s;
+  height: fit-content;
+}
+.card:hover {
+  background-color: #3d3c3c;
+  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+}
+.card > .video {
+  margin: 0 auto;
+  min-height: 150px;
+  width: 90%;
+  background-color: gray;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.card .info {
+  padding: 0px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.info > span {
+  font-size: 14px;
+}
+.nav > .menu-logoytb {
+  display: grid;
+  grid-template-rows: 1fr 30px 30px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.menu-logoytb img {
+  width: 20%;
+  border-radius: 50%;
+}
+.menu-logoytb > .logoytb {
+  display: flex;
+  font-size: 35px;
+  font-family: fantasy;
+  justify-content: center;
+  gap: 6px;
+}
+.Trang-chu {
+  text-align: center;
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.short {
+  text-align: center;
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.Trang-chu:hover {
+  background-color: #3d3c3c;
+}
+.short:hover {
+  background-color: #3d3c3c;
+}
+
+.Kenh-dang-ky,
+.Bạn,
+.Dichvukhac,
+.Khampha,
+.Nhat-ki-bao-cao {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  min-width: 100%;
+  gap: 12px;
+  box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.3);
+}
+.nav-head {
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.nav-head:hover {
+  background-color: #3d3c3c;
+}
+.buttons {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+.buttons button {
+  display: flex;
+  background-color: #121212;
+  color: aliceblue;
+  text-align: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: 2px solid #121212;
+  border-radius: 10px;
+}
+.buttons button:hover {
+  background-color: #3d3c3c;
+}
+button {
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .container {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "head"
+      "Content";
+      width: 100% !important;
+      max-width: 100% ;
+
+  }
+  .nav {
+    display: none;
+  }
+  .head {
+   display: flex;
+   justify-content:flex-start;
+   align-items: flex-end;
+   flex-direction: column;
+  }
+  .tao-thongbao-taikhoan{
+    width: 100%;
+    max-width: 200px;
+  }
+  .find{
+    display: none !important;
+  }
+  .Content{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+.card > .video {
+  animation: skeleton-loading 1.5s infinite;
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fade-in-up 0.4s ease-out both;
+}
+
+.card:nth-child(1) { animation-delay: 0s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.2s; }
+.hamburger {
+  display: none;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  right: 12px;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+@media (max-width: 767px) {
+  .hamburger { display: block; }
+}
