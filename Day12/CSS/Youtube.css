@@ -10,28 +10,24 @@ html,body {
 }
 .container {
   display: grid;
-  grid-template-columns: 200px 1fr;
   grid-template-rows: 100px 1fr;
   grid-template-areas:
-    "nav head"
-    "nav Content";
+    "head"
+    "Content";
   gap: 24px;
   position: relative;
   padding: 12px;
   width: 100%;
 }
 .nav {
-  grid-area: nav;
   z-index: 1000;
   background-color: #121212;
   margin-right: 5px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap:24px;
   align-items: center;
   position: fixed;
-  top: 0;
-  left: 0;
   width: 200px;
   height: 100%;
   overflow-y: auto;
@@ -43,7 +39,7 @@ html,body {
 .head {
   grid-area: head;
   display: grid;
-  grid-template-columns: 1fr 250px;
+  grid-template-columns: auto 250px;
   grid-template-rows: 40px 1fr;
   grid-template-areas:
     "find tao-thongbao-taikhoan"
@@ -53,6 +49,8 @@ html,body {
   top: 0;
   background-color: #121212;
   z-index: 1000;
+  margin-left: 200px;
+  padding: 12px;
 }
 .head > .find {
   display: flex;
@@ -160,12 +158,12 @@ input:focus {
   gap: 10px;
 }
 .menu-head button {
-  display: flex;
+  padding: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;;
   gap: 24px;
   align-items: center;
-  justify-content: center;
-  width: 80px;
-  flex: 1;
+  width: fit-content;
   color: white;
   background-color: #3d3c3c;
   border: 2px solid #3d3c3c;
@@ -177,9 +175,10 @@ input:focus {
   color: #121212;
 }
 .Content {
+  margin-left: 200px;
   grid-area: Content;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(250px , 1fr) );
   gap: 12px;
   padding: 8px;
   flex-wrap: wrap;
@@ -297,75 +296,4 @@ input:focus {
 }
 button {
   cursor: pointer;
-}
-@media (max-width: 767px) {
-  .container {
-    grid-template-columns: 1fr !important;
-    grid-template-areas:
-      "head"
-      "Content";
-      width: 100% !important;
-      max-width: 100% ;
-
-  }
-  .nav {
-    display: none;
-  }
-  .head {
-   display: flex;
-   justify-content:flex-start;
-   align-items: flex-end;
-   flex-direction: column;
-  }
-  .tao-thongbao-taikhoan{
-    width: 100%;
-    max-width: 200px;
-  }
-  .find{
-    display: none !important;
-  }
-  .Content{
-    grid-template-columns: 1fr !important;
-  }
-}
-
-
-.card > .video {
-  animation: skeleton-loading 1.5s infinite;
-}
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.card {
-  animation: fade-in-up 0.4s ease-out both;
-}
-
-.card:nth-child(1) { animation-delay: 0s; }
-.card:nth-child(2) { animation-delay: 0.1s; }
-.card:nth-child(3) { animation-delay: 0.2s; }
-.hamburger {
-  display: none;
-  width: 24px;
-  height: 2px;
-  background-color: white;
-  position: relative;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: "";
-  width: 24px;
-  height: 2px;
-  background-color: white;
-  position: absolute;
-  right: 12px;
-}
-
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
-
-@media (max-width: 767px) {
-  .hamburger { display: block; }
 }

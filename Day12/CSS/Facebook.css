@@ -1,0 +1,458 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  color: gray;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 12px;
+}
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  padding: 0 12px;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: fit-content;
+  font-size: 16px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-radius: 12px;
+  z-index: 1000;
+}
+.header .logo-find {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  text-align: center;
+}
+.logo-find .logo-face {
+  font-size: 20px;
+  display: flex;
+  color: white;
+  background-color: rgb(30, 125, 249);
+  border-radius: 50%;
+  height: 33px;
+  width: 33px;
+  justify-content: center;
+  align-items: center;
+}
+.logo-find .find {
+  display: flex;
+  align-items: center;
+  padding: 12px 6px;
+  border-radius: 12px;
+  background-color: rgb(241, 241, 241);
+}
+.logo-find .find input {
+  border: none;
+  background-color: rgb(241, 241, 241);
+}
+.logo-find input:focus {
+}
+.header .menu-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 12px;
+  height: fit-content;
+}
+.menu-head a {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+  color: gray;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 20px;
+}
+.menu-head span {
+  display: none;
+}
+.menu-head a:hover span {
+  display: inline;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background-color:#121212;
+  color: white;
+  border-radius: 12px;
+  width: fit-content;
+  padding: 6px 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  transition: 0.3s;
+}
+.menu-head a:hover {
+  background-color: rgb(241, 241, 241);
+}
+.header .head-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  height: 100%;
+  gap: 12px;
+}
+.head-user a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgb(241, 241, 241);
+  color: black;
+}
+.head-user a:hover {
+  background-color: rgb(209, 211, 211);
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  background-color: rgb(244, 244, 245);
+  padding: 12px;
+}
+.content .sidebar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px 0;
+  width: 300px;
+  position: fixed;
+  overflow-y: auto;
+  padding-bottom: 100px;
+  height: 100%;
+}
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 300px;
+  height: 100%;
+  right: 0;
+  position: fixed;
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+.sidebar-right .taitro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid;
+}
+.taitro p {
+  border-radius: 2px;
+  padding: 12px;
+  flex: 1;
+  border-radius: 12px;
+}
+.taitro p:hover {
+  background-color: rgb(230, 230, 230);
+}
+.sidebar-right a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 12px;
+}
+.sidebar-right a:hover {
+  background-color: rgb(230, 230, 230);
+}
+.contact,
+.group-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.tao-nhom-chat {
+  display: flex;
+  gap: 12px;
+}
+.tao-nhom-chat span {
+  align-self: center;
+}
+.tao-nhom-chat .tao {
+  display: flex;
+  padding: 12px;
+  height: 33px;
+  width: 33px;
+  background-color: rgb(230, 230, 230);
+  color: black;
+  justify-content: center;
+  align-items: center;
+}
+.head-contact {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+}
+.list-contact a {
+  display: flex;
+  gap: 12px;
+}
+.sidebar-left .utility {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid;
+  padding: 12px 0;
+}
+.sidebar-left a:not(.link a) {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 12px;
+}
+.sidebar-left a:hover:not(.link a) {
+  background-color: rgb(230, 230, 230);
+}
+.loitat .group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.link {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 6px;
+}
+.link a {
+  font-size: 14px;
+  text-decoration: none;
+  color: gray;
+}
+.link span {
+  cursor: pointer;
+}
+.link a:hover {
+  text-decoration: underline;
+}
+.link span:hover {
+  text-decoration: underline;
+}
+.maincontent {
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+  margin-right: 300px;
+  gap: 24px;
+  padding: 12px;
+}
+.status-story {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.status {
+  background-color: white;
+  border-radius: 12px;
+  padding: 12px;
+  gap: 12px;
+  height: fit-content;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 44px 1fr 44px 44px 44px;
+}
+.status div {
+  padding: 10px;
+  border-radius: 50%;
+  width: fit-content;
+  height: fit-content;
+  font-size: 20px;
+}
+.status .icon-user {
+  background-color: rgb(209, 211, 211);
+}
+.status .icon-camera {
+  color: red;
+}
+.status .icon-picture {
+  color: green;
+}
+.status .icon-face-smile {
+  color: orange;
+}
+.status input {
+  border-radius: 12px;
+  border: none;
+  background-color: rgb(241, 241, 241);
+  padding: 6px;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+.status div:hover {
+  background-color: rgb(230, 230, 230);
+}
+.story {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+  padding: 0 12px;
+  min-height: 150px;
+  overflow-x: auto;
+  width: 720px;
+  padding: 0 0 12px;
+}
+.story-item {
+  width: 100px;
+  background-color: rgb(216, 213, 213);
+  border-radius: 12px;
+  transition: scale 0.15;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.story-item:hover:not(.story-main > .story-item) {
+  scale: 1.02;
+  background-color: rgb(210, 210, 210);
+}
+.story-main > .story-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  position: relative;
+  box-shadow: none;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.story-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 12px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.story-main:hover {
+  scale: 1.02;
+  background-color: rgb(241, 241, 241);
+}
+.tao-tin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: 33px;
+  height: 33px;
+  text-align: center;
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50px;
+  padding: 3px;
+}
+.tao {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(30, 125, 249);
+  color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  align-items: center;
+  font-size: 30px;
+}
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px 24px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.head-card {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+}
+.logo-user_group {
+  background-color: rgb(210, 210, 210);
+  border-radius: 50%;
+  padding: 12px;
+  height: fit-content;
+  font-size: 20px;
+  cursor: pointer;
+}
+.info {
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px;
+}
+.info .name-group {
+  font-weight: bold;
+  cursor: pointer;
+  width: fit-content;
+}
+.info .under-info {
+  display: flex;
+  font-size: 12px;
+  gap: 6px;
+}
+.under-info span {
+  cursor: pointer;
+}
+.info .name-group:hover {
+  text-decoration: underline;
+}
+.info .under-info span:hover {
+  text-decoration: underline;
+}
+.logo-user_group:hover {
+  background-color: rgb(200, 200, 200);
+}
+.delele {
+  display: flex;
+  gap: 12px;
+}
+.delele a {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+}
+.delele span {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+}
+.delele a:hover {
+  background-color: rgb(209, 211, 211);
+}
+.delele span:hover {
+  background-color: rgb(209, 211, 211);
+}
+.footer-card {
+  display: flex;
+  gap: 24px;
+  font-size: 24px;
+}
+.footer-card a {
+  color: gray;
+}
+img {
+  max-width: 600px;
+  height: auto;
+}
