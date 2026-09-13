@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài 4</title>
+    <link rel="stylesheet" href="CSS/style.css">
+  </head>
+  <body>
+    <h1>Trang đặt vé</h1>
+    <fieldset>
+      <legend>Thông tin đặt vé</legend>
+      <label for="Movie">Chọn phim:</label>
+      <select name="Movie" id="Movie">
+        <option value="Conan movie 28">Conan movie 28</option>
+        <option value="Doraemon thế giới phép thuật">
+          Doraemon thế giới phép thuật
+        </option>
+        <option value="Conan movie 27">Conan movie 27</option>
+      </select>
+      <br />
+      <br />
+      <label for="Suất chiếu">Chọn suất chiếu</label>
+      <select name="Suat-chieu" id="Suat-chieu">
+        <option value="1:00PM-3:00PM">1:00 PM-3:00 PM</option>
+        <option value="3:00PM-5:00PM">3:00PM-5:00PM</option>
+        <option value="5:00PM-7:00PM">5:00PM-7:00PM</option>
+      </select>
+      <br />
+      <br />
+      <fieldset>
+        <legend>Chọn loại ghế</legend>
+        <input type="radio" name="type" id="vip" value="Vip" /><label for="vip"
+          >VIP</label
+        >
+        <input type="radio" name="type" id="normal" value="Normal" /><label
+          for="normal"
+          >Thường</label
+        >
+      </fieldset>
+      <br />
+      <br />
+      <label for="So-luong-ghe">Số lượng ghế</label>
+      <input
+        type="number"
+        name="So-luong-ghe"
+        id="So-luong-ghe"
+        min="1"
+        max="8"
+      />
+      <input type="checkbox" name="agree" id="agree" required /><label
+        for="agree"
+        >Tôi đồng ý với điều khoản của dịch vụ</label
+      >
+    </fieldset>
+    <br />
+    <br />
+    <button type="submit">đặt ghế</button>
+  </body>
+</html>

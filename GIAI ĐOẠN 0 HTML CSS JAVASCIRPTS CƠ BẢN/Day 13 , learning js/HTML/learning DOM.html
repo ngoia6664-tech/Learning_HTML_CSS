@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Danh sách học sinh</h2>
+    <ul id="list-student">
+    </ul>
+    <button onclick="btn()">Thêm học sinh</button>
+</body>
+<style>
+
+</style>
+<script>
+    const student=[{name:"Ngô Duy Anh", score:8},{name:"Ngô Duy Anh", score:9}];
+    const head =document.querySelector("h2");
+    head.style.color="red";
+    function btn(){
+    const list =document.querySelector("#list-student");
+    student.forEach((x) =>{
+        const li =document.createElement("li");
+        li.textContent = ` ${x.name} -${x.score}`
+        list.appendChild(li);
+    })
+}
+</script>
+</html>

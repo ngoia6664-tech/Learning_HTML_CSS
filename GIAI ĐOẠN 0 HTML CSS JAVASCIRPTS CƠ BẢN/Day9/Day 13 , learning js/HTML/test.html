@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: gray;
+      }
+      .active {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="hop"></div>
+    <button onclick="doiMau()">Đổi màu</button>
+    <ul id="danh_sách">
+      Danh sách
+    </ul>
+    <button onclick="ThemMuc()">Thêm mục mới</button>
+
+    <script>
+      function doiMau() {
+        const hop = document.querySelector("#hop");
+        hop.classList.toggle("active");
+      }
+      function ThemMuc() {
+        const student = [
+          { name: "An", age: "20" },
+          { name: "Anh", age: "21" },
+        ];
+        const list = document.querySelector("#danh_sách");
+        student.map((x) => {
+          const li = document.createElement("li");
+          li.textContent = `${x.name} -${x.age}`;
+          list.appendChild(li);
+        });
+      }
+    </script>
+  </body>
+</html>

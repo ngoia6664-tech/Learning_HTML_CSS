@@ -1,0 +1,34 @@
+body{
+    display: grid;
+    grid-template-rows: 100px 1fr 100px;
+    background-color:#f8f8f8;
+    gap: 24px;
+    padding: 12px;
+}
+header{
+    text-align: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+    padding: 12px;
+    background-color: rgb(82, 133, 144);
+    border-radius: 12px;
+    height: fit-content;
+}
+input{
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+button{
+    border-radius: 12px;
+    background-color: rgb(96, 224, 250);
+    width: fit-content;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+button:hover{
+    scale: 1.05;
+}

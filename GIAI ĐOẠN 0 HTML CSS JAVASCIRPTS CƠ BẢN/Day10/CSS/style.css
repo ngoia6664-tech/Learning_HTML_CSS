@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #ffd;
+}
+h1 {
+  color: rgb(199, 84, 12);
+  font-family: Arial, Helvetica, sans-serif;
+}
+nav {
+  padding: 20px 0 20px;
+  margin: 12px 0;
+  position: sticky;
+  top:0;
+}
+nav > a {
+  padding: 6px 12px;
+  margin: 8px;
+  text-decoration: none;
+  border: 2px solid black;
+  border-radius: 6px;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(227, 145, 145);
+}
+a {
+  margin: 0 0 0 6px;
+  text-decoration: none;
+  color: rgb(199, 84, 12);
+}
+main {
+  padding: 15px 30px;
+  margin: 12px 0px;
+}
+aside {
+  padding: 15px;
+  margin: 12px 0;
+}
+footer {
+  margin: 2px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+h2,
+h3,
+h4 {
+  color: rgb(199, 84, 12);
+  font-family: Arial, Helvetica, sans-serif;
+}
+p {
+  color: #006;
+  font-family: Arial, Helvetica, sans-serif;
+}
+li {
+  color: #006;
+  font-family: Arial, Helvetica, sans-serif;
+}
+button {
+  padding: 8px 12px;
+  background-color: rgb(227, 145, 145);
+  border-radius: 5px;
+  border: 2px solid black;
+  cursor: pointer;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+}
+legend {
+  color: rgb(199, 84, 12);
+  font-size: 18px;
+}
+input {
+  color: #006;
+  margin: 5px;
+  padding: 2px 12px;
+  background-color: #ffd;
+  border-radius: 10px;
+  width: 200px;
+  outline: none;
+}
+input:focus {
+  border: 2px solid rgb(199, 84, 12);
+}
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+}
+label {
+  color: #006;
+  margin: 2px;
+  padding: 0 3px 0 0;
+}
+textarea {
+  padding: 12px;
+  margin: 12px 0;
+  background-color: #ffd;
+  color: #006;
+  border-radius: 10px;
+}
+fieldset {
+  border: 2px solid rgb(199, 84, 12);
+  border-radius: 5px;
+}
+fieldset fieldset {
+  padding: 5px 0 5px 0;
+  margin: 0 0 8px 0;
+  border: none;
+}
+.gender > legend {
+  margin: 0;
+}

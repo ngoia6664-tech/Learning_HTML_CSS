@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- bài 1 -->
+    <span>Bài 1</span>
+    <p class="the-p-bai1">Đây là thẻ p bài 1</p>
+    <button class="btn-bai1">Nút bài 1</button>
+    <br /><br />
+    <span>Bài 2</span>
+    <div class="div-bai2"></div>
+    <br />
+    <br />
+    <span>Bài 3+4</span>
+    <br />
+    <input type="text" class="input-bai3" />
+    <br />
+    <br />
+    <span>bài 5+6</span>
+    <ul class="ul-bai5">
+      <li>DOM</li>
+      <li>Event</li>
+      <li>Object</li>
+      <li>ASYNC</li>
+    </ul>
+    <br />
+    <br />
+    <span>Bài7</span>
+    <div class="div-bai7"></div>
+    <span> Bài 8</span>
+    <form action="" method="get" id="form-bai8">
+      <input type="text" placeholder="Nhập tên mày vào" id="name-bai8" />
+      <input type="number" placeholder="Tuổi của mày bao nhiêu" id="age-bai8" />
+      <button type="submit">submit</button>
+    </form>
+    <span>Bài 9</span>
+    <button class="mybtn">NÚT 1</button>
+    <button class="mybtn">NÚT 2</button>
+    <button class="mybtn">NÚT 3</button>
+    <br />
+    <br />
+    <span>Bài 10</span>
+    <ul class="ul-bai10"></ul>
+    <button class="btn-bai10">click</button>
+    <br />
+    <br />
+    <span>bài 11</span>
+    <ul class="ul-bai11"></ul>
+    <br />
+    <span>bài 12</span>
+    <ul class="ul-bai12"></ul>
+    <br />
+    <span>Bài 13</span>
+    <div class="div-bai13">
+      <button class="btn-bai13-1">click</button>
+      <button class="btn-bai13-2">double click</button>
+    </div>
+    <span>Bài 14</span>
+    <ul class="ul-bai14"></ul>
+    <input type="text" id="input-bai14" />
+    <br />
+    <br />
+    <span>bài 15</span>
+    <ul class="ul-bai15"></ul>
+    <input type="text" class="input-bai15" />
+    <button class="btn-add">ADD</button>
+    <style>
+      .div-bai2 {
+        width: 100px;
+        height: 100px;
+        border: 2px solid black;
+      }
+    </style>
+    <script>
+      //Bài 1
+      const p = document.querySelector(".the-p-bai1");
+      const btn = document.querySelector(".btn-bai1");
+      btn.addEventListener("click", () => {
+        p.style.color = "blue";
+      });
+      //Thật ra có thể dùng form rồi event submit nhưng tôi lười tạo
+      // Bạn đọc thì nêu lại định nghĩa "click" ,"submit","input" ... nó có tên định nghĩa là gì tôi quên mất rồi
+      //Bài 2
+      const div_bai2 = document.querySelector(".div-bai2");
+      div_bai2.addEventListener("mouseover", () => {
+        if (div_bai2 instanceof HTMLElement)
+          //Dùng để hiện emmet trong css
+          div_bai2.style.backgroundColor = "yellow";
+      });
+      div_bai2.addEventListener("mouseleave", () => {
+        if (div_bai2 instanceof HTMLElement)
+          div_bai2.style.backgroundColor = "";
+      });
+      //Bài 3+4
+      let text_input = "";
+      console.log(text_input + 3);
+      const input_bai3 = document.querySelector(".input-bai3");
+      input_bai3.addEventListener("keydown", (e) => {
+        console.log(typeof text_input);
+        if (e.key !== "Enter") {
+          console.log(e.type);
+          text_input += `${e.key}`;
+        } else if (e.key === "Enter") {
+          alert(`bạn vừa nhập:${text_input}`);
+        }
+        console.log(text_input);
+      });
+      //Bài 5+6
+      const ul = document.querySelector(".ul-bai5");
+      ul.addEventListener("click", (e) => {
+        if (e.target instanceof HTMLElement) {
+          if (e.target.textContent.startsWith("A")) {
+            e.target.style.color = "red";
+          }
+          console.log(e.target.textContent);
+        }
+      });
+      //Bài 7
+      const colors = ["red", "blue", "yellow"];
+      const div_bai7 = document.querySelector(".div-bai7");
+      colors.forEach((x) => {
+        const btn = document.createElement("button");
+        div_bai7.appendChild(btn);
+        btn.textContent = `${x}`;
+        btn.addEventListener(
+          "click",
+          (e) => (div_bai7.style.backgroundColor = e.target.textContent),
+        ); //Tôi thích đổi div cho đỡ lag mắt
+      });
+      //bài 8
+      const form_bai8 = document.querySelector("#form-bai8");
+      const name_bai8 = document.querySelector("#name-bai8");
+      const age_bai8 = document.querySelector("#age-bai8");
+      let the_p = document.createElement("p");
+      const user = { name: null, age: null };
+      name_bai8.addEventListener("input", (e) => {
+        console.log(e.target.value);
+        user["name"] = e.target.value;
+      });
+      age_bai8.addEventListener("input", (e) => {
+        console.log(e.target.value);
+        user["age"] = e.target.value;
+      });
+      form_bai8.addEventListener("submit", (e) => {
+        document.body.appendChild(the_p);
+        e.preventDefault();
+        if (user["name"] === null) {
+          alert("Mày phải nhập tên");
+        } else {
+          the_p.textContent = `name:${user.name} - age:${user.age}`;
+        }
+      });
+      //Bài 9
+      const mybtn_bai9 = document.querySelectorAll(".mybtn");
+      mybtn_bai9.forEach((x) => {
+        x.addEventListener("click", () => {
+          x.textContent = "Đã Bấm";
+        });
+      });
+      //Bài 10
+      const ul_bai10 = document.querySelector(".ul-bai10");
+      const user_bai10 = { name: "An", age: 18 };
+      const btn_bai10 = document.querySelector(".btn-bai10");
+      btn_bai10.addEventListener("click", () =>
+        Object.entries(user_bai10).forEach(([key, value]) => {
+          const li = document.createElement("li");
+          li.textContent = `${key} : ${value}`;
+          ul_bai10.appendChild(li);
+        }),
+      );
+      //  Bài 11
+      let fruits = ["Táo", "Chuối", "Cam", "Xoài"];
+      const ul_bai11 = document.querySelector(".ul-bai11");
+      fruits.forEach((x) => {
+        const li = document.createElement("li");
+        li.innerHTML = ` Quả :${x} <button class ="xoa">X</button>`;
+        ul_bai11.appendChild(li);
+      });
+      ul_bai11.addEventListener("click", (e) => {
+        if (e.target.classList.contains("xoa")) {
+          e.target.parentElement.remove();
+        }
+      });
+      //bài 12
+      const ul_bai12 = document.querySelector(".ul-bai12");
+      function render_bai12() {
+        ul_bai12.innerHTML = "";
+        fruits.forEach((x) => {
+          const li = document.createElement("li");
+          li.innerHTML = `Quả:${x} <button class ="xoa">X</button>`;
+          ul_bai12.appendChild(li);
+        });
+      }
+      render_bai12();
+      ul_bai12.addEventListener("click", (e) => {
+        if (e.target.classList.contains("xoa")) {
+          const li = e.target.parentElement;
+          const index = Array.from(ul_bai12.children).indexOf(li);
+          fruits = fruits.filter((_, i) => i !== index);
+          render_bai12();
+          console.log(fruits);
+        }
+      });
+      //Bài 13
+      const btn1 = document.querySelector(".btn-bai13-1");
+      const btn2 = document.querySelector(".btn-bai13-2");
+      btn1.addEventListener("click", () => (btn1.textContent = "Đã click"));
+      btn2.addEventListener(
+        "click",
+        () => (btn2.textContent = "Đã double click"),
+      );
+      //Bài 14
+      const students = [
+        { name: "An", score: 8 },
+        { name: "Bình", score: 5 },
+        { name: "Chi", score: 9 },
+      ];
+
+      const ul_bai14 = document.querySelector(".ul-bai14");
+      const input_bai14 = document.querySelector("#input-bai14");
+
+      input_bai14.addEventListener("input", (e) => {
+        ul_bai14.innerHTML = "";
+        if (e.target.value != "") {
+          students
+            .filter((x) =>
+              x.name.toLowerCase().includes(e.target.value.toLowerCase()),
+            )
+            .forEach((s) => {
+              const li = document.createElement("li");
+              li.textContent = `Name: ${s.name} - Score: ${s.score}`;
+              ul_bai14.appendChild(li);
+            });
+        }
+      });
+      //bài 15
+      let tasks = ["Học DOM", "Học Events", "Học Async"];
+      const ul_bai15 = document.querySelector(".ul-bai15");
+      const p_15=document.createElement("p");
+
+      function render_bai15() {
+        ul_bai15.innerHTML="";
+        tasks.forEach((x) => {
+          const li = document.createElement("li");
+          li.innerHTML = `${x} <button class="xoa"> X </button>`;
+          ul_bai15.appendChild(li);
+        });
+      }
+      render_bai15();
+      // ý a
+      ul_bai15.addEventListener("click", (e) => {
+        if (e.target.classList.contains("xoa")) {
+          const li =e.target.parentElement;
+          const index =Array.from(ul_bai15.children).indexOf(li);
+          tasks=tasks.filter((_,i) => i!==index);
+          render_bai15();
+          const soluong=tasks.length;
+          p_15.textContent =`Số lượng task :${soluong}`;
+          ul_bai15.appendChild(p_15);
+        }
+      });
+      // ý b
+      let input_bai15 = document.querySelector(".input-bai15");
+      const btn_bai15 = document.querySelector(".btn-add");
+      btn_bai15.addEventListener("click", () => {
+        let value = input_bai15.value.trim();
+        if (value !== "") {
+          tasks.push(value);
+          render_bai15();
+          const soluong=tasks.length;
+          p_15.textContent =`Số lượng task :${soluong}`;
+          ul_bai15.appendChild(p_15);
+        }
+      });
+    </script>
+  </body>
+</html>

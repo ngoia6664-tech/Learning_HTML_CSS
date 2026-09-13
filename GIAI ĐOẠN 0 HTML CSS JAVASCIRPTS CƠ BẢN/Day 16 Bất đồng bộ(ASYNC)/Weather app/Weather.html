@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather app</title>
+    <link rel="stylesheet" href="Weather.css">
+    <script src="Weather.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Chào mừng bạn tới app xem thời tiết</h1>
+    </header>
+    <main>
+      <form action="" method="get" id="form-thoi-tiet">
+        <label for="input-city-toa-do">Tọa độ bạn muốn xem:</label>
+        <input type="text" id="input-city-toa-do" placeholder="21.03,105.85" />
+        <button class="btn-xem-thoi-tiet">Xem thời tiết</button>
+        <p class="p-du-lieu"></p>
+      </form>
+    </main>
+    <footer>
+        <a href="https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&current_weather=true">Thời tiết</a>
+    </footer>
+  </body>
+</html>

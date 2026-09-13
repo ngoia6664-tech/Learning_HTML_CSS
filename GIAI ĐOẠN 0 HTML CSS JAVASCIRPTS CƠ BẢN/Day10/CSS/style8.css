@@ -1,0 +1,52 @@
+body {
+  background-color: antiquewhite;
+}
+h1 {
+  text-align: center;
+  color: #a22;
+}
+.main {
+  display: flex;
+}
+.Card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px 5px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+.poster {
+  border: 2px solid black;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+span {
+  position: absolute;
+  top: 11px;
+  right: 8px;
+  background-color: #a22;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: white;
+  font-size: 12px;
+}
+h3 {
+  color: #a22;
+}
+button {
+  padding: 6px 12px;
+  margin: 8px 0 12px 0;
+  background-color: #a22;
+  color: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: scale 0.1s;
+}
+button:hover {
+  scale: 1.05;
+}

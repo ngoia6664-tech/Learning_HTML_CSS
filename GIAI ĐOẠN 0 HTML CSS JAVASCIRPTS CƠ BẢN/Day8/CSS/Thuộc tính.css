@@ -1,0 +1,22 @@
+h1{
+    color:blueviolet;
+    /* Màu chữ */
+    font-style: italic;
+    /* Kiểu chữ */
+    font-family: Arial, Helvetica, sans-serif;
+    /*Kiểu chữ */
+    text-transform:uppercase;
+    /* Chuyển đổi chữ hoa thường */
+    text-align:center;
+    /* Căn giữa */
+    font-size:20px;
+    /* cỡ chữ */
+
+}
+p{
+    color:crimson;
+}
+a{
+    color: #00000f;
+    
+}

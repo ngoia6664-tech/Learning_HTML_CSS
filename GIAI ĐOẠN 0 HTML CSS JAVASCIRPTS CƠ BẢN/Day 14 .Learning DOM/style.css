@@ -1,0 +1,12 @@
+div{
+    border :2px solid black;
+    width: 100%;
+    height: 300px;
+}
+.completed{
+    text-decoration: line-through;
+    color:red;
+}
+.Expensive{
+    color: red;
+}

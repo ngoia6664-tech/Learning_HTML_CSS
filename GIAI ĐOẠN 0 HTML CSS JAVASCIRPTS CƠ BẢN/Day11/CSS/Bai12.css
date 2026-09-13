@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: blanchedalmond;
+}
+header {
+  border: 2px solid brown;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 0 12px 12px 12px;
+}
+h1 {
+  color: brown;
+  text-align: center;
+}
+h3 {
+  color: blanchedalmond;
+  text-align: center;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.logo {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: brown;
+  font-size: 18px;
+  font-style: italic;
+  flex-wrap: wrap;
+}
+.link {
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+a:not(.trailer) {
+  text-decoration: none;
+  background-color: brown;
+  color: aliceblue;
+  padding: 6px 8px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  margin: 6px;
+  cursor: pointer;
+  flex: 0 1 1;
+}
+.trailer {
+  text-decoration: none;
+  padding: 2px;
+  color: blanchedalmond;
+  font-size: 16px;
+}
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 24px;
+}
+.Movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  gap: 8px;
+  border-radius: 12px;
+  flex: 0 0 240px;
+  background-color: rgb(232, 107, 107);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+.card {
+  position: relative;
+}
+span {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  background-color: rgb(236, 35, 35);
+  padding: 3px 8px;
+  font-size: 12px;
+  border: 2px solid white;
+  border-radius: 6px;
+  color: aliceblue;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.poster {
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  margin-top: 10px;
+}
+button {
+  background-color: brown;
+  color: aliceblue;
+  padding: 6px 8px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  margin: 6px;
+}
+a:hover {
+  scale: 1.05;
+}
+button:hover {
+  scale: 1.05;
+}
+.quay-lai {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.card:hover {
+  scale: 1.05;
+}
+.poster:hover {
+  border: 2px solid greenyellow;
+}
+.card:has(.HOT) > .poster:hover {
+  border: 2px solid antiquewhite;
+}
+.Movie > button {
+  background-color: antiquewhite;
+  color: black;
+}
+.Page {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "poster info"
+    "related related";
+  gap: 20px;
+}
+.poster { grid-area: poster; }
+.info { grid-area: info; }
+.related { grid-area: related; }

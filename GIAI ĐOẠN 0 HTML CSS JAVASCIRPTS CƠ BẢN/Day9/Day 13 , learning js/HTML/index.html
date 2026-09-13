@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="/CSS/index.css">
+</head>
+<script src="/JS/index.js"></script>
+<body>
+    <h1 id="tieu-de">Đẹp trai vc</h1>
+    <button onclick="doiChu()">Bấm vào đây</button>
+    <div class="nav">
+        <a href="" onclick ="doia()">Home</a>
+        <a href="">Contact</a>
+        <a href="">About</a>
+        <a href="">User</a>
+        <a href="">Setting</a>
+    </div>
+    <p class="mota">Đoạn 1</p>
+    <p class="mota">Đoạn 2</p>
+    <button onclick="DoiTatca()"> click here</button>
+    <script>
+        function DoiTatca(){
+            const el=document.querySelectorAll(".mota");
+            el.forEach((x) => x.innerHTML ="<b>Đổi chữ đậm </b>");
+        }
+    </script>
+</body>
+</html>

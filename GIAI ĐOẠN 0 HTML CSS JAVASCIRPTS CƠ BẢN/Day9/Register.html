@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form đăng kí đơn giản</title>
+  </head>
+  <body>
+    <h1>Chào mừng bạn đến với trang đăng kí</h1>
+    <form action="" method="post">
+      <label for="username">Tên đăng nhập:</label>
+      <input
+        id="username"
+        name="name"
+        type="text"
+        required
+        placeholder="Nhập tên đăng nhập"
+      />
+      <br /><br />
+      <label for="pass">Mật khẩu:</label>
+      <input
+        type="password"
+        name="pass"
+        id="pass"
+        required
+        placeholder="Nhập mật khẩu của bạn"
+      />
+      <br /><br />
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        placeholder="Nhập email của bạn"
+      />
+      <br /><br />
+      <label for="Gender">Giới tính:</label>
+      <input type="radio" value="male" name="gender" id="male"/><label for="male">Nam</label>
+      <input type="radio" value="female" name="gender" />Nữ <br /><br />
+      <label for="datebirthday">Ngày sinh:</label>
+      <input type="date" name="datebirthday" id="datebirthday" />
+      <br />
+      <br />
+      <label for="City">Thành phố </label>
+      <select name="City" id="City">
+        <option value="HY">Hưng Yên</option>
+        <option value="HN">Hà Nội</option>
+      </select>
+      <br /><br />
+      <input type="checkbox" name="checkbox" id="agree" />
+      <label for="agree">Tôi đã đồng ý với điều khoản</label>
+      <br />
+      <br />
+      <button type="submit" targer="#">Đăng kí</button>
+    </form>
+    <br /><br />
+    <span>Bạn đã có tài khoản</span>
+    <a href="login.html">tới trang đăng nhập</a>
+  </body>
+</html>

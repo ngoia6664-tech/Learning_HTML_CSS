@@ -1,0 +1,52 @@
+* { box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; padding: 20px; }
+h2 { font-size: 16px; margin-top: 30px; }
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f0d4d4;
+  width: 220px;
+}
+.box-center { align-items: center; }
+.box-stretch { align-items: stretch; }
+
+.box a {
+  text-decoration: none;
+  background-color: brown;
+  color: wheat;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Demo kết hợp: sidebar thực tế giống bài Dashboard của bạn */
+.sidebar-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 200px;
+  height: 300px;
+  background-color: #f0d4d4;
+  padding: 12px;
+}
+.sidebar-demo a {
+  text-decoration: none;
+  background-color: brown;
+  color: wheat;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+.sidebar-demo button {
+  margin-top: auto;
+  background-color: brown;
+  color: wheat;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

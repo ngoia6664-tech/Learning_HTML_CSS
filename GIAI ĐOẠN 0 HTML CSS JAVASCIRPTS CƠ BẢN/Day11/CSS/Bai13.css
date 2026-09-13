@@ -1,0 +1,73 @@
+* { box-sizing: border-box; }
+body {
+  display: flex;
+  background-color: blanchedalmond;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* --- Grid #1: layout tổng thể bằng grid-template-areas --- */
+.page {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "poster info"
+    "related related";
+  gap: 24px;
+  max-width: 900px;
+  margin: 12px auto;
+  border: 2px solid brown;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: burlywood;
+
+}
+.poster { grid-area: poster; }
+.info   { grid-area: info; }
+.related { grid-area: related; }
+
+.poster img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+.info {
+  background-color: #fff8ec;
+  padding: 16px;
+  border-radius: 8px;
+}
+.info button {
+  background-color: brown;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* --- Grid #2: lưới tự co giãn bằng auto-fit + minmax --- */
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.mini-card {
+  background-color: #e3d9c9;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* --- Responsive: dưới 600px, poster/info xếp chồng dọc --- */
+@media (max-width: 600px) { 
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "poster"
+      "info"
+      "related";
+  }
+}

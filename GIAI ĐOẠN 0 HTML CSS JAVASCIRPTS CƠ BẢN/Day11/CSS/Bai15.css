@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: blanchedalmond;
+}
+.Room {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.TV {
+  margin-bottom: 100px;
+  border: 2px solid black;
+  max-width: 100%;
+  padding: 3px;
+  text-align: center;
+  border-radius: 20%;
+}
+.seat {
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  justify-content: center;
+  gap: 24px;
+}
+.seat div {
+  border: 2px solid black;
+  max-width: fit-content;
+  min-height: 40px;
+  min-width: 40px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+}
+.seat div:not(.booked){
+    background-color: gold;
+    transition: scale 0.12s;  
+    cursor: pointer;
+}
+.booked{
+    background-color: gray;
+    cursor:not-allowed;
+}
+
+.seat div:not(.booked):hover {
+    background-color: greenyellow;
+    scale: 1.02;
+}

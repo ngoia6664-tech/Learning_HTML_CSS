@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+  </head>
+  <body >
+    <header><h1>Trang đăng kí tài khoản Cineverse</h1></header>
+    <main>
+        <form action="#" method="post">
+            <fieldset>
+              <legend>Thông tin tài khoản</legend>
+              <label for="username">Tên đăng nhập</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                required
+                placeholder="Nguyễn Văn A"
+              />
+              <br />
+              <br />
+              <label for="password">Mật khẩu</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                required
+                minlength="6"
+                placeholder="Mật khẩu phải có 6 kí tự"
+              />
+              <br />
+              <br />
+              <label for="email">Email</label>
+              <input
+                type="email"
+                required
+                id="email"
+                name="email"
+                placeholder="A@gmail.com"
+              />
+            </fieldset>
+            <br />
+            <fieldset>
+              <legend>Thông tin cá nhân</legend>
+              <label for="name">Họ và tên</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Nhập tên của bạn"
+              />
+              <br />
+              <br />
+              <label for="telephone">Số điện thoại</label>
+              <input
+                type="tel"
+                id="telephone"
+                name="telephone"
+                required
+                placeholder="Nhập số điện thoại"
+              />
+              <br />
+              <br />
+              <label for="date">Ngày sinh</label>
+              <input type="date" max="2026-08-23" required id="date" />
+              <br />
+              <br />
+              <fieldset class="gender">
+                <legend>Giới tính</legend>
+                <input type="radio" id="male" name="gender" value="male" />
+                <label for="male">Nam</label>
+                <input type="radio" name="gender" id="female" value="female" />
+                <label for="female">Nữ</label>
+              </fieldset>
+              <label for="note">Ghi chú thêm về bản thân</label>
+              <br />
+              <textarea
+                name="note"
+                id="note"
+                placeholder="Bạn hãy viết về bản thân mình vào đây"
+                rows="4"
+                cols="50"
+              ></textarea>
+            </fieldset>
+            <br />
+            <input type="checkbox" id="agree" name="agree" required />
+            <label for="agree">Bạn đồng ý với điều khoản của chúng tôi</label>
+            <br />
+            <br />
+            <span>Bạn đã có tài khoản? Đến trang </span
+            ><a href="Bài 7login.html">Đăng nhập</a> <br /><br />
+            <button type="submit">Đăng kí</button>
+        </form>
+    </main>
+  </body>
+</html>

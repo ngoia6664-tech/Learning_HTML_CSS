@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning event</title>
+  </head>
+  <body>
+    <ul id="danh-sach">
+      Danh sách học
+      <li>DOM</li>
+      <li>Events</li>
+      <li>Async</li>
+    </ul>
+    <br />
+    <form action="" method="get" id="form-text">
+      <button class="bai1" type="submit">bài 1</button>
+      <p class="the_p_bai1">Xin chào</p>
+    </form>
+    <!-- BÀI2 -->
+    <input type="text" placeholder="Hãy gõ vào đây" id="bai2" />
+    <p class="the-p-bai2"></p>
+    <br /><span>Bài 3</span>
+    <!-- bài3 -->
+    <form action="" method="get" id="form-text-bai3">
+      <input type="text" placeholder="Mày hãy gõ vào đây" id="inputbai3" />
+      <button type="submit">Lưu dữ liệu</button>
+    </form>
+
+    <!-- Bài 4 -->
+     <span>Bài 4</span>
+     <span>Danh sách</span>
+     <ul class="ul-bai4">
+      <li>DOM</li>
+      <li>EVENT</li>
+      <li>ASYNC</li>
+     </ul>
+     <!-- Bài 5 -->
+      <span>Danh sách quả </span>
+      <ul class="ul-bai5"></ul>
+      <button id="btn-bai5">Xóa quả</button>
+     <style>
+      .selected{
+        color: red;
+      }
+     </style>
+    <script>
+      //Bài 1
+      // const form =document.querySelector("#form-text");
+      // form.addEventListener("submit",(e) =>{
+      //     e.preventDefault();
+      //     alert("Bạn đã thành công");
+      //     const p=document.querySelector(".the_p_bai1");
+      //     p.textContent="Bạn đã ấn vào bài 1";
+      // })
+      const btn = document.querySelector(".bai1");
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Bạn đã thành công");
+        const p = document.querySelector(".the_p_bai1");
+        p.textContent = "Bạn đã ấn vào bài 1";
+      });
+      //Bài 2
+      const iput = document.querySelector("#bai2");
+      iput.addEventListener("input", (e) => {
+        const p = document.querySelector(".the-p-bai2");
+        p.textContent = `${e.target.value}`;
+      });
+      //Bài 3
+      const form_bai3 = document.querySelector("#form-text-bai3");
+      const test_p = document.createElement("p");
+      const iput_bai3= document.querySelector("#inputbai3");
+      iput_bai3.addEventListener("input", (x) => {
+        test_p.textContent=""
+          test_p.textContent = `Mày vừa gõ:${x.target.value}`;
+        });
+        form_bai3.addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert("Lưu thành công");
+            form_bai3.appendChild(test_p);
+      });
+      //Bài 4
+      const ul_bai4=document.querySelector(".ul-bai4");
+      ul_bai4.addEventListener("click",(e) =>{
+        //e.target.classList.add("selected")
+        console.log(e.target);
+        if(e.target instanceof HTMLElement) // Viết để hiện gợi ý
+        e.target.classList.toggle("selected")
+      })
+      //Bài 5
+      const items =["Táo" ,"Lê","Cam","Xoài","Bưởi"]
+      const ul=document.querySelector(".ul-bai5")
+      const btn5=document.querySelector("#btn-bai5")
+      items.forEach((x) =>{
+        const li=document.createElement("li");
+        li.classList.add(`${x}`)
+        li.textContent = `Quả:${x}`;
+        ul.appendChild(li);
+      })
+      // btn5.addEventListener("click",(e)=>{
+      //   if(e.target==="input"){
+      //     e.target.remove();
+      //   }
+      //   const input5= document.createElement("input");
+      //   input5.type="text";
+      //   input5.placeholder="Nhập quả muốn xóa";
+      //   btn5.appendChild(input5);
+      //   input5.addEventListener("input", (x) =>{
+      //   }
+      //   )
+      // }) thử nghiệm xóa theo nút
+      ul.addEventListener("click" ,(e) =>
+      e.target.remove())
+    </script>
+  </body>
+</html>
