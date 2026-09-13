@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial; background: #14161a; color: white; padding: 20px; }
+  
+  /* Lớp 1: Backdrop */
+  .backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* đen, độ trong suốt 50% */
+    opacity: 0;                      /* mặc định TRONG SUỐT HOÀN TOÀN, không nhìn thấy */
+    pointer-events: none;            /* mặc định KHÔNG bắt sự kiện chuột, để không chặn thao tác trang chính */
+    transition: opacity 0.3s;        /* hiệu ứng mờ dần khi bật/tắt */
+    z-index: 100;
+  }
+  .backdrop.active {
+    opacity: 1;
+    pointer-events: auto; /* khi active, cho phép bấm vào để đóng drawer */
+  }
+
+  /* Lớp 2: Drawer */
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 150px; height: 100%;
+    background: #1e2126;
+    transform: translateX(100%);
+    transition: transform 0.3s;   /* hiệu ứng TRƯỢT mượt khi đổi transform */
+    z-index: 101;                 /* cao hơn backdrop, để nằm TRÊN backdrop */
+    padding: 20px;
+    transition: all 0.15s;
+  }
+  .cart-drawer.active {
+    transform: translateX(0); /* đưa về đúng vị trí gốc — hiệu ứng "trượt vào" */
+  }
+</style>
+</head>
+<body>
+  <button id="btn-open">Giỏ hàng</button>
+
+  <div class="backdrop" id="backdrop"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <button id="btn-close">Đóng X</button>
+    <h3>Giỏ hàng của bạn</h3>
+    <p>Sản phẩm sẽ hiện ở đây...</p>
+  </div>
+
+  <script>
+    const backdrop = document.querySelector("#backdrop");
+    const cartDrawer = document.querySelector("#cart-drawer");
+    const btnOpen = document.querySelector("#btn-open");
+    const btnClose = document.querySelector("#btn-close");
+
+    function moGioHang() {
+      backdrop.classList.add("active");
+      cartDrawer.classList.add("active");
+    }
+    function dongGioHang() {
+      backdrop.classList.remove("active");
+      cartDrawer.classList.remove("active");
+    }
+
+    btnOpen.addEventListener("click", moGioHang);
+    btnClose.addEventListener("click", dongGioHang);
+    backdrop.addEventListener("click", dongGioHang); // bấm ra ngoài (vào backdrop) cũng đóng lại
+  </script>
+</body>
+</html>
