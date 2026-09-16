@@ -8,14 +8,14 @@ async function TaobaiViet(title, body) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          UserId: 11,
+          userId: 11,
           title: title,
           body: body,
         }),
       },
     );
     if (!taobaiViet.ok) {
-      console.log("Lỗi:", taobaiViet.status);
+      throw new Error(`Lỗi: ${taobaiViet.status}`);
     }
     const BaiViet = await taobaiViet.json();
     console.log("Bài viết đã tạo", BaiViet);
@@ -31,7 +31,7 @@ async function LayBaiViet(PostId) {
       `https://jsonplaceholder.typicode.com/posts/${PostId}`,
     );
     if (!layBaiViet.ok) {
-      console.log("Lỗi :", layBaiViet.ok);
+      throw new Error(`Lỗi :${layBaiViet.status}`);
     }
     const data = await layBaiViet.json();
     console.log("Bài viết đã lấy là:", data);
@@ -52,7 +52,7 @@ async function SuaBaiViet(postID, KeyCanSua) {
       },
     );
     if (!suaBaiViet.ok) {
-      throw new Error("Lỗi:", suaBaiViet.status);
+      throw new Error(`Lỗi:${suaBaiViet.status}`);
     }
     const BaiViet = await suaBaiViet.json();
     console.log("Bài viết đã được sửa", BaiViet);
@@ -88,7 +88,7 @@ async function chayTatCa() {
     "Quy trình tạo,lấy,sửa,xóa",
   );
   await LayBaiViet(1);
-  await SuaBaiViet(1,{title:"bài viết đã sủa tiêu đề"});
+  await SuaBaiViet(1, { title: "bài viết đã sủa tiêu đề" });
   await XoaBaiViet(1);
   await XoaBaiViet(101);
 }

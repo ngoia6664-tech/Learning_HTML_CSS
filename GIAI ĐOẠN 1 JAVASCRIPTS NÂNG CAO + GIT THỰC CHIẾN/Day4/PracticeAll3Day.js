@@ -51,7 +51,7 @@ async function layThongTinUser(userId) {
       `Tên User: ${dataUser.name} , Số bài viết : ${dataPosts.length}`,
     );
   } catch (error) {
-    console.log(("Lỗi lấy dữ liệu:", error));
+    console.log("Lỗi lấy dữ liệu:", error);
   }
 }
 
@@ -166,7 +166,7 @@ async function xoaComment(comemtId) {
       throw new Error("ID không hợp lệ"); //Vì lúc này lỗi đường truyền
     }
     const data = await testGET.json();
-    if (Object.key(data).length === 0) {
+    if (Object.keys(data).length === 0) {
       console.log("ID không hợp lê");
       return;
     }
@@ -203,11 +203,11 @@ async function layVaChuyenThanhChuoi(postId) {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${postId}`,
     );
-    if(!response.ok){
-       console.log("Lỗi:", response.status);
+    if (!response.ok) {
+      console.log("Lỗi:", response.status);
     }
     const data = await response.json();
-    const ChuyenChuoi = JSON.stringify(data,null,2)// Tham số thứ 3 là số lần nút space để thụt đầu dòng,còn tham só thứ 2 tôi thử cho số nguyên vào thì vẫn không ra gì khác
+    const ChuyenChuoi = JSON.stringify(data, null, 2); // Tham số thứ 3 là số lần nút space để thụt đầu dòng,còn tham só thứ 2 tôi thử cho số nguyên vào thì vẫn không ra gì khác
     console.log(ChuyenChuoi);
   } catch (Loi) {
     console.log(Loi);
@@ -233,36 +233,38 @@ async function layVaChuyenThanhChuoi(postId) {
 // import,export/  js1.js  js2.js  js3.js  JSON_REST_API/
 
 // admin@LAPTOP-5S9TJ0HH MINGW64 /d/WebLearning/GIAI ĐOẠN 1 JAVASCRIPTS NÂNG CAO + GIT THỰC CHIẾN/Day2 (main)
-// $ rm js1.js js2.js js3.js 
+// $ rm js1.js js2.js js3.js
 
 // admin@LAPTOP-5S9TJ0HH MINGW64 /d/WebLearning/GIAI ĐOẠN 1 JAVASCRIPTS NÂNG CAO + GIT THỰC CHIẾN/Day2 (main)
 // $ ls
 // import,export/  JSON_REST_API/
 
 // admin@LAPTOP-5S9TJ0HH MINGW64 /d/WebLearning/GIAI ĐOẠN 1 JAVASCRIPTS NÂNG CAO + GIT THỰC CHIẾN/Day2 (main)
-// $ 
+// $
 // Bài 19 Tổng hợp closure + REST: viết hàm taoBoDemGoiAPI() —
-    function taoBoDemGoiAPI(){
-        let dem=0;
-        return async function layPosts() {//Tận dụng bài hôm trước copy cho nhanh
-            let postId = Math.floor(Math.random()*100);//Math.floor làm tròn số nguyên gần nhất , nhỏ hơn hoặc bằng chính nó vd 36.77 thì sẽ thành 36
-            console.log(postId);
-        try{
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-            if(!response.ok){
-                throw new Error("mã lỗi:"+response.status);
-            }
-            const data = await response.json();
-            console.log(data);
-            dem++;
-            console.log("số bài viết đã lấy:"+dem);
-            return dem;
-        }
-        catch(error){
-            console.log(error);
-        }
+function taoBoDemGoiAPI() {
+  let dem = 0;
+  return async function layPosts() {
+    //Tận dụng bài hôm trước copy cho nhanh
+    let postId = Math.floor(Math.random() * 100); //Math.floor làm tròn số nguyên gần nhất , nhỏ hơn hoặc bằng chính nó vd 36.77 thì sẽ thành 36
+    console.log(postId);
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${postId}`,
+      );
+      if (!response.ok) {
+        throw new Error("mã lỗi:" + response.status);
+      }
+      const data = await response.json();
+      console.log(data);
+      dem++;
+      console.log("số bài viết đã lấy:" + dem);
+      return dem;
+    } catch (error) {
+      console.log(error);
     }
- }
+  };
+}
 // trả về 1 hàm async mà mỗi lần gọi sẽ GET 1 bài viết ngẫu
 // nhiên (id từ 1-100, dùng Math.random()), đồng thời closure
 // đếm và log số lần hàm đã được gọi tính đến hiện tại.
@@ -273,17 +275,17 @@ async function layVaChuyenThanhChuoi(postId) {
 // thư mục project chưa có), git add quanLyTodo.js,
 // git commit -m "...".
 async function ChayCacbai() {
-//   await layThongTinUser(1);
-//   await taoTodo("Học REST API Ngày 4", false);
-//   await danhDauHoanThanh(1);
-//   await xoaComment(500);
-//   await xoaComment(501);
-//   await layVaChuyenThanhChuoi(1);
-    const bai19 = await taoBoDemGoiAPI();
-    bai19();
-    bai19();
-    bai19();
-    bai19();
-    bai19();
-    bai19();
+  //   await layThongTinUser(1);
+  //   await taoTodo("Học REST API Ngày 4", false);
+  //   await danhDauHoanThanh(1);
+  //   await xoaComment(500);
+  //   await xoaComment(501);
+  //   await layVaChuyenThanhChuoi(1);
+  const bai19 = await taoBoDemGoiAPI();
+  bai19();
+  bai19();
+  bai19();
+  bai19();
+  bai19();
+  bai19();
 }
