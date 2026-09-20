@@ -4,3 +4,4 @@ thu nghiem conflict ở nhánh main
 thu-nghiem-conflict
 Đã hợp nhất 2 bản
 Đang làm bài tập 1
+đang làm bài tập 2 ở nhánh main
