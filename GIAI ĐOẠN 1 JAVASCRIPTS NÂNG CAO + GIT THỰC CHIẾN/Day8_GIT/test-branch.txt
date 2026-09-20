@@ -1,0 +1,108 @@
+GIT — 4 KHU VỰC (Working Directory, Staging Area, Local Repo, Remote)
+
+[Working Directory] --git add--> [Staging Area] --git commit--> [Local Repository] --git push--> [Remote (GitHub)]
+   (file đang sửa)              (khu vực "chuẩn bị")            (lịch sử đã lưu)                  (server)
+
+1. WORKING DIRECTORY — nơi thực sự gõ code
+Các file .js/.md... nằm trên ổ đĩa, sửa trực tiếp bằng VS Code. Git THEO DÕI
+thư mục này nhưng CHƯA LƯU gì — sửa 1 dòng chỉ được Git "ghi nhận có thay
+đổi", chưa cất giữ vĩnh viễn.
+
+2. STAGING AREA (Index) — "giỏ hàng" trước khi thanh toán
+bash
+git add ten-file.js
+KHÔNG lưu code vào lịch sử — chỉ CHỌN RA file/thay đổi nào muốn đưa vào lần
+lưu tiếp theo. Có thể sửa 5 file, chỉ add 2 file — 3 file còn lại vẫn ở
+Working Directory, chưa "vào giỏ".
+
+QUAN TRỌNG — Staging Area là DỮ LIỆU THẬT, ghi trên ổ đĩa (file .git/index),
+KHÔNG PHẢI bộ nhớ tạm — tắt máy, mở lại vẫn còn nguyên, git status vẫn thấy
+đúng trạng thái cũ.
+
+3. LOCAL REPOSITORY — nơi lịch sử thật sự được lưu
+bash
+git commit -m "mô tả"
+Lấy ĐÚNG những gì đang trong Staging Area (không đọc trực tiếp Working
+Directory!), đóng gói thành 1 điểm lưu vĩnh viễn trong lịch sử. Chỉ lưu vào
+máy MÌNH — GitHub CHƯA biết gì về commit này.
+
+4. REMOTE (GitHub) — bản sao lưu ở server, dùng để chia sẻ
+bash
+git push    # đẩy commit từ máy MÌNH lên GitHub
+git pull    # kéo commit từ GitHub VỀ máy mình
+Không có push/pull, mọi commit chỉ nằm im trên máy mình, không ai khác thấy
+được — kể cả chính mình nếu đổi sang máy khác.
+
+5. GIT STATUS — chỉ ĐỌC, không ghi gì cả
+So sánh Working Directory với Staging Area và Local Repository, báo:
+- "Changes not staged for commit"  = đã sửa nhưng CHƯA add
+- "Changes to be committed"        = đã add, sẵn sàng commit
+- "Untracked files"                = file MỚI, Git chưa từng biết tới
+
+6. BẪY QUAN TRỌNG NHẤT — Staging Area là SNAPSHOT ĐÓNG BĂNG,
+   KHÔNG tự cập nhật theo Working Directory
+bash
+echo "dòng 1" > test.txt
+git add test.txt              # Staging Area giờ có "dòng 1"
+
+echo "dòng 2" >> test.txt     # Working Dir có "dòng 1\ndòng 2"
+                                # NHƯNG Staging Area VẪN CHỈ CÓ "dòng 1"!
+
+git commit -m "test"          # commit LUÔN LẤY TỪ STAGING AREA
+                                # → commit CHỈ CÓ "dòng 1", KHÔNG có "dòng 2"
+Muốn commit chứa cả "dòng 2" → PHẢI add lại lần nữa SAU KHI sửa xong:
+bash
+git add test.txt      # add LẦN 2
+git commit -m "test"  # giờ mới chứa đủ 2 dòng
+7. HỆ QUẢ — xóa file khỏi ổ đĩa SAU KHI add vẫn KHÔNG mất file trong commit
+bash
+echo "test" > tam.txt
+git add tam.txt
+rm tam.txt                     # XÓA HẲN khỏi ổ đĩa
+git status                     # "deleted" ở Working Dir,
+                                # NHƯNG "new file" VẪN ở Staging Area
+git commit -m "test xóa file sau khi add"
+ls                              # file KHÔNG có trên ổ đĩa
+git show HEAD:tam.txt          # nhưng LỊCH SỬ VẪN CÓ nội dung — commit vẫn chứa nó
+8. COMMIT KHÔNG ĐỤNG TỚI Ổ ĐĨA — muốn lấy lại file, phải CHỦ ĐỘNG dùng checkout
+bash
+git checkout HEAD -- tam.txt   # lấy lại ĐÚNG file đó từ commit gần nhất, ghi đè ra ổ đĩa
+git checkout <hash-commit> -- . # khôi phục TOÀN BỘ working directory về 1 commit cụ thể
+TÓM GỌN 1 CÂU:
+commit = ghi vào sổ (KHÔNG đụng ổ đĩa)
+checkout = đọc lại từ sổ, GHI ĐÈ ra ổ đĩa (đây mới là lệnh thực sự "đụng"
+Working Directory)
+
+9. BRANCH — chỉ là 1 NHÃN DI ĐỘNG trỏ tới 1 commit, KHÔNG PHẢI bản sao folder
+main:    A---B---C
+                  ↑
+                main (nhãn đang trỏ vào commit C)
+
+Tạo branch mới:
+main:    A---B---C
+                  ↑
+              main, tinhNangMoi  (2 nhãn CÙNG trỏ 1 chỗ — CHƯA tách gì cả)
+
+Commit tiếp trên branch mới, 2 nhãn mới tách nhau:
+main:         A---B---C
+                        \
+tinhNangMoi:             D---E   (main vẫn đứng yên ở C, không biết gì về D,E)
+bash
+git branch                     # xem có branch gì, đang đứng ở đâu (dấu *)
+git branch tinhNangMoi          # TẠO branch mới, CHƯA chuyển sang
+git checkout tinhNangMoi        # CHUYỂN sang branch đó
+git checkout -b tinhNangMoi     # gộp 2 bước trên — tạo VÀ chuyển sang luôn
+
+git checkout main               # PHẢI đứng ở nhánh MUỐN NHẬN thay đổi trước
+git merge tinhNangMoi           # gộp tinhNangMoi VÀO branch đang đứng (main)
+LƯU Ý: git checkout thực sự THAY ĐỔI NỘI DUNG FILE trên ổ đĩa để khớp đúng
+commit mà branch đang trỏ tới — đổi qua đổi lại branch, code trong VS Code
+Explorer tự động đổi theo, không cần tự sửa tay.
+
+10. GIT ADD . — "." nghĩa là THƯ MỤC HIỆN TẠI, KHÔNG PHẢI toàn bộ repo
+Đứng trong 1 thư mục con (VD: GIAI ĐOẠN 1/), "git add ." chỉ gom được file
+BÊN TRONG thư mục đó — các thư mục anh em (VD: GIAI ĐOẠN 0/, cùng cấp với
+GIAI ĐOẠN 1/) KHÔNG bị ảnh hưởng, dù cùng 1 repo.
+→ Luôn kiểm tra pwd trước khi add ., hoặc lùi về đúng gốc repo (nơi có .git)
+  trước khi add . để chắc chắn gom đủ toàn bộ thay đổi.
+  //Test trạng thái staging Area
