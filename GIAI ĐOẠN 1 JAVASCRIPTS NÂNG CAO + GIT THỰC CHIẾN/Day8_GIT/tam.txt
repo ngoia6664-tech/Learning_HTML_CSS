@@ -1,7 +1,1 @@
-
-Thử nghiệm cflict trên main
-thu nghiem conflict ở nhánh main
-thu-nghiem-conflict
-Đã hợp nhất 2 bản
-Đang làm bài tập 1
-Đang làm bài tập 2 ở nhánh luyện
+q
