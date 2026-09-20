@@ -37,7 +37,7 @@
 //  })
 // //  Monqua.then((ketqua)=>{
 // //     console.log("Đang chờ quà",ketqua);
-// //     return ketqua
+// //     return ketqua; =====Bản thân then luôn trả về promise mới === lúc này ketqua chính là 1 promise
 // //  })
 // //  .then((ketqua2) =>{
 // //     console.log("Chờ quà lần 2",ketqua2);
