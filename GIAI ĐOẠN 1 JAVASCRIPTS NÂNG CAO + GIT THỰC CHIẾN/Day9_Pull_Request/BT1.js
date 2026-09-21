@@ -1,9 +1,10 @@
 function Nhapgia(Gia){
-    if(Gia.typeof===Number){
+    if(typeof Gia==="number"){
         return Gia;
     }
     else{
-        return "Gia phải là số"
+        return "Gia phải là số";
     }
 }
 console.log(Nhapgia(2314));
+
