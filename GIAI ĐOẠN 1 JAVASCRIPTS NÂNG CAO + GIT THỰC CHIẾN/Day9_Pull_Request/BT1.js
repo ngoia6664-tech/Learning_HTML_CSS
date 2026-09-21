@@ -5,5 +5,7 @@ function Nhapgia(Gia) {
     return "Gia phải là số";
   }
 }
-console.log(Nhapgia(2314));
+
 const SANPHAM = { Ten: "LAPTOP", Gia: 5000 }; //Đây là dòng ở nhánh BT_4
+const SanPham={Ten:"PC" , gia :10000} // Đây là bt 4 ở nhánh main
+
