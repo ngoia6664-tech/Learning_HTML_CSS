@@ -1,0 +1,244 @@
+# Ghi chú Git — Branch, Merge, Conflict (Ngày 8)
+
+> Song song với `ghi-chu-javascript-nang-cao-giai-doan-1.md`. Tổng hợp từ buổi luyện tập trực tiếp trên repo thật.
+
+---
+
+## MỤC LỤC
+1. [4 khu vực của Git](#1-4-khu-vuc)
+2. [Staging Area — bẫy quan trọng nhất](#2-staging-area)
+3. [Commit không đụng ổ đĩa](#3-commit-khong-dung-o-dia)
+4. [Branch — bản chất thật](#4-branch)
+5. [HEAD là gì](#5-head)
+6. [Merge — Fast-forward vs merge commit](#6-merge)
+7. [Conflict — cách đọc và xử lý](#7-conflict)
+8. [git merge --abort](#8-abort)
+9. [Xóa branch](#9-xoa-branch)
+10. [Đọc git log --graph](#10-log-graph)
+11. [Phạm vi áp dụng của lệnh — bẫy git add .](#11-pham-vi)
+12. [Checklist lỗi hay gặp](#12-checklist)
+
+---
+
+## 1. 4 KHU VỰC CỦA GIT
+
+```
+[Working Directory] --add--> [Staging Area] --commit--> [Local Repository] --push--> [Remote/GitHub]
+   (file đang sửa)         (khu vực "chuẩn bị")         (lịch sử đã lưu)              (server)
+```
+
+- **Working Directory** — file thật trên ổ đĩa, Git theo dõi nhưng chưa lưu gì.
+- **Staging Area** — `git add` chọn ra thay đổi nào muốn lưu. Là **dữ liệu thật trên ổ đĩa** (`.git/index`), KHÔNG phải bộ nhớ tạm — tắt máy vẫn còn nguyên.
+- **Local Repository** — `git commit` đóng gói Staging Area thành 1 điểm lưu vĩnh viễn. Chỉ nằm trên máy mình, GitHub chưa biết gì.
+- **Remote** — `git push`/`git pull` là cầu nối duy nhất giữa máy mình và GitHub.
+
+`git status` chỉ **đọc**, so sánh 3 khu vực đầu, báo trạng thái — không thay đổi gì.
+
+---
+
+## 2. STAGING AREA — BẪY QUAN TRỌNG NHẤT
+
+**`git commit` luôn lấy từ Staging Area, KHÔNG đọc trực tiếp Working Directory.**
+
+```bash
+echo "dòng 1" > test.txt
+git add test.txt              # Staging Area = "dòng 1"
+
+echo "dòng 2" >> test.txt     # Working Dir = "dòng 1\ndòng 2"
+                                # Staging Area VẪN CHỈ CÓ "dòng 1"!
+
+git commit -m "test"          # commit CHỈ CÓ "dòng 1"
+```
+Muốn commit có cả "dòng 2" → phải `git add` LẠI lần nữa sau khi sửa.
+
+`git status` lúc này cho thấy CÙNG 1 file xuất hiện ở CẢ 2 mục cùng lúc:
+```
+Changes to be committed:    modified: test.txt   ← phần đã add
+Changes not staged for commit: modified: test.txt ← phần MỚI, chưa add
+```
+
+---
+
+## 3. COMMIT KHÔNG ĐỤNG Ổ ĐĨA
+
+Xóa file khỏi ổ đĩa SAU KHI đã `add` → commit vẫn chứa file đó bình thường (vì Staging Area đã "chụp ảnh" từ trước):
+```bash
+git add tam.txt
+rm tam.txt                     # xóa hẳn khỏi ổ đĩa
+git commit -m "..."            # commit VẪN có tam.txt
+ls                              # không thấy file trên ổ đĩa
+git show HEAD:tam.txt          # nhưng LỊCH SỬ vẫn có nội dung
+```
+
+**Muốn lấy lại file từ lịch sử ra ổ đĩa — phải CHỦ ĐỘNG dùng `checkout`:**
+```bash
+git checkout HEAD -- tam.txt   # lấy bản trong commit mới nhất, ghi đè ra ổ đĩa
+git checkout -- tam.txt        # tương đương (HEAD là mặc định nếu không ghi rõ)
+git checkout bbe613d -- tam.txt # lấy bản từ 1 COMMIT CỤ THỂ khác (không nhất thiết mới nhất)
+```
+
+**Tóm 1 câu:** `commit` = ghi vào sổ (không đụng ổ đĩa). `checkout` = đọc từ sổ, ghi đè ra ổ đĩa.
+
+---
+
+## 4. BRANCH — BẢN CHẤT THẬT
+
+**Branch KHÔNG PHẢI bản sao folder — chỉ là 1 NHÃN DI ĐỘNG trỏ tới 1 commit.**
+
+```
+main:    A---B---C
+                  ↑
+                main (nhãn trỏ vào C)
+
+Tạo branch mới — CHƯA tách gì cả, chỉ thêm 1 nhãn CÙNG chỗ:
+main:    A---B---C
+                  ↑
+              main, tinhNangMoi
+
+Commit tiếp trên branch mới — GIỜ mới tách:
+main:         A---B---C
+                        \
+tinhNangMoi:             D---E   (main đứng yên ở C, không biết gì về D, E)
+```
+
+```bash
+git branch                     # xem có branch gì, đang đứng ở đâu (dấu *)
+git checkout -b tenBranch       # tạo + chuyển sang branch mới CÙNG LÚC
+```
+
+**`checkout` thực sự ghi đè nội dung file trên ổ đĩa** để khớp đúng commit branch đang trỏ tới — đổi qua đổi lại branch, code trong Explorer tự đổi theo.
+
+**BẪY: nhánh mới luôn tách từ ĐÚNG chỗ đang đứng lúc gõ `checkout -b`**, không phải chỗ mình "định" đứng. Luôn `git branch` kiểm tra dấu `*` trước khi tạo nhánh mới — quên bước này dễ vô tình tạo nhánh con của nhánh con thay vì tách từ main.
+
+---
+
+## 5. HEAD LÀ GÌ
+
+`HEAD` = con trỏ luôn chỉ vào **commit mới nhất của branch đang đứng hiện tại**. Đổi branch, `HEAD` tự đổi theo.
+
+```bash
+git checkout HEAD -- file.txt   # HEAD là mặc định nếu không ghi gì
+git checkout HEAD~1 -- file.txt # ~1 = lùi 1 commit trước HEAD
+```
+
+---
+
+## 6. MERGE — FAST-FORWARD VS MERGE COMMIT
+
+`git merge tenBranch` LUÔN gộp `tenBranch` **VÀO** branch đang đứng — phải `checkout` đúng nhánh **muốn nhận** trước:
+```bash
+git checkout main          # đứng ở nhánh NHẬN trước
+git merge luyen-branch      # gộp luyen-branch VÀO main
+```
+
+**Fast-forward** — xảy ra khi main CHƯA hề có commit riêng nào, VÀ đang đứng ĐÚNG TẠI điểm nhánh kia tách ra. Git chỉ đơn giản đẩy nhãn `main` đi tới, không tạo commit gộp:
+```
+Updating f8038a8..9ebe522
+Fast-forward
+```
+
+**Merge commit thật sự** — xảy ra khi cả 2 bên đều có commit riêng kể từ lúc tách nhánh (kể cả khi nhánh B tách từ nhánh con C chứ không trực tiếp từ main — vẫn cần merge commit, KHÔNG fast-forward được, vì main không nằm trên đường thẳng dẫn tới B). Git tạo ra 1 commit đặc biệt có **2 commit cha** để gộp 2 dòng lịch sử.
+
+---
+
+## 7. CONFLICT — CÁCH ĐỌC VÀ XỬ LÝ
+
+**Xảy ra khi:** cả 2 bên cùng sửa **đúng cùng 1 dòng** (hoặc cùng thêm dòng mới ngay sau **cùng 1 điểm neo** — VD file ngắn, cả 2 cùng thêm vào cuối). Nếu sửa ở 2 dòng thật sự tách biệt, xa nhau → Git tự gộp được, KHÔNG conflict.
+
+```
+<<<<<<< HEAD
+Nội dung đang có ở branch ĐANG ĐỨNG (vd main)
+=======
+Nội dung đang có ở branch ĐANG MERGE VÀO
+>>>>>>> ten-nhanh-kia
+```
+
+**Cách xử lý:**
+1. Tự tay sửa file — XÓA SẠCH cả 3 dòng dấu hiệu (`<<<`, `===`, `>>>`), giữ đúng nội dung mong muốn.
+2. `git add ten-file` — lúc conflict, `add` có nghĩa **"đã tự giải quyết xong xung đột ở file này"**, không phải nghĩa "chọn để lưu" như bình thường.
+3. `git commit` — hoàn tất merge.
+
+**VS Code hỗ trợ trực quan** — mở file conflict trực tiếp trong VS Code (không dùng `cat`), sẽ thấy nút **Accept Current Change / Accept Incoming Change / Accept Both Changes**, hoặc **Merge Editor 3 cột** (Incoming | Result | Current) — bấm chọn thay vì tự gõ xóa dấu hiệu.
+
+Terminal hiện `(branch|MERGING)` khi đang dở dang conflict.
+
+---
+
+## 8. GIT MERGE --ABORT
+
+Hủy hoàn toàn quá trình merge đang dở, quay lại đúng trạng thái TRƯỚC khi gõ `git merge`.
+
+```bash
+git merge --abort    # LƯU Ý: 2 dấu gạch ngang DÍNH LIỀN với "abort", không có khoảng trắng
+                       # "git merge - abort" (có cách) SẼ SAI, Git hiểu nhầm "abort" là tên branch
+```
+
+**Ranh giới còn dùng được hay không = ĐÃ COMMIT HAY CHƯA**, không phải đã sửa file hay đã `add` hay chưa:
+- Đã sửa file, xóa dấu hiệu, LƯU FILE, nhưng CHƯA `add` → `--abort` **vẫn dùng được**.
+- Đã `add` rồi nhưng CHƯA `commit` → `--abort` **vẫn dùng được**.
+- Đã `commit` xong (merge hoàn tất) → `--abort` báo lỗi `"There is no merge to abort"` — phải dùng cách khác (`git revert`...).
+
+---
+
+## 9. XÓA BRANCH
+
+```bash
+git branch -d tenBranch    # xóa AN TOÀN — từ chối nếu còn commit CHƯA merge vào đâu
+git branch -D tenBranch    # xóa CƯỠNG CHẾ — xóa bất kể đã merge hay chưa (cẩn thận)
+```
+
+**Không thể xóa branch đang đứng trên đó** — phải `checkout` sang branch khác trước:
+```
+error: cannot delete branch 'x' used by worktree...
+```
+
+**Xóa branch KHÔNG làm mất nội dung đã merge** — chỉ xóa cái nhãn. Commit vẫn nằm nguyên trong lịch sử của branch đã nhận merge (VD `main`), chỉ là không còn tên nhãn nào trỏ riêng tới nó nữa.
+
+---
+
+## 10. ĐỌC GIT LOG --GRAPH
+
+```bash
+git log --oneline                    # mỗi commit gọn 1 dòng
+git log --oneline --graph --all      # + vẽ hình cây + hiện MỌI branch
+```
+
+Thoát khỏi pager (khi output dài, không gõ lệnh được): nhấn phím **`q`**.
+
+**Đọc từ DƯỚI LÊN TRÊN** (cũ → mới):
+- `*` = 1 commit
+- `|` = đường dây của 1 nhánh
+- `|\` = ĐIỂM TÁCH nhánh (`checkout -b`)
+- `|/` = ĐIỂM GỘP nhánh (`merge` thành công)
+- Nhánh không có `|/` nào dẫn về = **chưa từng được merge**, đứng cô lập vĩnh viễn cho tới khi merge hoặc xóa.
+- `*` có khoảng thụt rộng hơn (`*   hash`) = merge commit (2 cha).
+
+---
+
+## 11. PHẠM VI ÁP DỤNG CỦA LỆNH — BẪY `git add .`
+
+**Hầu hết lệnh Git đọc/thao tác trên TOÀN BỘ repo**, bất kể đang đứng ở thư mục con nào (tự tìm ngược lên `.git`):
+```bash
+git status    # thấy thay đổi ở MỌI thư mục trong repo, kể cả thư mục KHÁC xa nơi đang đứng
+git branch, git log, git merge   # tương tự — áp dụng toàn repo
+```
+
+**NGOẠI LỆ — `git add .`:** dấu `.` chỉ nghĩa là **thư mục hiện tại**, KHÔNG PHẢI toàn bộ repo. Đứng trong 1 thư mục con, `add .` chỉ gom được file bên trong thư mục đó — thư mục anh em (cùng cấp) KHÔNG bị ảnh hưởng.
+
+**Cách tránh:** `cd` về đúng gốc repo (nơi có `.git`) trước khi `git add .`, hoặc chỉ định rõ đường dẫn thay vì dùng `.`.
+
+---
+
+## 12. CHECKLIST LỖI HAY GẶP — GIT BRANCH/MERGE
+
+- [ ] `git commit` lấy từ Staging Area, KHÔNG phải bản mới nhất trên ổ đĩa — sửa file sau khi `add` phải `add` lại
+- [ ] `git add .` chỉ gom thư mục hiện tại — kiểm tra `pwd`, hoặc `cd` về gốc repo trước khi add toàn bộ
+- [ ] `git status`/`git branch`/`git log` ngược lại — LUÔN áp dụng toàn repo, không giới hạn theo thư mục đang đứng
+- [ ] Luôn `git branch` kiểm tra dấu `*` (đang đứng branch nào) TRƯỚC KHI `checkout -b` tạo nhánh mới
+- [ ] `git merge tenBranch` gộp `tenBranch` VÀO branch đang đứng — phải `checkout` đúng nhánh nhận trước
+- [ ] Cờ có dấu gạch ngang (`--abort`, `--force`...) phải viết DÍNH LIỀN, không có khoảng trắng ở giữa
+- [ ] Không xóa được branch đang đứng trên đó — phải `checkout` sang branch khác trước
+- [ ] Xóa branch (`-d`/`-D`) không làm mất nội dung đã merge, chỉ xóa cái nhãn
+- [ ] Conflict không phải lỗi — là điều BÌNH THƯỜNG khi 2 bên sửa trùng dòng/điểm neo, phải tự tay chọn giữ bản nào
+- [ ] `git merge --abort` chỉ mất tác dụng SAU khi đã `commit` xong merge — còn `add` cũng vẫn abort được
+- [ ] Nhánh tách từ 1 nhánh con (không phải trực tiếp từ main) khi merge về main sẽ luôn tạo merge commit thật, không bao giờ Fast-forward
