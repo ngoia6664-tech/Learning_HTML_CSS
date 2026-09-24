@@ -1,2 +1,115 @@
 Đây là thay đổi của nhánh main // Thay đổi ở nhánh main ở file text
 Đây là thay đổi của nhánh main // Đây là thay đổi của nhánh D
+GIT NÂNG CAO — DETACHED HEAD, KHÔI PHỤC, MERGE CÓ KIỂM SOÁT (Ngày 11-12)
+
+1. DETACHED HEAD — trạng thái "lơ lửng", không thuộc branch nào
+
+git checkout <hash-commit>   # nhảy thẳng vào 1 COMMIT, không phải branch
+Git báo ngay:
+"You are in 'detached HEAD' state..."
+
+BẢN CHẤT: bạn không còn đứng trên bất kỳ branch nào — chỉ đứng tại
+đúng 1 điểm trong lịch sử. Đây là "vùng thử nghiệm cách ly":
+- Xem lại code cũ: AN TOÀN, xem thoải mái.
+- Commit tiếp trong lúc detached HEAD: commit đó CÓ THẬT, có lưu,
+  NHƯNG không branch nào trỏ tới nó → dễ bị "trôi nổi", mất dấu nếu
+  checkout sang branch khác mà KHÔNG lưu lại trước.
+
+Khi rời khỏi (checkout sang branch khác), Git CẢNH BÁO nếu có commit
+chưa lưu:
+"you are leaving N commits behind, not connected to any of your branches"
+→ Đây KHÔNG PHẢI lỗi/mất dữ liệu nguy hiểm — chỉ là nhắc "muốn giữ thì
+lưu ngay, không thì thôi".
+
+2. GIT BRANCH <TEN> — "CỨU" commit đang trôi nổi trong detached HEAD
+
+Đang ở detached HEAD, muốn GIỮ LẠI commit vừa tạo (không để nó trôi mất):
+bash
+git branch ten-branch-moi   # gắn NHÃN vào đúng commit hiện tại (không đổi vị trí HEAD)
+git checkout ten-branch-moi  # HOẶC gộp 2 bước: git checkout -c ten-branch-moi
+Sau lệnh này, commit đó chính thức "có nhà" — không còn nguy cơ mất
+khi chuyển qua branch khác.
+
+3. GIT CHECKOUT <COMMIT> -- . — KHÔI PHỤC nội dung cũ, KHÁC HẲN MERGE
+
+LƯU Ý QUAN TRỌNG NHẤT: MERGE CHỈ TIẾN VỀ PHÍA TRƯỚC, không dùng để
+"quay lại quá khứ".
+bash
+git checkout main
+git merge ten-branch-cu   # nếu ten-branch-cu chỉ là 1 điểm NẰM Ở QUÁ KHỨ
+                            # của chính main (không có commit MỚI nào main
+                            # chưa có) → báo "Already up to date", KHÔNG
+                            # khôi phục được gì, dù nội dung file rõ ràng
+                            # khác nhau trên ổ đĩa!
+CÁCH ĐÚNG để lấy lại nội dung CŨ:
+bash
+git checkout <hash-commit-cu> -- .     # lấy TOÀN BỘ nội dung từ 1 commit
+                                          # cụ thể, ghi đè ra thư mục hiện tại
+git checkout <hash-commit-cu> -- ten-file.js   # hoặc chỉ 1 file cụ thể
+
+# Sau đó PHẢI add + commit để "chốt" lại thay đổi vừa lấy về:
+git add .
+git commit -m "Khôi phục lại ..."
+BẪY CÚ PHÁP hay gặp — THIẾU dấu "." hoặc tên file sau "--":
+bash
+git checkout ten-branch --      # SAI — thiếu gì sau "--", Git hiểu
+                                   # lại thành "chuyển sang branch đó",
+                                   # KHÔNG lấy nội dung file gì cả!
+git checkout ten-branch -- .    # ĐÚNG — có dấu "." = "toàn bộ thư mục"
+TÓM 1 CÂU: merge = tiến tới, gộp lịch sử. checkout -- file/. = lấy
+nguyên nội dung từ 1 thời điểm, ghi đè ra hiện tại — 2 việc khác hẳn
+nhau, không thay thế được cho nhau.
+
+4. GIT MERGE --NO-COMMIT --NO-FF — merge nhưng DỪNG LẠI để tự kiểm tra
+bash
+git merge --no-commit --no-ff ten-branch
+- --no-commit: merge xong phần kỹ thuật NHƯNG DỪNG LẠI trước bước
+  commit cuối — cho phép tự `git status`/`git diff --cached` kiểm tra
+  kỹ mọi thay đổi (kể cả file bị XÓA) trước khi "chốt" thật.
+- --no-ff: ép tạo 1 merge commit thật (không Fast-forward), để lịch
+  sử có 1 điểm rõ ràng đánh dấu "đây là lúc gộp 2 nhánh".
+
+GIỚI HẠN CẦN BIẾT: nếu 2 bên THẬT SỰ xung đột (VD: 1 bên xóa file,
+bên kia sửa nội dung — kiểu modify/delete), --no-commit KHÔNG "ép"
+được Git bỏ qua conflict — Git vẫn báo conflict thật, vì đó là
+trường hợp KHÔNG THỂ tự quyết định, không liên quan gì tới cờ
+--no-commit. Cờ này chỉ phát huy tác dụng rõ nhất khi merge SẠCH
+(không conflict) nhưng vẫn muốn tự soát lại trước khi chốt.
+
+Khi có conflict dạng modify/delete, git status báo rất rõ:
+"deleted by them: ten-file.js"  → biết ngay ai đã xóa, ai đã sửa,
+không bị âm thầm mất file.
+
+Xử lý: sửa tay để quyết định giữ/xóa rồi git add, hoặc hủy hẳn bằng
+git merge --abort (vẫn dùng được vì CHƯA commit).
+
+5. GIT LOG --ONELINE --GRAPH --ALL --DECORATE — xem toàn cảnh lịch sử
+bash
+git log --oneline --graph --all --decorate
+- --oneline    : mỗi commit gọn 1 dòng (hash rút gọn + message)
+- --graph      : vẽ hình cây bằng ký tự * | \ / — thấy trực quan
+                  nhánh nào tách ra, gộp lại ở đâu
+- --all        : hiện MỌI branch cùng lúc, không chỉ branch đang đứng
+- --decorate   : hiện rõ TÊN branch/tag ngay cạnh commit (VD:
+                  "(HEAD -> main, nhanhD, nhanhC)") — biết ngay branch
+                  nào đang trỏ vào đúng commit nào
+
+LƯU Ý CHÍNH TẢ hay gõ nhầm: là "--graph" và "--all" (2 dấu gạch
+ngang dính liền chữ, có dấu cách NGẮN CÁCH GIỮA CÁC CỜ), KHÔNG phải
+"-grade -all -decorate" (thiếu dấu, sai chính tả "graph").
+
+Thoát khỏi màn hình pager khi log dài: nhấn phím "q".
+
+6. GHI NHỚ TỔNG QUÁT RÚT RA TRONG BUỔI NGHỊCH
+
+- Conflict chỉ xảy ra khi CẢ HAI bên cùng thay đổi so với ĐIỂM CHUNG
+  (common ancestor) — không phải chỉ vì 1 bên sửa, và không phải vì
+  kết quả cuối "khác nhau".
+- Thường xuyên "git merge main" vào nhánh con đang làm dở giúp GIẢM
+  nguy cơ conflict về sau (2 nhánh không bị "đi lạc" quá xa nhau).
+- File CHƯA commit "đi theo" bạn ở mọi branch — chỉ commit mới khiến
+  file "định cư" hẳn vào 1 branch cụ thể.
+- Không conflict KHÔNG có nghĩa là AN TOÀN để merge mù — vẫn cần đọc
+  diff (Code Review) trước khi chốt, đây là lý do PR + Branch
+  Protection tồn tại trong công ty thật, không chỉ dựa vào Git đơn
+  thuần.
