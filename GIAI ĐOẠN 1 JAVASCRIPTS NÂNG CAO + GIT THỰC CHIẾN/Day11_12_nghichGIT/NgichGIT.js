@@ -81,5 +81,6 @@ const arr = [5, 12, 8, 130, 44, 3, 20];
 arr.sort((x, y) => y - x); //Sửa y-x  ở nhánh main bài 10// x-y < 0 thì sẽ xếp x trước y nếu không dùng hàm so sánh thì sẽ tự dộng nhận các giá trị theo string , tôi không nhớ thứ tự string của các số
 console.log(arr);
 arr.sort((x,y) => x-y); //Thay đổi ở bài 10 ở nhánh main
-console.log(arr); // comment vào nhánh A để test 
+console.log(arr); // comment vào nhánh A để test // THay đổi ở nhánh main
+//THêm dòng ở nhánh main
 
