@@ -78,5 +78,7 @@ const avgBai9 = hocSinh.map((x) => ({
 console.log(avgBai9);
 // Bài 10. Cho const arr = [5,12,8,130,44,3,20]. Dùng sort sắp xếp tăng dần đúng cách (nhớ hàm so sánh, không để mặc định vì sẽ sai với số). Sau đó dùng sort sắp xếp giảm dần. Giải thích bằng lời: nếu không truyền hàm so sánh, sort([5,12,8,130]) sẽ ra thứ tự gì, tại sao.
 const arr = [5, 12, 8, 130, 44, 3, 20];
-arr.sort((x, y) => x - y); // x-y < 0 thì sẽ xếp x trước y nếu không dùng hàm so sánh thì sẽ tự dộng nhận các giá trị theo string , tôi không nhớ thứ tự string của các số
+arr.sort((x, y) => y - x); //Sửa y-x  ở nhánh main bài 10// x-y < 0 thì sẽ xếp x trước y nếu không dùng hàm so sánh thì sẽ tự dộng nhận các giá trị theo string , tôi không nhớ thứ tự string của các số
+console.log(arr);
+arr.sort((x,y) => x-y); //Thay đổi ở bài 10 ở nhánh main
 console.log(arr);
