@@ -52,7 +52,7 @@ console.log(matrix.flat().flat());
 console.log("bài 7");
 const tuKhoa = ["html", "css", "js", "css", "html", "react"];
 const loc = tuKhoa.filter((x, index) => {
-  return tuKhoa.indexOf(x) === index; // Đây là commit test  So sanh trong mảng tukhoa xem có x đang duyệt ở vị trí thứ mấy , duyệt lần đầu 
+  return tuKhoa.indexOf(x) === index; // thêm vào để commit đượcĐây là commit test  So sanh trong mảng tukhoa xem có x đang duyệt ở vị trí thứ mấy , duyệt lần đầu 
 });
 console.log(loc);
 // Bài 8. Cho const sanPham = [{ten:"Áo",gia:200000},{ten:"Quần",gia:350000},{ten:"Giày",gia:800000}]. Dùng map tạo ra 1 mảng mới chỉ chứa tên sản phẩm (mảng string). Dùng reduce tính tổng tiền của cả giỏ hàng.
