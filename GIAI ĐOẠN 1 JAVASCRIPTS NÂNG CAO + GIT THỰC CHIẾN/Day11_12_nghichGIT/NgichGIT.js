@@ -51,9 +51,9 @@ console.log(matrix.flat().flat());
 // Bài 7. Cho const tuKhoa = ["html","css","js","css","html","react"]. Dùng filter kết hợp indexOf (không dùng Set) để loại bỏ từ trùng lặp, chỉ giữ lần xuất hiện đầu tiên.
 console.log("bài 7");
 const tuKhoa = ["html", "css", "js", "css", "html", "react"];
-const loc = tuKhoa.filter(
-  (x, index) => tuKhoa.indexOf(x) === index // So sanh trong mảng tukhoa xem có x đang duyệt ở vị trí thứ mấy , duyệt lần đầu
-);
+const loc = tuKhoa.filter((x, index) => {
+  return tuKhoa.indexOf(x) === index; // thêm vào để commit đượcĐây là commit test  So sanh trong mảng tukhoa xem có x đang duyệt ở vị trí thứ mấy , duyệt lần đầu 
+});
 console.log(loc);
 // Bài 8. Cho const sanPham = [{ten:"Áo",gia:200000},{ten:"Quần",gia:350000},{ten:"Giày",gia:800000}]. Dùng map tạo ra 1 mảng mới chỉ chứa tên sản phẩm (mảng string). Dùng reduce tính tổng tiền của cả giỏ hàng.
 const sanPham = [
