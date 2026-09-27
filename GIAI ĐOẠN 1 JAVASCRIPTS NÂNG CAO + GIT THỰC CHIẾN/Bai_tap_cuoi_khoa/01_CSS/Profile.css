@@ -1,0 +1,164 @@
+:root {
+    --primary-color: #06b6d4;
+    --primary-hover: #0891b2;
+    --primary-icon-hover: #ecfeff;
+
+    --text-main: #0f172a;
+    --text-light: #475569;
+
+    --bg-body: #f0fdfa;
+    --bg-card: #ffffff;
+    --btn-color: #ffffff;
+
+    --radius-box: 18px;
+    --radius-btn: 14px;
+
+    --box-shadow: 0 8px 32px rgba(6, 182, 212, 0.16),
+                  0 2px 8px rgba(8, 145, 178, 0.10);
+
+    --padding-card-large: 14px 22px;
+    --padding-card-small: 10px 16px;
+    --padding-card-btn: 10px 20px;
+}
+.main-profile {
+    display: grid;
+    grid-template-areas: 
+    "main__profile main__create-post";
+    grid-template-columns: 2fr 1fr;
+    flex: 1;
+    grid-template-rows: minmax(0,1fr);
+    min-height: 0;
+}
+.main__profile{
+    display: grid;
+    gap: 12px;
+    grid-template-rows: auto minmax(0,1fr);
+    background-color: var(--bg-card);
+    padding: var(--padding-card-large);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--radius-box);
+    grid-area: main__profile;
+    overflow: hidden;
+    min-height: 0;
+}
+.profile__grid {
+    display:flex;
+    width: 100%;
+    background-color: var(--bg-body);
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-btn);
+    padding: var(--padding-card-large);
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.profile__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: var(--padding-card-small);
+    transition: all 0.2s ease;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--bg-body);
+    border-radius: var(--radius-box);
+}
+
+.profile__item:hover {
+    border-color: var(--primary-color);
+}
+
+.profile__icon {
+    font-size: 20px;
+    color: var(--primary-color);
+    background-color: var(--primary-icon-hover);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.profile__label {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 500; /* Độ dày chữ */
+    text-transform: uppercase; /*Viết hoa tất cả*/
+    letter-spacing: 0.5px;
+}
+
+.profile__value {
+    font-size: 14px;
+    color: var(--text-main);
+    font-weight: 600;
+}
+.profile__header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+/* align-items: start trong grid/flex. 
+Nó làm con cao theo nội dung thay vì stretch bằng hàng
+ Con tràn ra ngoài hàng và bị cha có overflow: hidden cắt mất
+ , nên bạn thấy nội dung bị cụt mà không có thanh cuộn. 
+ Đây là lỗi chính trong code của bạn. 
+
+1fr không co nhỏ hơn nội dung. 1fr thực chất là 
+minmax(auto, 1fr). Muốn hàng chịu co thì dùng minmax(0, 1fr).
+
+min-height: auto mặc định của flex/grid item. Item sẽ không
+ co nhỏ hơn nội dung. Cách chữa là thêm min-height: 0 cho các
+  tầng trung gian (main, .main__profile, .profile__grid). */
+  .profile__nav {
+    width: 100%;
+}
+
+.profile__nav-list {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 6px;
+    margin: 0;
+    background-color: var(--bg-body);
+    border-radius: var(--radius-btn);
+    border: 1px solid #e2e8f0;
+}
+
+.profile__nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 14px;
+    user-select: none;
+}
+
+.profile__nav-item i {
+    font-size: 18px;
+}
+
+.profile__nav-item:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-icon-hover);
+}
+
+/* Trạng thái tab đang được chọn */
+.profile__nav-item.active {
+    background-color: var(--bg-card);
+    color: var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}

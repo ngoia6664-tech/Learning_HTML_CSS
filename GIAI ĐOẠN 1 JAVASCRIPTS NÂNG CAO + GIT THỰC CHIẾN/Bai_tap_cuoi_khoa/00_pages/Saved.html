@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài viết đã lưu - Postify</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../01_CSS/Global.css" />
+  </head>
+  <body>
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__logo">
+        <div class="logo-icon-box"><i class="ri-article-line"></i></div>
+        <span class="logo-text">Postify</span>
+      </div>
+
+      <nav class="header__menu">
+        <ul>
+          <li>
+            <a href="../Home.html" class="menu-link">
+              <i class="ri-home-line"></i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+          <li>
+            <a href="Saved.html" class="menu-link active">
+              <i class="ri-bookmark-fill"></i>
+              <span>Bài viết đã lưu</span>
+            </a>
+          </li>
+          <li>
+            <a href="Profile.html" class="menu-link">
+              <i class="ri-user-line"></i>
+              <span>Trang cá nhân</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__account">
+        <a href="Profile.html" class="account-link">
+          <i class="ri-user-line"></i>
+          <span>Tài khoản</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      
+      <!-- Khối Tìm kiếm -->
+      <section class="main__search">
+        <div class="search-box">
+          <i class="ri-search-line"></i>
+          <input type="text" placeholder="Tìm kiếm trong bài viết đã lưu..." />
+        </div>
+        <select name="search-author" id="search-author" class="search-select">
+          <option value="">Tất cả tác giả</option>
+          <option value="1">Tác giả 1</option>
+          <option value="2">Tác giả 2</option>
+        </select>
+        <button class="btn btn-filter">lọc</button>
+      </section>
+
+      <!-- Khối Danh sách bài viết đã lưu -->
+      <section class="main__posts">
+        <article class="posts">
+          <div class="posts__head">
+            <img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" />
+            <h3 class="posts__author-name">Tên tác giả</h3>
+          </div>
+          
+          <div class="posts__between">
+            <p class="posts__text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate molestias velit temporibus minima? Illum eaque tempore modi id sit quia aliquam exercitationem...
+            </p>
+            <span class="posts__more">Xem thêm</span>
+          </div>
+
+          <div class="posts__last">
+            <div class="post__last-choose">
+              <i class="ri-heart-line"></i>
+              <span>Thả tim</span>
+            </div>
+            <div class="post__last-choose">
+              <i class="ri-chat-3-line"></i>
+              <span>Bình luận</span>
+            </div>
+            <!-- 👉 Thay đổi nút lưu thành hủy lưu, giữ nguyên class chung -->
+            <div class="post__last-choose post__last-choose--saved">
+              <i class="ri-bookmark-fill"></i>
+              <span>Hủy lưu bài viết</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Khối Tạo bài viết -->
+      <section class="main__create-post">
+        <div class="create-post__head">
+          <h2>Tạo bài viết</h2>
+        </div>
+        <div class="create-post_beetween">
+          <h3>Tên của bạn</h3>
+          <textarea placeholder="Nhập cảm nghĩ của bạn vào đây"></textarea>
+          <button class="btn-create-post">Đăng bài viết</button>
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>

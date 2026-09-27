@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang cá nhân - Postify</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../01_CSS/Global.css" />
+    <link rel="stylesheet" href="/01_CSS/Profile.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__logo">
+        <div class="logo-icon-box"><i class="ri-article-line"></i></div>
+        <span class="logo-text">Postify</span>
+      </div>
+
+      <nav class="header__menu">
+        <ul>
+          <li>
+            <a href="../Home.html" class="menu-link">
+              <i class="ri-home-line"></i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+          <li>
+            <a href="Saved.html" class="menu-link">
+              <i class="ri-bookmark-line"></i>
+              <span>Bài viết đã lưu</span>
+            </a>
+          </li>
+          <li>
+            <a href="Profile.html" class="menu-link active">
+              <i class="ri-user-fill"></i>
+              <span>Trang cá nhân</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__account">
+        <a href="Profile.html" class="account-link">
+          <i class="ri-user-line"></i>
+          <span>Tài khoản</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT (Thêm class modifier .main--profile để đổi cấu trúc Grid) -->
+    <main class="main main-profile">
+      <!-- 👉 KHỐI DUY NHẤT HIỂN THỊ THÔNG TIN TRANG CÁ NHÂN -->
+      <section class="main__profile">
+        <!-- Phần Header Avatar & Tên -->
+        <div class="profile__header">
+          <img
+            src="../03_Assets/anh-dai-dien.jpg"
+            alt="Ảnh đại diện"
+            class="profile__avatar"
+          />
+          <div class="profile__user-meta">
+            <h2 class="profile__name">Ngô Duy Anh</h2>
+          </div>
+          <div class="profile__nav">
+            <ul class="profile__nav-list">
+              <li class="profile__nav-item active">
+                <i class="ri-user-3-line"></i>
+                <span class="profile__nav-text">Thông tin cá nhân</span>
+              </li>
+              <li class="profile__nav-item">
+                <i class="ri-article-line"></i>
+                <span class="profile__nav-text">Bài viết cá nhân</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phần danh sách thông tin dạng lưới (Grid) -->
+        <div class="profile__grid">
+          <div class="profile__item">
+            <i class="ri-id-card-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">ID Tác giả</span>
+              <span class="profile__value">AUTHOR-2026</span>
+            </div>
+          </div>
+          <div class="profile__item">
+            <i class="ri-id-card-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">ID Tác giả</span>
+              <span class="profile__value">AUTHOR-2026</span>
+            </div>
+          </div>
+          <div class="profile__item">
+            <i class="ri-id-card-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">ID Tác giả</span>
+              <span class="profile__value">AUTHOR-2026</span>
+            </div>
+          </div>
+          <div class="profile__item">
+            <i class="ri-id-card-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">ID Tác giả</span>
+              <span class="profile__value">AUTHOR-2026</span>
+            </div>
+          </div>
+          <div class="profile__item">
+            <i class="ri-mail-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">Email</span>
+              <span class="profile__value">ngoduyanh@student.edu.vn</span>
+            </div>
+          </div>
+
+          <div class="profile__item profile__item--full">
+            <i class="ri-map-pin-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">Địa chỉ (Address)</span>
+              <span class="profile__value"
+                >123 Đường Đại Cồ Việt, Tầng 4 (Phòng 402), Hà Nội</span
+              >
+            </div>
+          </div>
+
+          <div class="profile__item">
+            <i class="ri-phone-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">Số điện thoại</span>
+              <span class="profile__value">+84 912 345 678</span>
+            </div>
+          </div>
+
+          <div class="profile__item">
+            <i class="ri-building-line profile__icon"></i>
+            <div class="profile__content">
+              <span class="profile__label">Công ty</span>
+              <span class="profile__value">Tech Innovate Solutions</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Khối Tạo bài viết bên phải -->
+      <section class="main__create-post">
+        <div class="create-post__head">
+          <h2>Tạo bài viết</h2>
+        </div>
+        <div class="create-post_beetween">
+          <h3>Tên của bạn</h3>
+          <textarea placeholder="Nhập cảm nghĩ của bạn vào đây"></textarea>
+          <button class="btn-create-post">Đăng bài viết</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
