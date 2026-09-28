@@ -6,7 +6,7 @@ let infoPostAndUserName =
 //Tìm kiếm
 const listAuthor = document.querySelector("#search-author"); //Dánh sách tác giả
 const findAuthor = document.querySelector(".find-author");
-const inputFindAuthor = document.querySelector("#input-find-author");
+
 //Khối hiện ra chính
 const mainPost = document.querySelector(".main__posts");
 
@@ -136,41 +136,45 @@ async function RenderAuthor() {
 }
 //Hàm lọc theo tác giả
 function FilterAuthor() {
-  const arrayFilerAthor = ArrayPostAddUserName().filter((filter_author) => {
+  return ArrayPostAddUserName().filter((filter_author) => {
     return (
       filter_author !== null &&
       filter_author.username.toLowerCase() === listAuthor.value.toLowerCase()
     );
   });
-  console.log("Đây là mảng đã lọc:", arrayFilerAthor);
-  GlobalRender(arrayFilerAthor);
-  XuLyXemThem();
-  RenderAuthor();
 }
 //Nút bấm lọc
 const btnFilterAuthor = document.querySelector(".btn-filter");
 btnFilterAuthor.addEventListener("click", (e) => {
-  FilterAuthor();
+  GlobalRender(FilterAuthor());
+  XuLyXemThem();
 });
 //Hàm tìm kiếm
 function searchTitleOrContext() {
-  return ArrayPostAddUserName().filter((search) => {
-    if (inputFindAuthor.value === "") {
+  const inputFindAuthor = document.querySelector("#input-find-author").value.toLowerCase().trim();
+    if (inputFindAuthor === "") {
       const notice = document.createElement("span");
       notice.textContent = "Vui lòng nhập nội dung tìm kiếm";
       notice.classList.add("notice");
-      document.body.appendChild(notice);
-      return search;
-    } else if (
-      search.title.toLowerCase() === inputFindAuthor.value.toLowerCase() ||
-      search.body.toLowerCase() === inputFindAuthor.value.toLowerCase()
-    ) {
-      console.log(inputFindAuthor.value.toLowerCase());
-      return search;
-    } else return null;
-  });
+      document.querySelector(".search-box").appendChild(notice);
+      setTimeout(() => {
+          notice.classList.add("fade-out")
+          setTimeout(() => {
+              notice.remove();
+              document.querySelector(".search-box").removeChild(notice);
+          },2000);
+      },100);
+    }
+    const arrayFindAuthor = ArrayPostAddUserName().filter((search) =>{
+      return(
+      search.title.toLowerCase().trim().includes(inputFindAuthor)||
+      search.body.toLowerCase().trim().includes(inputFindAuthor)
+      );
+    })
+    return arrayFindAuthor;
 }
 findAuthor.addEventListener("click", () => {
   console.log("Đang ở nút tìm kiếm");
   GlobalRender(searchTitleOrContext());
+  XuLyXemThem();
 });
