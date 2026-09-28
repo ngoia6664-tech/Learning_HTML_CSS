@@ -376,3 +376,12 @@ button:hover {
 .btn.btn-filter{
     padding:8px 12px
 }
+.notice{
+    display:flex;
+    padding: 8px 12px;
+    font-size: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+}
