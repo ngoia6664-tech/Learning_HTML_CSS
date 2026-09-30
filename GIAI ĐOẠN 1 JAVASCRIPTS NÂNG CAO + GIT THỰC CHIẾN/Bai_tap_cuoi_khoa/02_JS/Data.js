@@ -1,4 +1,47 @@
-let infoPostAndUserName = JSON.parse(localStorage.getItem("infoPostAndUserName")) || [];
+let infoPostAndUserName = JSON.parse(localStorage.getItem("infoPostAndUserName")) || null;
+async function GanDuLieuApiChoPost() {
+  try {
+    const responsePosts = await fetch(
+      `https://jsonplaceholder.typicode.com/posts`,
+    );
+    const responseUsers = await fetch(
+      `https://jsonplaceholder.typicode.com/users`,
+    );
+    const responseComment = await fetch(
+      `https://jsonplaceholder.typicode.com/comments`,
+    );
+    if (!responseUsers.ok || !responsePosts.ok || !responseComment.ok)
+      throw new Error(
+        `[Home] Lỗi lấy dữ liệu từ users ${responseUsers.status} , post:${responsePosts.status} , comment:${responseComment.status}`,
+      );
+    const dataPosts = await responsePosts.json();
+    const dataUsers = await responseUsers.json();
+    const dataComments = await responseComment.json();
+    infoPostAndUserName = {
+      posts: dataPosts.map((post) => {
+        return {
+          ...post,
+          save: false,
+          comment: dataComments.filter((comment) => comment.postId === post.id),
+          love: false,
+        };
+      }),
+      users: dataUsers,
+    };
+    SaveToLocalStorage();
+    // Sau khi lấy dữ liệu xong thì đưa vào localStorage
+  } catch (error) {
+    console.log("[Catch] Lỗi:" + error);
+  }
+}
+function DuLieuHopLe(data) {
+  return (
+    data &&
+    Array.isArray(data.posts) &&
+    Array.isArray(data.users) &&
+    !data.posts.some((p) => p === null) // không được lẫn null
+  );
+}
 export function LayDuLieu(){
     return infoPostAndUserName;
 } 
@@ -120,7 +163,6 @@ export function toggleTruong(IDPost, field) {
 }
 // Hàm mở comment khá dài 
 export function OpenComment(IDPost,element,background) { // element là khối boxcomments
-  currentPostId = IDPost; // Nhớ khai báo biến CurrentPostId ở biến tổng cục bên ngoài
   console.log(currentPostId);
   const post = ArrayPostAddUserName().find((x) => x && x.id === IDPost);
   if (!post) return;
@@ -192,5 +234,10 @@ export function ThemComment(currentPostId, text){
       body: text
     });
     SaveToLocalStorage();
+}
+export async function KhoiTaoDuLieu() {
+  if (!DuLieuHopLe(infoPostAndUserName)) {
+    await GanDuLieuApiChoPost();
+  }
 }
 
