@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bài tập cuối khóa - Physics Lab</title>
     <!-- Nhúng thư viện Icon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <!-- Nhúng CSS dùng chung -->
     <link rel="stylesheet" href="../01_CSS/Global.css" />
     <script src="/02_JS/Home.js" defer></script>
   </head>
   <body>
-    
     <!-- HEADER CHUNG CHO MỌI TRANG -->
     <header class="header">
       <div class="header__logo">
-          <div class ="logo-icon-box"><i class="ri-article-line"></i></div>
-          <span class ="logo-text">Postify</span>
+        <div class="logo-icon-box"><i class="ri-article-line"></i></div>
+        <span class="logo-text">Postify</span>
       </div>
 
       <nav class="header__menu">
@@ -52,60 +54,42 @@
 
     <!-- MAIN CONTENT -->
     <main class="main">
-      
       <!-- Khối Tìm kiếm -->
       <section class="main__search">
         <div class="search-box">
           <i class="ri-search-line find-author"></i>
-          <input type="text" placeholder="Tìm kiếm theo tiêu đề,nội dung" id="input-find-author"/>
+          <input
+            type="text"
+            placeholder="Tìm kiếm theo tiêu đề,nội dung"
+            id="input-find-author"
+          />
         </div>
         <select name="search-author" id="search-author" class="search-select">
           <option value="all-author">Tất cả tác giả</option>
           <option value="1">Tác giả 1</option>
           <option value="2">Tác giả 2</option>
         </select>
-        <button class="btn btn-filter">lọc</button>
+        <button class="btn btn-filter">Tìm kiếm</button>
       </section>
 
       <!-- Khối Danh sách bài viết -->
       <section class="main__posts">
         <article class="posts">
           <div class="posts__head">
-            <img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" />
+            <img
+              src="../03_Assets/anh-dai-dien.jpg"
+              alt="Ảnh tác giả"
+              class="posts__avatar"
+            />
             <h3 class="posts__author-name">Tên tác giả</h3>
-          </div>
-          
-          <div class="posts__between">
-            <p class="posts__text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate molestias velit temporibus minima? Illum eaque tempore modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
-            </p>
-            <span class="posts__more ">Xem thêm</span>
           </div>
 
-          <div class="posts__last">
-            <div class="post__last-choose">
-              <i class="ri-heart-line"></i>
-              <span>Thả tim</span>
-            </div>
-            <div class="post__last-choose">
-              <i class="ri-chat-3-line"></i>
-              <span>Bình luận</span>
-            </div>
-            <div class="post__last-choose">
-              <i class="ri-bookmark-line"></i>
-              <span>Lưu bài viết</span>
-            </div>
-          </div>
-        </article>
-        <article class="posts">
-          <div class="posts__head">
-            <a href="/00_pages/Profile.html"><img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" /></a>
-            <h3 class="posts__author-name">Tên tác giả</h3>
-          </div>
-          
           <div class="posts__between">
             <p class="posts__text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate molestias velit temporibus minima? Illum eaque tempore modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Cupiditate molestias velit temporibus minima? Illum eaque tempore
+              modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam
+              ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
             </p>
             <span class="posts__more">Xem thêm</span>
           </div>
@@ -127,13 +111,56 @@
         </article>
         <article class="posts">
           <div class="posts__head">
-            <img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" />
+            <a href="/00_pages/Profile.html"
+              ><img
+                src="../03_Assets/anh-dai-dien.jpg"
+                alt="Ảnh tác giả"
+                class="posts__avatar"
+            /></a>
             <h3 class="posts__author-name">Tên tác giả</h3>
           </div>
-          
+
           <div class="posts__between">
             <p class="posts__text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate molestias velit temporibus minima? Illum eaque tempore modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Cupiditate molestias velit temporibus minima? Illum eaque tempore
+              modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam
+              ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
+            </p>
+            <span class="posts__more">Xem thêm</span>
+          </div>
+
+          <div class="posts__last">
+            <div class="post__last-choose">
+              <i class="ri-heart-line"></i>
+              <span>Thả tim</span>
+            </div>
+            <div class="post__last-choose">
+              <i class="ri-chat-3-line"></i>
+              <span>Bình luận</span>
+            </div>
+            <div class="post__last-choose">
+              <i class="ri-bookmark-line"></i>
+              <span>Lưu bài viết</span>
+            </div>
+          </div>
+        </article>
+        <article class="posts">
+          <div class="posts__head">
+            <img
+              src="../03_Assets/anh-dai-dien.jpg"
+              alt="Ảnh tác giả"
+              class="posts__avatar"
+            />
+            <h3 class="posts__author-name">Tên tác giả</h3>
+          </div>
+
+          <div class="posts__between">
+            <p class="posts__text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Cupiditate molestias velit temporibus minima? Illum eaque tempore
+              modi id sit quia aliquam exercitationem. Nihil amet rerum aperiam
+              ullam itaque? Unde, at! Accusamus quidem nostrum nisi odit...
             </p>
             <span class="posts__more">Xem thêm</span>
           </div>
@@ -162,11 +189,15 @@
         </div>
         <div class="create-post_beetween">
           <h3>Tên của bạn</h3>
-          <textarea placeholder="Nhập cảm nghĩ của bạn vào đây" id="content-create-post"></textarea>
+          <textarea
+            placeholder="Nhập cảm nghĩ của bạn vào đây"
+            id="content-create-post"
+          ></textarea>
           <button class="btn btn-create-post">Đăng bài viết</button>
         </div>
       </section>
-
     </main>
+    <div class="box-comment"></div>
+    <div class="box-background"></div>
   </body>
 </html>

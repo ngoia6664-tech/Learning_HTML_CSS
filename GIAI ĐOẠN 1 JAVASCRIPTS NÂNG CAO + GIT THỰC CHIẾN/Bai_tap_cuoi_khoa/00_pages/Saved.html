@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="../01_CSS/Global.css" />
   </head>
+  <script type="module" src="../02_JS/Saved.js"></script>
   <body>
     
     <!-- HEADER -->
@@ -53,7 +54,7 @@
       <!-- Khối Tìm kiếm -->
       <section class="main__search">
         <div class="search-box">
-          <i class="ri-search-line"></i>
+          <i class="ri-search-line find-author "></i>
           <input type="text" placeholder="Tìm kiếm trong bài viết đã lưu..." />
         </div>
         <select name="search-author" id="search-author" class="search-select">
@@ -61,37 +62,37 @@
           <option value="1">Tác giả 1</option>
           <option value="2">Tác giả 2</option>
         </select>
-        <button class="btn btn-filter">lọc</button>
+        <button class="btn btn-filter">Tìm kiếm</button>
       </section>
 
       <!-- Khối Danh sách bài viết đã lưu -->
       <section class="main__posts">
         <article class="posts">
-          <div class="posts__head">
-            <img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" />
-            <h3 class="posts__author-name">Tên tác giả</h3>
+           <div class="posts__head">
+            <a href="/00_pages/Profile.html"><img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" /></a>
+            <h3 class="posts__author-name">${x.username}</h3>
           </div>
           
           <div class="posts__between">
-            <p class="posts__text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate molestias velit temporibus minima? Illum eaque tempore modi id sit quia aliquam exercitationem...
+            <h3>${x.title}</h3>
+            <p class="text-body posts__text">
+              ${x.body}
             </p>
-            <span class="posts__more">Xem thêm</span>
+            <span class="event-more posts__more">Xem thêm</span>
           </div>
 
           <div class="posts__last">
-            <div class="post__last-choose">
-              <i class="ri-heart-line"></i>
+            <div class="post__last-choose heart">
+              <i class="ri-heart-line icon"></i>
               <span>Thả tim</span>
             </div>
-            <div class="post__last-choose">
-              <i class="ri-chat-3-line"></i>
+            <div class="post__last-choose chat-3">
+              <i class="ri-chat-3-line icon"></i>
               <span>Bình luận</span>
             </div>
-            <!-- 👉 Thay đổi nút lưu thành hủy lưu, giữ nguyên class chung -->
-            <div class="post__last-choose post__last-choose--saved">
-              <i class="ri-bookmark-fill"></i>
-              <span>Hủy lưu bài viết</span>
+            <div class="post__last-choose bookmark">
+              <i class="ri-bookmark-line icon"></i>
+              <span>Lưu bài viết</span>
             </div>
           </div>
         </article>
