@@ -34,7 +34,7 @@ Dự án dùng ES Modules nên **không mở trực tiếp file `.html` bằng c
 
 1. Mở **thư mục gốc của dự án** (thư mục chứa file `README.md` này) bằng VS Code.
 2. Cài extension **Live Server** (nếu chưa có).
-3. Chuột phải vào `Home.html` → chọn **Open with Live Server**.
+3. Chuột phải vào `index.html` → chọn **Open with Live Server**.
 4. Cần có kết nối mạng ở lần chạy đầu tiên để tải dữ liệu từ API. Sau đó dữ liệu được lưu trong `localStorage`.
 
 > Muốn xóa dữ liệu đã lưu và tải lại từ đầu: mở DevTools (F12) → tab **Application** → **Local Storage** → xóa khóa `infoPostAndUserName` rồi tải lại trang.
@@ -42,10 +42,14 @@ Dự án dùng ES Modules nên **không mở trực tiếp file `.html` bằng c
 ## Cấu trúc thư mục
 
 ```
-Postify/
+## Cấu trúc thư mục
+
+```
+Bai_tap_cuoi_khoa/
 ├── README.md
-├── Home.html
+├── index.html         # chuyển hướng sang 00_pages/Home.html
 ├── 00_pages/
+│   ├── Home.html
 │   ├── Saved.html
 │   └── Profile.html
 ├── 01_CSS/
