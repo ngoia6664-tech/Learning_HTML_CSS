@@ -93,7 +93,7 @@ mainPost.addEventListener("click", (e) => {
     OpenComment(IDPost, boxComments,backgroundComment);
   }
   if(btnAuthor){
-    window.location.href =`/00_pages/Profile.html?userId=${btnAuthor.dataset.userId}`;
+    window.location.href =`Profile.html?userId=${btnAuthor.dataset.userId}`;
     return;
   }
 });
