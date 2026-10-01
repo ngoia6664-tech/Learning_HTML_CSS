@@ -93,7 +93,6 @@ mainPost.addEventListener("click", (e) => {
     OpenComment(IDPost, boxComments,backgroundComment);
   }
   if(btnAuthor){
-    console.log("bấm tác giả", btnAuthor.dataset.userId);
     window.location.href =`/00_pages/Profile.html?userId=${btnAuthor.dataset.userId}`;
     return;
   }
@@ -120,7 +119,6 @@ document.addEventListener("click", (e) => {
     : "Xem thêm";
 });
 createPost.addEventListener("click",(e) =>{
-  console.log(e);
   const btn = e.target.closest(".btn-create-post")
   const body = contentCreatePost.value;
   const title = titleCreatePost.value;

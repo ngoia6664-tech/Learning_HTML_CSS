@@ -1,23 +1,30 @@
+/* ==========================================================================
+   POSTIFY - GLOBAL STYLES (DARK OBSIDIAN & NEON GOLD THEME)
+   ========================================================================== */
+
+/* 1. RESET & BIẾN CSS (:ROOT)
+   ========================================================================== */
 * {
     box-sizing: border-box;
 }
 
 :root {
     /* Bảng màu Neon / Luxury Gold trên nền đen */
-    --primary-color: #facc15;       /* Vàng Neon hiện đại */
-    --primary-hover: #eab308;       /* Vàng Gold khi hover */
+    --primary-color: #facc15;          /* Vàng Neon hiện đại */
+    --primary-hover: #eab308;          /* Vàng Gold khi hover */
     --primary-icon-hover: rgba(250, 204, 21, 0.12); /* Hiệu ứng hover icon */
     --primary-glow: 0 0 18px rgba(250, 204, 21, 0.45); /* Phát sáng nút */
     --primary-glow-hover: 0 0 28px rgba(250, 204, 21, 0.75);
 
-    --text-main: #f8fafc;           /* Trắng bạc sắc nét */
-    --text-light: #94a3b8;          /* Xám nhạt cho text phụ */
+    --text-main: #f8fafc;              /* Trắng bạc sắc nét */
+    --text-light: #94a3b8;             /* Xám nhạt cho text phụ */
     
-    --bg-body: #090a0f;             /* Đen sâu Obsidian */
-    --bg-card: #12141c;             /* Đen than Titan */
-    --input-color: #181b26;         /* Màu nền input / textarea */
-    --border-color: #242838;        /* Đường viền tinh tế */
-    --btn-color: #090a0f;           /* Chữ đậm trên nền vàng */
+    --bg-body: #090a0f;                /* Đen sâu Obsidian */
+    --bg-card: #12141c;                /* Đen than Titan */
+    --input-color: #181b26;            /* Màu nền input / textarea */
+    --bg-input: #181b26;               /* Đồng bộ tên biến input */
+    --border-color: #242838;           /* Đường viền tinh tế */
+    --btn-color: #090a0f;              /* Chữ đậm trên nền vàng */
 
     --radius-box: 16px;             
     --radius-btn: 10px;
@@ -31,7 +38,8 @@
     --padding-card-btn: 10px 20px;
 }
 
-/* Tùy chỉnh thanh cuộn mang phong cách Dark Gold */
+/* 2. THANH CUỘN DARK GOLD
+   ========================================================================== */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -47,6 +55,8 @@
     background: var(--primary-color);
 }
 
+/* 3. BASE & BODY
+   ========================================================================== */
 body {
     display: flex;
     flex-direction: column;
@@ -66,8 +76,10 @@ a {
     color: var(--text-main);
 }
 
-/* 1. HEADER CỐ ĐỊNH TRÊN ĐẦU */
-header {
+/* 4. HEADER & ĐIỀU HƯỚNG
+   ========================================================================== */
+header,
+.header {
     display: flex;
     padding: var(--padding-card-small);
     align-items: center;
@@ -128,7 +140,8 @@ header {
     flex: 1;
 }
 
-.header__menu a {
+.header__menu a,
+.menu-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,7 +155,9 @@ header {
     color: var(--text-light);
 }
 
-.header__menu a:hover {
+.header__menu a:hover,
+.header__menu a.active,
+.menu-link.active {
     background-color: var(--primary-icon-hover);
     color: var(--primary-color);
     border-color: rgba(250, 204, 21, 0.3);
@@ -159,6 +174,7 @@ header {
     font-weight: 600;
     text-align: center;
 }
+
 .header__account {
     display: flex;
     gap: 8px;
@@ -169,6 +185,13 @@ header {
     transition: all 0.25s ease;
     border: 1px solid var(--border-color);
     background-color: var(--input-color);
+}
+
+.header__account .account-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-main);
 }
 
 .header__account i {
@@ -184,8 +207,10 @@ header {
     box-shadow: 0 0 10px rgba(250, 204, 21, 0.2);
 }
 
-/* 2. MAIN LAYOUT */
-main {
+/* 5. BỐ CỤC CHÍNH (MAIN GRID)
+   ========================================================================== */
+main,
+.main {
     display: grid;
     grid-template-areas: 
         "main__search main__create-post"
@@ -197,7 +222,8 @@ main {
     overflow: hidden;
 }
 
-/* SEARCH AREA */
+/* 6. THANH TÌM KIẾM & BỘ LỌC
+   ========================================================================== */
 .main__search {
     grid-area: main__search;
     display: flex;
@@ -208,6 +234,7 @@ main {
     border-radius: var(--radius-box);
     border: 1px solid var(--border-color);
     align-items: center;
+    position: relative;
 }
 
 .search-box {
@@ -240,9 +267,6 @@ main {
     width: 100%;
     font-size: 14px;
     color: var(--text-main);
-}
-
-.search-box input:focus {
     outline: none;
 }
 
@@ -259,14 +283,15 @@ main {
     font-weight: 500;
     cursor: pointer;
     transition: border-color 0.2s;
+    outline: none;
 }
 
 .search-select:focus {
-    outline: none;
     border-color: var(--primary-color);
 }
 
-/* 3. KHU VỰC BÀI VIẾT */
+/* 7. KHU VỰC BÀI VIẾT (POST FEED)
+   ========================================================================== */
 .main__posts {
     grid-area: main__posts;
     padding: var(--padding-card-large);
@@ -298,7 +323,8 @@ main {
     align-items: center;
 }
 
-img {
+img,
+.posts__avatar {
     border-radius: 50%;
     cursor: pointer;
     width: 44px;
@@ -308,8 +334,16 @@ img {
     transition: border-color 0.2s;
 }
 
-img:hover {
+img:hover,
+.posts__avatar:hover {
     border-color: var(--primary-color);
+}
+
+.posts__author-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
 }
 
 .posts__between {
@@ -326,7 +360,8 @@ img:hover {
     color: var(--text-main);
 }
 
-.text-body {
+.text-body,
+.posts__text {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -336,14 +371,20 @@ img:hover {
     margin: 0;
     color: var(--text-light);
     line-height: 1.6;
+    font-size: 14px;
+    word-break: break-word;
 }
 
 .text-body.active,
-.text-body.expanded {
+.text-body.expanded,
+.posts__text.active,
+.posts__text.expanded {
     -webkit-line-clamp: unset;
+    display: block;
 }
 
-.event-more {
+.event-more,
+.posts__more {
     display: inline-block;
     margin-top: 8px;
     cursor: pointer;
@@ -353,7 +394,8 @@ img:hover {
     transition: text-shadow 0.2s;
 }
 
-.event-more:hover {
+.event-more:hover,
+.posts__more:hover {
     text-decoration: underline;
     text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
 }
@@ -383,7 +425,21 @@ img:hover {
     border-color: rgba(250, 204, 21, 0.2);
 }
 
-/* 4. KHU VỰC TẠO BÀI VIẾT */
+/* TIM & BOOKMARK ACTIVE SÁNG ĐÈN */
+.ri-heart-fill.active,
+.post__last-choose.active .ri-heart-fill {
+    color: #ff3366 !important;
+    filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.7));
+}
+
+.ri-bookmark-fill.active,
+.post__last-choose.active .ri-bookmark-fill {
+    color: var(--primary-color) !important;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8));
+}
+
+/* 8. KHU VỰC TẠO BÀI VIẾT (CREATE POST)
+   ========================================================================== */
 .main__create-post {
     grid-area: main__create-post;
     padding: var(--padding-card-large);
@@ -394,7 +450,24 @@ img:hover {
     border-radius: var(--radius-box);
     border: 1px solid var(--border-color);
     height: 100%;
-    gap: 0;
+    gap: 14px;
+}
+
+.create-post__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.create-post__head h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-main);
+}
+
+.create-post__head i {
+    font-size: 20px;
+    color: var(--primary-color);
 }
 
 .create-post_beetween {
@@ -404,7 +477,60 @@ img:hover {
     flex: 1;
 }
 
+.create-post__author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.create-post__author h3 {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-main);
+}
+
+.create-post__author i {
+    color: var(--primary-color);
+}
+
+.create-post__input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.create-post__input-box i {
+    position: absolute;
+    left: 14px;
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.create-post__input-box .input-title-post {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    background-color: var(--input-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-input);
+    color: var(--text-main);
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.create-post__input-box .input-title-post:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.25);
+}
+
+.create-post__textarea-box {
+    display: flex;
+    flex: 1;
+}
+
 .create-post_beetween textarea {
+    width: 100%;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-btn);
     padding: 12px;
@@ -414,17 +540,27 @@ img:hover {
     font-size: 14px;
     flex: 1;
     resize: none;
+    outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .create-post_beetween textarea:focus {
-    outline: none; 
     border-color: var(--primary-color);
     box-shadow: 0 0 12px rgba(250, 204, 21, 0.25);
 }
 
-/* NÚT BẤM CÓ HIỆU ỨNG PHÁT SÁNG (GLOW BUTTON) */
-button {
+.btn-create-post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* 9. NÚT BẤM (BUTTONS) & THÔNG BÁO (NOTICE)
+   ========================================================================== */
+button,
+.btn {
     background-color: var(--primary-color);
     color: var(--btn-color);
     border-radius: var(--radius-btn);
@@ -440,13 +576,15 @@ button {
     overflow: hidden;
 }
 
-button:hover {
+button:hover,
+.btn:hover {
     background-color: var(--primary-hover);
     box-shadow: var(--primary-glow-hover);
     transform: translateY(-2px);
 }
 
-button:active {
+button:active,
+.btn:active {
     transform: translateY(0);
     box-shadow: var(--primary-glow);
 }
@@ -461,27 +599,20 @@ button:active {
     font-size: 12px;
     position: absolute;
     top: 100%;
+    left: 0;
     color: var(--primary-color);
     opacity: 1;
-    transition: opacity 2s ease;
+    transition: opacity 0.5s ease;
+    z-index: 10;
 }
 
 .notice.fade-out {
     opacity: 0;
+    pointer-events: none;
 }
 
-/* TIM & BOOKMARK ACTIVE SÁNG ĐÈN */
-.ri-heart-fill.active {
-    color: #ff3366 !important;
-    filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.7));
-}
-
-.ri-bookmark-fill.active {
-    color: var(--primary-color) !important;
-    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8));
-}
-
-/* --- OVERLAY MỜ --- */
+/* 10. MODAL BÌNH LUẬN & OVERLAY
+   ========================================================================== */
 .box-background {
     position: fixed;
     top: 0;
@@ -501,7 +632,6 @@ button:active {
     pointer-events: auto;
 }
 
-/* --- KHUNG COMMENT MODAL --- */
 .box-comment {
     display: grid;
     position: fixed;
@@ -521,6 +651,7 @@ button:active {
     z-index: 101;
     padding: 24px;
     grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 12px;
 }
 
 .box-comment.active {
@@ -535,7 +666,7 @@ button:active {
     border: none;
     box-shadow: none;
     padding: 0;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .posts__author {
@@ -545,21 +676,6 @@ button:active {
     margin-bottom: 10px;
 }
 
-.posts__avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--border-color);
-}
-
-.posts__author-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-main);
-    margin: 0;
-}
-
 .posts__content h3 {
     font-size: 16px;
     font-weight: 700;
@@ -567,65 +683,19 @@ button:active {
     margin-bottom: 8px;
 }
 
-.posts__text {
-    font-size: 14px;
-    color: var(--text-light);
-    line-height: 1.6;
-    margin-bottom: 6px;
-    word-break: break-word;
-}ment-list
-
 .box-comment h3 {
-    margin: 16px 0 8px 0;
+    margin: 8px 0 4px 0;
     color: var(--text-main);
-}
-.box-comment{
-}
-/* --- KHU VỰC NHẬP COMMENT Ở CUỐI --- */
-.comment-box-input {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid var(--border-color);
-    padding-top: 14px;
-    gap: 10px;
-}   
-
-.comment__input-field {
-    flex: 1;
-    padding: 10px 14px;
-    font-size: 14px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-input);
-    outline: none;
-    background-color: var(--input-color);
-    color: var(--text-main);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 15px;
 }
 
-.comment__input-field:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 10px rgba(250, 204, 21, 0.25);
-}
-
-.btn-comment-send {
-    padding: 4px 8px;
-    font-size: 14px;
-    font-weight: 700;
-    background-color: var(--primary-color);
-    color: var(--btn-color);
-    border: none;
-    border-radius: var(--radius-btn);
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-/* DANH SÁCH COMMENT */
-.posts__comments{
+.posts__comments {
     display: flex;
     flex-direction: column;
     min-height: 0;
     flex: 1;
 }
+
 .comment-list {
     max-height: 280px;
     overflow-y: auto;
@@ -655,6 +725,9 @@ button:active {
 
 .comment-context {
     margin-top: 4px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .comment__more {
@@ -662,77 +735,233 @@ button:active {
     color: var(--primary-color);
     cursor: pointer;
 }
-.input-title-post{
+
+.comment-box-input {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+    gap: 10px;
+}   
+
+.comment__input-field {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 14px;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-btn);
-    padding: 6px;
+    border-radius: var(--radius-input);
+    outline: none;
     background-color: var(--input-color);
     color: var(--text-main);
-    font-family: inherit;
-    font-size: 14px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
-/* Tiêu đề mục Tạo bài viết */
-.create-post__head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.create-post__head i {
-    font-size: 20px;
-    color: var(--primary-color, #ffc107);
+
+.comment__input-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.25);
 }
 
-/* Tên tác giả kèm icon */
-.create-post__author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-.create-post__author i {
-    color: var(--primary-color, #ffc107);
-}
-
-/* Khung chứa input tiêu đề có icon bên trong (Giống phong cách thanh tìm kiếm) */
-.create-post__input-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+.btn-comment-send {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: var(--primary-color);
+    color: var(--btn-color);
+    border: none;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--primary-glow);
 }
 
-.create-post__input-box i {
-    position: absolute;
-    left: 14px;
-    color: var(--text-light, #888);
-    font-size: 16px;
+/* ==========================================================================
+   11. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+
+/* --- BREAKPOINT 1: MÀN HÌNH <= 1080PX (LAPTOP NHỎ / TABLET NGANG) --- */
+@media screen and (max-width: 1080px) {
+    body {
+        padding: 16px;
+        gap: 14px;
+    }
+
+    header,
+    .header {
+        padding: 8px 14px;
+        gap: 10px;
+    }
+
+    .header__menu a,
+    .menu-link {
+        padding: 8px 12px;
+    }
+
+    .header__menu span {
+        font-size: 12px;
+    }
+
+    main,
+    .main {
+        grid-template-columns: 1.6fr 1fr;
+        gap: 14px;
+    }
+
+    .box-comment {
+        width: 75%;
+        padding: 20px;
+    }
 }
 
-/* Đẩy chữ trong input sang phải để không đè lên icon */
-.create-post__input-box .input-title-post {
-    width: 100%;
-    padding: 10px 14px 10px 40px; /* Padding trái rộng ra cho icon */
-    background-color: var(--bg-input, #1e1e1e);
-    border: 1px solid var(--border-color, #333);
-    border-radius: var(--radius-input, 8px);
-    color: white;
-    outline: none;
-    transition: border-color 0.2s;
-}
+/* --- BREAKPOINT 2: MÀN HÌNH <= 720PX (TABLET DỌC / SMARTPHONE) --- */
+@media screen and (max-width: 720px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: 10px;
+        gap: 12px;
+    }
 
-.create-post__input-box .input-title-post:focus {
-    border-color: var(--primary-color, #ffc107);
-}
-.create-post__textarea-box{
-    display: flex;
-    flex: 1;
-}
-/* Căn chỉnh nút đăng bài có icon bên trong */
-.btn-create-post {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
+    /* Header linh hoạt dạng 2 hàng */
+    header,
+    .header {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .header__logo {
+        flex: 1;
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .logo-icon-box {
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
+    }
+
+    .header__account {
+        order: 2;
+        padding: 6px 10px;
+    }
+
+    .header__account span {
+        display: none; /* Ẩn chữ 'Tài khoản' trên mobile để tiết kiệm diện tích */
+    }
+
+    .header__menu {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .header__menu ul {
+        width: 100%;
+        gap: 4px;
+    }
+
+    .header__menu a,
+    .menu-link {
+        padding: 6px 8px;
+        gap: 2px;
+    }
+
+    .header__menu i {
+        font-size: 18px;
+    }
+
+    .header__menu span {
+        font-size: 11px;
+    }
+
+    /* Chuyển Main Grid thành 1 cột xếp dọc */
+    main,
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow: visible;
+        height: auto;
+    }
+
+    /* Thanh tìm kiếm rớt dòng mềm mại */
+    .main__search {
+        flex-wrap: wrap;
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .search-box {
+        width: 100%;
+        flex: unset;
+    }
+
+    .search-select {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .btn.btn-filter {
+        flex-shrink: 0;
+    }
+
+    /* Khung tạo bài viết hiển thị chiều cao tự nhiên */
+    .main__create-post {
+        height: auto;
+        min-height: unset;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .create-post_beetween textarea {
+        min-height: 100px;
+        flex: unset;
+    }
+
+    /* Danh sách bài viết cuộn tự nhiên theo toàn trang */
+    .main__posts {
+        overflow-y: visible;
+        max-height: none;
+        padding: 14px;
+    }
+
+    .posts__last {
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .post__last-choose {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    /* Modal bình luận vừa vặn màn hình điện thoại */
+    .box-comment {
+        width: 95%;
+        max-height: 90vh;
+        padding: 16px 12px;
+    }
+
+    .comment-list {
+        max-height: 220px;
+    }
+
+    .comment-box-input {
+        padding-top: 10px;
+        gap: 6px;
+    }
+
+    .comment__input-field {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .btn-comment-send {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
 }

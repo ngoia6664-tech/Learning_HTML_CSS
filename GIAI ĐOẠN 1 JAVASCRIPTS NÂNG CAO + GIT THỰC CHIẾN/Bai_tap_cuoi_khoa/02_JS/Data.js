@@ -32,7 +32,6 @@ async function GanDuLieuApiChoPost() {
     SaveToLocalStorage();
     // Sau khi lấy dữ liệu xong thì đưa vào localStorage
   } catch (error) {
-    console.log("[Catch] Lỗi:" + error);
   }
 }
 function DamBaoCoUserCuaToi() {
@@ -126,16 +125,6 @@ export function GlobalRender(array,element) {
     element.appendChild(post);
   });
 }
-// Render các tác giả ra select
-export function RenderAuthor(element, array) {
-  element.innerHTML = `<option value="all">Tất cả tác giả</option>`;
-  array.forEach((x) => {
-    const author = document.createElement("option");
-    author.textContent = x.username;
-    author.value = x.username;
-    element.appendChild(author);
-  });
-}
 // Lọc tác giả và trả và mảng tác giả thỏa mãn
 export function FilterAuthor(array, element) {
   // element ở đây là listAthor
@@ -180,7 +169,6 @@ export function toggleTruong(IDPost, field) {
 }
 // Hàm mở comment khá dài 
 export function OpenComment(IDPost,element,background) { // element là khối boxcomments
-  console.log("mày đã chạy open comment");
   const post = ArrayPostAddUserName().find((x) => x && x.id === IDPost);
   if (!post) return;
   // Duyệt khối comment // element ở đây là khối boxComments

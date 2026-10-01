@@ -1,0 +1,106 @@
+/* ==========================================================================
+   POSTIFY - SAVED POSTS STYLES (TRANG BÀI VIẾT ĐÃ LƯU)
+   ========================================================================== */
+
+/* 1. ĐẶC TRƯNG TRANG BÀI VIẾT ĐÃ LƯU
+   ========================================================================== */
+
+/* Nút bookmark trên trang Saved luôn được tô điểm nổi bật */
+.post__last-choose.bookmark i,
+.post__last-choose .ri-bookmark-fill {
+    color: var(--primary-color);
+}
+
+.post__last-choose.bookmark:hover i {
+    filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.7));
+}
+
+/* 2. GIAO DIỆN KHI CHƯA CÓ BÀI VIẾT LƯU (EMPTY STATE)
+   ========================================================================== */
+.saved-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+    gap: 14px;
+    background-color: var(--input-color);
+    border-radius: var(--radius-box);
+    border: 1px dashed var(--border-color);
+    margin: auto 0;
+}
+
+.saved-empty__icon {
+    font-size: 52px;
+    color: var(--primary-color);
+    filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.4));
+    margin-bottom: 4px;
+}
+
+.saved-empty__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.saved-empty__desc {
+    font-size: 14px;
+    color: var(--text-light);
+    max-width: 320px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.saved-empty__btn {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   3. RESPONSIVE MEDIA QUERIES (SAVED)
+   ========================================================================== */
+
+/* --- BREAKPOINT 1: MÀN HÌNH <= 1080PX --- */
+@media screen and (max-width: 1080px) {
+    .saved-empty {
+        padding: 36px 20px;
+        gap: 12px;
+    }
+
+    .saved-empty__icon {
+        font-size: 44px;
+    }
+
+    .saved-empty__title {
+        font-size: 17px;
+    }
+}
+
+/* --- BREAKPOINT 2: MÀN HÌNH <= 720PX --- */
+@media screen and (max-width: 720px) {
+    .saved-empty {
+        padding: 28px 16px;
+        gap: 10px;
+    }
+
+    .saved-empty__icon {
+        font-size: 40px;
+    }
+
+    .saved-empty__title {
+        font-size: 16px;
+    }
+
+    .saved-empty__desc {
+        font-size: 13px;
+    }
+
+    .saved-empty__btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -61,7 +61,6 @@ findAuthor.addEventListener("click", () => {
   );
 });
 mainPost.addEventListener("click", (e) => {
-  console.log(e);
   
   const postBox = e.target.closest(".posts");
   if (!postBox) return;
@@ -86,7 +85,6 @@ mainPost.addEventListener("click", (e) => {
     OpenComment(IDPost, boxComments,backgroundComment);
   }
   if(btnAuthor){
-    console.log("bấm tác giả", btnAuthor.dataset.userId);
     window.location.href =`/00_pages/Profile.html?userId=${btnAuthor.dataset.userId}`;
     return;
   }
@@ -97,7 +95,6 @@ backgroundComment.addEventListener("click", () => {
 });
 //Sự kiện ở khối comment
 boxComments.addEventListener("click", (e) => {
-  console.log(e);
   if (!e.target.closest(".btn-comment-send")) return; //nếu không phải button thì return
   const input = document.querySelector("#input-new-comment");
   if (input.value.trim() === "") return;
@@ -114,7 +111,6 @@ document.addEventListener("click", (e) => {
     : "Xem thêm";
 });
 createPost.addEventListener("click",(e) =>{
-  console.log(e);
   const btn = e.target.closest(".btn-create-post")
   const body = contentCreatePost.value;
   const title = titleCreatePost.value;

@@ -13,14 +13,13 @@ import {
 } from "./Data.js";
 
 const userId = Number(new URLSearchParams(location.search).get("userId"));
-console.log(userId);
-let baiCuaTacGia = []
+let baiCuaTacGia = [];
 async function chay() {
-  await KhoiTaoDuLieu()
-  baiCuaTacGia =ArrayPostAddUserName().filter((p) => p.userId === userId);
+  await KhoiTaoDuLieu();
+  baiCuaTacGia = ArrayPostAddUserName().filter((p) => p.userId === userId);
   RenderInfo();
 }
-chay()
+chay();
 let currentPostId = null; // Khởi tạo PostID
 const boxComments = document.querySelector(".box-comment"); // Dùng cho openComment
 //Khối nền
@@ -34,7 +33,6 @@ const mainProfile = document.querySelector(".main__profile"); //Khối main bên
 function RenderInfo() {
   mainProfile.innerHTML = "";
   const author = ArrayUserName().find((x) => x && x.id === userId);
-  console.log(author);
   const profileHeader = document.createElement("div");
   profileHeader.classList.add("profile__header");
   profileHeader.innerHTML = `
@@ -171,20 +169,17 @@ mainProfile.addEventListener("click", (e) => {
   const btnSave = e.target.closest(".bookmark");
   if (btnHeart) {
     // click Thả tim
-    console.log("đã bấm vào tim");
     toggleTruong(IDPost, "love");
     activeIcon(btnHeart.querySelector(".icon"), "heart");
     return;
   }
   if (btnSave) {
     // Click save
-    console.log("đã bấm vào save");
     toggleTruong(IDPost, "save");
     activeIcon(btnSave.querySelector(".icon"), "bookmark");
     return;
   }
   if (btnComment) {
-    console.log("đã bấm vào comment");
     currentPostId = IDPost; //click comment
     OpenComment(IDPost, boxComments, backgroundComment);
   }
@@ -209,7 +204,6 @@ document.addEventListener("click", (e) => {
     : "Xem thêm";
 });
 createPost.addEventListener("click", (e) => {
-  console.log(e);
   const btn = e.target.closest(".btn-create-post");
   const body = contentCreatePost.value;
   const title = titleCreatePost.value;
@@ -219,4 +213,8 @@ createPost.addEventListener("click", (e) => {
     return;
   }
   TaoBaiViet(title, body);
+  contentCreatePost.value = "";
+  titleCreatePost.value = "";
+  baiCuaTacGia = ArrayPostAddUserName().filter((p) => p.userId === userId);
+  RenderInfo();
 });
