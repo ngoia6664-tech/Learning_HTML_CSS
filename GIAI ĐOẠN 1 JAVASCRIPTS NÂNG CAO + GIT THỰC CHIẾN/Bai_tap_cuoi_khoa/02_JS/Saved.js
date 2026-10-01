@@ -1,5 +1,6 @@
 //Import
 import {
+  GlobalRender,
   ArrayPostAddUserName,
   SaveToLocalStorage,
   FilterAuthor,
@@ -8,7 +9,9 @@ import {
   OpenComment,
   CloseComment,
   toggleTruong,
-  ThemComment
+  ThemComment,
+  KhoiTaoDuLieu,
+  TaoBaiViet
 } from "./Data.js";
 //Khai báo biến
 let infoPostAndUserName =
@@ -26,50 +29,10 @@ const boxComments = document.querySelector(".box-comment");
 const backgroundComment = document.querySelector(".box-background");
 //Biến id post
 let currentPostId = null;
+const createPost = document.querySelector(".main__create-post"); //Khối chính
+const contentCreatePost = document.querySelector("#content-create-post"); //Body post textarea
+const titleCreatePost =document.querySelector("#title-create-post") // Title post input
 //Các hàm
-function GlobalRender(array,element) {
-  element.innerHTML = ""; // element mainpost 
-  if (!array || array.length === 0) {
-    element.innerHTML = `<p style ="padding:20px ;text-align:center;color:var(--text-light);">Không có bài viết nào</p>`;
-    return;
-  }
-  array.forEach((x) => {
-    const post = document.createElement("article");
-    // Khối bài viết
-    post.classList.add("posts");
-    post.dataset.id = x.id;
-    post.innerHTML = `
-            <div class="posts__head">
-            <a href="/00_pages/Profile.html"><img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" /></a>
-            <h3 class="posts__author-name">${x.username}</h3>
-          </div>
-          
-          <div class="posts__between">
-            <h3>${x.title}</h3>
-            <p class="text-body posts__text">
-              ${x.body}
-            </p>
-            <span class="event-more posts__more">Xem thêm</span>
-          </div>
-
-          <div class="posts__last">
-            <div class="post__last-choose heart">
-              <i class="ri-heart-${x.love ? "fill active" : "line"} icon"></i>
-              <span>Thả tim</span>
-            </div>
-            <div class="post__last-choose chat-3">
-              <i class="ri-chat-3-line icon"></i>
-              <span>Bình luận</span>
-            </div>
-            <div class="post__last-choose bookmark">
-            <i class="ri-delete-bin-line icon"></i>
-              <span>Xóa bài viết</span>
-            </div>
-          </div>
-            `;
-    element.appendChild(post);
-  });
-}
 function LayBaiDaLuu() {
   return ArrayPostAddUserName().filter((p) => p.save);
 }
@@ -106,6 +69,7 @@ mainPost.addEventListener("click", (e) => {
   const btnHeart = e.target.closest(".heart");
   const btnComment = e.target.closest(".chat-3");
   const btnSave = e.target.closest(".bookmark");
+  const btnAuthor = e.target.closest("[data-user-id]")
   if (btnHeart) { // click Thả tim
     toggleTruong(IDPost, "love");
     activeIcon(btnHeart.querySelector(".icon"), "heart");
@@ -118,7 +82,13 @@ mainPost.addEventListener("click", (e) => {
     return;
   }
   if (btnComment) {  //click comment
+    currentPostId = IDPost;
     OpenComment(IDPost, boxComments,backgroundComment);
+  }
+  if(btnAuthor){
+    console.log("bấm tác giả", btnAuthor.dataset.userId);
+    window.location.href =`/00_pages/Profile.html?userId=${btnAuthor.dataset.userId}`;
+    return;
   }
 });
 //Click background để thoát
@@ -127,6 +97,7 @@ backgroundComment.addEventListener("click", () => {
 });
 //Sự kiện ở khối comment
 boxComments.addEventListener("click", (e) => {
+  console.log(e);
   if (!e.target.closest(".btn-comment-send")) return; //nếu không phải button thì return
   const input = document.querySelector("#input-new-comment");
   if (input.value.trim() === "") return;
@@ -142,3 +113,15 @@ document.addEventListener("click", (e) => {
     ? "Thu gọn"
     : "Xem thêm";
 });
+createPost.addEventListener("click",(e) =>{
+  console.log(e);
+  const btn = e.target.closest(".btn-create-post")
+  const body = contentCreatePost.value;
+  const title = titleCreatePost.value;
+  if(!btn)return
+  if(title==="" && body ===""){
+      alert("vui lòng nhập tiêu đề và nội dung")
+      return
+   }
+  TaoBaiViet(title,body);
+})

@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a href="Profile.html" class="menu-link">
+            <a href="./Profile.html?userId=11" class="menu-link">
               <i class="ri-user-line"></i>
               <span>Trang cá nhân</span>
             </a>
@@ -41,7 +41,7 @@
       </nav>
 
       <div class="header__account">
-        <a href="Profile.html" class="account-link">
+        <a href="./Profile.html?userId=11" class="account-link">
           <i class="ri-user-line"></i>
           <span>Tài khoản</span>
         </a>
@@ -100,16 +100,36 @@
 
       <!-- Khối Tạo bài viết -->
       <section class="main__create-post">
-        <div class="create-post__head">
-          <h2>Tạo bài viết</h2>
+    <div class="create-post__head">
+        <i class="ri-edit-box-line"></i>
+        <h2>Tạo bài viết</h2>
+    </div>
+    <div class="create-post_beetween">
+        <div class="create-post__author">
+            <i class="ri-user-smile-line"></i>
+            <h3>Ngô Duy Anh</h3>
         </div>
-        <div class="create-post_beetween">
-          <h3>Tên của bạn</h3>
-          <textarea placeholder="Nhập cảm nghĩ của bạn vào đây"></textarea>
-          <button class="btn-create-post">Đăng bài viết</button>
-        </div>
-      </section>
 
+        <!-- Ô nhập tiêu đề có icon -->
+        <div class="create-post__input-box">
+            <i class="ri-heading"></i>
+            <input type="text" placeholder="Nhập tiêu đề ..." value="" class="input-title-post" id="title-create-post">
+        </div>
+
+        <!-- Ô nhập nội dung -->
+        <div class="create-post__textarea-box">
+            <textarea placeholder="Nhập cảm nghĩ của bạn vào đây" id="content-create-post"></textarea>
+        </div>
+
+        <!-- Nút đăng bài có icon máy bay giấy -->
+        <button class="btn btn-create-post">
+            <i class="ri-send-plane-fill"></i>
+            <span>Đăng bài viết</span>
+        </button>
+    </div>
+</section>
     </main>
+    <div class="box-comment"></div>
+    <div class="box-background"></div>
   </body>
 </html>

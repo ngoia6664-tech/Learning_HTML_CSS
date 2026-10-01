@@ -1,4 +1,5 @@
 let infoPostAndUserName = JSON.parse(localStorage.getItem("infoPostAndUserName")) || null;
+const MeID =11;
 async function GanDuLieuApiChoPost() {
   try {
     const responsePosts = await fetch(
@@ -34,6 +35,19 @@ async function GanDuLieuApiChoPost() {
     console.log("[Catch] Lỗi:" + error);
   }
 }
+function DamBaoCoUserCuaToi() {
+  if (infoPostAndUserName.users.some((u) => u.id === MeID)) return;
+  infoPostAndUserName.users.push({
+    id: MeID,
+    name: "Ngô Duy Anh",
+    username: "D.Anh Đẹp trai",
+    email: "DuyAnh@123",
+    address: { street: "Định Công Thượng", suite: "Số 10 Ngõ 18", city: "Hà Nội" },
+    phone: "84******896",
+    company: { name: "Physics Lab" },   // company, không phải comany
+  });
+  SaveToLocalStorage();
+}
 function DuLieuHopLe(data) {
   return (
     data &&
@@ -65,6 +79,9 @@ export function ArrayPostAddUserName() {
     };
   });
 }
+export function ArrayUserName(){
+  return infoPostAndUserName.users
+}
 // Render post chung cho tất cả
 export function GlobalRender(array,element) {
   element.innerHTML = ""; // element mainpost 
@@ -79,8 +96,8 @@ export function GlobalRender(array,element) {
     post.dataset.id = x.id;
     post.innerHTML = `
             <div class="posts__head">
-            <a href="/00_pages/Profile.html"><img src="../03_Assets/anh-dai-dien.jpg" alt="Ảnh tác giả" class="posts__avatar" /></a>
-            <h3 class="posts__author-name">${x.username}</h3>
+            <div class="box_avatar" data-user-id="${x.userId}"><img src="../03_Assets/anh-dai-dien.jpg" class="posts__avatar" /></div>
+            <h3 class="posts__author-name" data-user-id="${x.userId}">${x.username}</h3>
           </div>
           
           <div class="posts__between">
@@ -163,7 +180,7 @@ export function toggleTruong(IDPost, field) {
 }
 // Hàm mở comment khá dài 
 export function OpenComment(IDPost,element,background) { // element là khối boxcomments
-  console.log(currentPostId);
+  console.log("mày đã chạy open comment");
   const post = ArrayPostAddUserName().find((x) => x && x.id === IDPost);
   if (!post) return;
   // Duyệt khối comment // element ở đây là khối boxComments
@@ -235,9 +252,22 @@ export function ThemComment(currentPostId, text){
     });
     SaveToLocalStorage();
 }
+
 export async function KhoiTaoDuLieu() {
   if (!DuLieuHopLe(infoPostAndUserName)) {
     await GanDuLieuApiChoPost();
   }
+  DamBaoCoUserCuaToi(); 
 }
-
+export function TaoBaiViet(title, body) {
+  infoPostAndUserName.posts.unshift({   // unshift: bài mới lên đầu danh sách
+    userId: MeID,
+    id: Date.now(),                     // length + 1 dễ trùng id
+    title,
+    body,
+    love: false,
+    save: false,
+    comment: [],
+  });
+  SaveToLocalStorage();
+}

@@ -1,5 +1,5 @@
 //Import
-import {
+import{
   GlobalRender,
   ArrayPostAddUserName,
   SaveToLocalStorage,
@@ -10,7 +10,8 @@ import {
   CloseComment,
   toggleTruong,
   ThemComment,
-  KhoiTaoDuLieu
+  KhoiTaoDuLieu,
+  TaoBaiViet
 } from "./Data.js";
 //====khai báo====
 //Bắt đầu chạy code kiểm tra có dữ liệu từ local chưa thì lấy hàm rỗng , có rồi thì chuyển định dạng json vào mảng
@@ -28,8 +29,9 @@ const backgroundComment = document.querySelector(".box-background");
 //Biến id post
 let currentPostId = null;
 //Khối tạo bài viết Chưa dùng
-const createPost = document.querySelector(".main__create-post");
-const contentCreatePost = document.querySelector("#content-create-post");
+const createPost = document.querySelector(".main__create-post"); //Khối chính
+const contentCreatePost = document.querySelector("#content-create-post"); //Body post textarea
+const titleCreatePost =document.querySelector("#title-create-post") // Title post input
 //====Các hàm render====
 //render post API
 //Hàm để lấy dữ liệu từ API Gắn cho 1 obj tổng là infoPostAndUSerNname
@@ -75,6 +77,7 @@ mainPost.addEventListener("click", (e) => {
   const btnHeart = e.target.closest(".heart");
   const btnComment = e.target.closest(".chat-3");
   const btnSave = e.target.closest(".bookmark");
+  const btnAuthor = e.target.closest("[data-user-id]")
   if (btnHeart) { // click Thả tim
     toggleTruong(IDPost, "love");
     activeIcon(btnHeart.querySelector(".icon"), "heart");
@@ -88,6 +91,11 @@ mainPost.addEventListener("click", (e) => {
   if (btnComment) { 
     currentPostId =IDPost //click comment
     OpenComment(IDPost, boxComments,backgroundComment);
+  }
+  if(btnAuthor){
+    console.log("bấm tác giả", btnAuthor.dataset.userId);
+    window.location.href =`/00_pages/Profile.html?userId=${btnAuthor.dataset.userId}`;
+    return;
   }
 });
 //Click background để thoát
@@ -111,3 +119,18 @@ document.addEventListener("click", (e) => {
     ? "Thu gọn"
     : "Xem thêm";
 });
+createPost.addEventListener("click",(e) =>{
+  console.log(e);
+  const btn = e.target.closest(".btn-create-post")
+  const body = contentCreatePost.value;
+  const title = titleCreatePost.value;
+  if(!btn)return
+  if(title==="" && body ===""){
+      alert("vui lòng nhập tiêu đề và nội dung")
+      return
+   }
+   contentCreatePost.value=""
+   titleCreatePost.value=""
+  TaoBaiViet(title,body);
+  RenderDefault()
+})

@@ -393,8 +393,8 @@ img:hover {
     background-color: var(--bg-card);
     border-radius: var(--radius-box);
     border: 1px solid var(--border-color);
-    gap: 14px;
     height: 100%;
+    gap: 0;
 }
 
 .create-post_beetween {
@@ -579,7 +579,8 @@ button:active {
     margin: 16px 0 8px 0;
     color: var(--text-main);
 }
-
+.box-comment{
+}
 /* --- KHU VỰC NHẬP COMMENT Ở CUỐI --- */
 .comment-box-input {
     display: flex;
@@ -619,11 +620,16 @@ button:active {
 }
 
 /* DANH SÁCH COMMENT */
+.posts__comments{
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
 .comment-list {
     max-height: 280px;
     overflow-y: auto;
     padding-right: 6px;
-    padding-bottom: 80px;
 }
 
 .comment {
@@ -655,4 +661,78 @@ button:active {
     font-size: 12px;
     color: var(--primary-color);
     cursor: pointer;
+}
+.input-title-post{
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    padding: 6px;
+    background-color: var(--input-color);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+/* Tiêu đề mục Tạo bài viết */
+.create-post__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.create-post__head i {
+    font-size: 20px;
+    color: var(--primary-color, #ffc107);
+}
+
+/* Tên tác giả kèm icon */
+.create-post__author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.create-post__author i {
+    color: var(--primary-color, #ffc107);
+}
+
+/* Khung chứa input tiêu đề có icon bên trong (Giống phong cách thanh tìm kiếm) */
+.create-post__input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.create-post__input-box i {
+    position: absolute;
+    left: 14px;
+    color: var(--text-light, #888);
+    font-size: 16px;
+}
+
+/* Đẩy chữ trong input sang phải để không đè lên icon */
+.create-post__input-box .input-title-post {
+    width: 100%;
+    padding: 10px 14px 10px 40px; /* Padding trái rộng ra cho icon */
+    background-color: var(--bg-input, #1e1e1e);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-input, 8px);
+    color: white;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.create-post__input-box .input-title-post:focus {
+    border-color: var(--primary-color, #ffc107);
+}
+.create-post__textarea-box{
+    display: flex;
+    flex: 1;
+}
+/* Căn chỉnh nút đăng bài có icon bên trong */
+.btn-create-post {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
 }

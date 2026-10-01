@@ -21,7 +21,7 @@
     min-height: 0;
 }
 .profile__grid {
-    display:flex;
+    display:none;
     width: 100%;
     background-color: var(--bg-body);
     flex-direction: column;
@@ -31,7 +31,9 @@
     gap: 12px;
     overflow-y: auto;
 }
-
+.profile__grid.active{
+    display: flex;
+}
 .profile__item {
     display: flex;
     align-items: flex-start;
@@ -47,7 +49,6 @@
 .profile__item:hover {
     border-color: var(--primary-color);
 }
-
 .profile__icon {
     font-size: 20px;
     color: var(--primary-color);
@@ -140,4 +141,13 @@ min-height: auto mặc định của flex/grid item. Item sẽ không
     color: var(--primary-color);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     font-weight: 600;
+}
+.posts__users{
+    display: none;
+    gap: 12px;
+    
+    overflow-y: auto;
+}
+.posts__users.active{
+    display: block;
 }
