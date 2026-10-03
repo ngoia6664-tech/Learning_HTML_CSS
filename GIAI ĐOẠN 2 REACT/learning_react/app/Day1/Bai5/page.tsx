@@ -1,108 +1,49 @@
 // 5. Danh sách việc cần làm: nút Thêm (việc cố định, id là Date.now()), nút Xóa, nút Xong đổi ✅/⬜. Phần sửa 1 phần tử xem mục 6 trong ghi chú.
 "use client";
 import { useState } from "react";
-
+//Giờ bắt đầu 11:38 hoàn thành:11:48
 const Todo = [
   { id: 1, job: "Học html css js cơ bản", done: true },
   { id: 2, job: "Học js nâng cao + git thực chiến", done: true },
   { id: 3, job: "React", done: false },
 ];
-
-function ListToDo(props: { job: string; done: boolean }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-      <span style={{ fontSize: "16px", color: "#e4e4e7" }}>{props.job}</span>
-      <span style={{ fontSize: "18px" }}>{props.done ? "✅" : "⬜"}</span>
+function ListJob(props:{job:string,done:boolean,onRemove:() => void , onTick:() => void}){
+  return(
+    <div>
+      <h3>Công việc:{props.job}</h3>
+      <span>{props.done ? "✅" :"⬜"}</span>
+      <button onClick={props.onTick} style={{
+        backgroundColor:"gray"
+      }}>{props.done ? "Chuyển thành chưa hoàn thành":"Hoàn Thành"}</button>
+      <button onClick={props.onRemove} style={{backgroundColor:"gray"}}>Xóa</button>
     </div>
-  );
+  )
 }
-
-export default function Home() {
-  const [stateTodo, setStateTodo] = useState(Todo);
-
-  function btnClick(id: number) {
-    setStateTodo(
-      stateTodo.map((x) => (x && x.id === id ? { ...x, done: !x.done } : x)),
-    );
+export default function Home(){
+  const [job,setJob] =useState(Todo);
+  function btnTickJob(id:number){
+    setJob(job.map((x) => x && x.id === id ? {...x , done:!x.done} :x))
   }
-
-  function btnRemoveToDo(id: number) {
-    setStateTodo(stateTodo.filter((x) => x && x.id !== id));
+  function btnRemoveJob(id:number){
+    setJob(job.filter((x) => x.id !== id))
   }
-  function btnAddToDo(job:string){
-    setStateTodo([...stateTodo ,{id:Date.now(),job:job , done:false}])
+  function btnAddJob(text:string){
+    setJob([...job , {id:Date.now() ,job:text,done:false}]);
   }
-
-  return (
-    <div style={styles.container}>
-      <h2 style={{ marginBottom: "20px", color: "#ffc107" }}>Danh Sách Công Việc</h2>
-      {stateTodo.map((x) => (
-        <div key={x.id} style={styles.card}>
-          <ListToDo job={x.job} done={x.done} />
-          <div style={styles.actions}>
-            <button style={styles.btnStatus} onClick={() => btnClick(x.id)}>
-              {x.done ? "Đổi thành chưa xong" : "Đổi thành đã xong"}
-            </button>
-            <button style={styles.btnDelete} onClick={() => btnRemoveToDo(x.id)}>
-              Xóa
-            </button>
-          </div>
+  const JobComplete = job.filter((x) => x.done).length
+  const TotalJob = job.length
+  return(
+    <div>
+      <h3>Tổng số viêc:{TotalJob}</h3>
+      <h3>Tổng số việc đã hoàn thành:{JobComplete}</h3>
+      <h3>Chưa hoàn thành:{TotalJob-JobComplete}</h3>
+      {job.map((x) => (
+        <div key={x.id}>
+          <ListJob job={x.job} done={x.done} onRemove={() => btnRemoveJob(x.id)} onTick={() => btnTickJob(x.id)}
+          />
         </div>
       ))}
-      <input type="text" id="input-addTodo" value={""}/>
-      <button style={styles.btnDelete} onClick={() => btnAddToDo("Học backEnd")}>Thêm công việc</button>
+      <button onClick={() => btnAddJob("việc mới")}>Thêm</button>
     </div>
-  );
+  )
 }
-
-// 🎨 Cục CSS gom chung viết trực tiếp bằng JS Object
-const styles = {
-  container: {
-    maxWidth: "600px",
-    margin: "30px auto",
-    backgroundColor: "#121212",
-    border: "1px solid #2a2a2a",
-    borderRadius: "12px",
-    padding: "24px",
-    color: "#ffffff",
-    fontFamily: "sans-serif",
-  } as React.CSSProperties,
-
-  card: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#1e1e1e",
-    border: "1px solid #333",
-    padding: "14px 18px",
-    borderRadius: "8px",
-    marginBottom: "12px",
-  } as React.CSSProperties,
-
-  actions: {
-    display: "flex",
-    gap: "8px",
-  } as React.CSSProperties,
-
-  btnStatus: {
-    backgroundColor: "#2563eb",
-    color: "white",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    fontSize: "13px",
-    fontWeight: 500,
-    cursor: "pointer",
-  } as React.CSSProperties,
-
-  btnDelete: {
-    backgroundColor: "#dc2626",
-    color: "white",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    fontSize: "13px",
-    fontWeight: 500,
-    cursor: "pointer",
-  } as React.CSSProperties,
-};
