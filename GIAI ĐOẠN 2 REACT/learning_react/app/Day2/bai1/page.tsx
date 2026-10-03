@@ -1,16 +1,6 @@
-// Mảng ban đầu 3 sách { id, title, author, price }.
-// Form có 3 ô: tên sách, tác giả, giá, và một nút Thêm. Bấm nút hoặc nhấn Enter đều thêm được. Thêm xong, cả 3 ô trống lại.
-// Không cho thêm nếu tên sách trống, hoặc giá không phải số lớn hơn 0. Khi đó hiện một dòng chữ đỏ báo lý do,
-// và không thêm gì vào danh sách.
-// Mỗi sách có nút Xóa. Phía trên danh sách hiện Tổng số sách và Tổng tiền, tính từ mảng mỗi lần vẽ, không tạo state thứ hai (như bài 6).
-// Xóa phải chạy đúng với cả sách mới thêm.
-// Hai chỗ về công cụ
-// price phải lưu là số, không phải chuỗi, thì Tổng tiền mới cộng đúng. Nhớ e.target.value luôn là chuỗi.
-// 3 ô thì dùng 3 state, hoặc một state là một object (khi đó cần spread và computed key [key]: value em đã học ở Giai đoạn 0).
-//  Cách nào cũng được, em ghi một dòng vì sao chọn.
-//Thời gian bắt đầu: 9h10
 "use client";
 import { useState } from "react";
+
 const initialBooks = [
   {
     id: 1,
@@ -34,6 +24,7 @@ const initialBooks = [
     saved: false,
   },
 ];
+
 function Book(props: {
   title: string;
   author: string;
@@ -43,36 +34,49 @@ function Book(props: {
   onRemove: () => void;
 }) {
   return (
-    <div>
-      <h3>{props.title}</h3>
-      <span>{props.author}</span>
-      <span>{props.price}</span>
-      <button onClick={props.onSave}>{props.saved ? "Hủy Lưu" : "Lưu"}</button>
-      <button onClick={props.onRemove}>Xóa</button>
+    <div style={styles.bookCard}>
+      <div style={styles.bookInfo}>
+        <h3 style={styles.bookTitle}>{props.title}</h3>
+        <span style={styles.bookAuthor}>Tác giả: {props.author}</span>
+        <span style={styles.bookPrice}>Giá: {props.price}$</span>
+      </div>
+      <div style={styles.bookActions}>
+        <button 
+          onClick={props.onSave} 
+          style={props.saved ? styles.btnUnsaveBtn : styles.btnSaveBtn}
+        >
+          {props.saved ? "Hủy Lưu" : "Lưu"}
+        </button>
+        <button onClick={props.onRemove} style={styles.btnRemove}>Xóa</button>
+      </div>
     </div>
   );
 }
+
 export default function Home() {
   const [Listbook, setListbook] = useState(initialBooks);
   const [newSach, setNewSach] = useState({ title: "", author: "", price: "" });
-  const [loi,setLoi] = useState("")
+  const [loi, setLoi] = useState("");
+
   function ThemSach(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const title= newSach.title;
-    const author= newSach.author;
-    const price = newSach.price
-    if(title.trim()===""){
-      setLoi("Tên không được để trống ")
-      return
+    const title = newSach.title;
+    const author = newSach.author;
+    const price = newSach.price;
+
+    if (title.trim() === "") {
+      setLoi("Tên không được để trống ");
+      return;
     }
-    if(author.trim()===""){
-      setLoi("Tác giả không được để trống")
-      return
+    if (author.trim() === "") {
+      setLoi("Tác giả không được để trống");
+      return;
     } 
-    if(!(Number(price) >0)){
-      setLoi("giá tiền không hợp lệ")
-      return
+    if (!(Number(price) > 0)) {
+      setLoi("giá tiền không hợp lệ");
+      return;
     }
+
     setListbook([
       ...Listbook,
       {
@@ -84,30 +88,38 @@ export default function Home() {
       },
     ]);
     setNewSach({ title: "", author: "", price: "" });
-    setLoi("")
+    setLoi("");
   }
+
   function btnRemove(id: number) {
     setListbook(Listbook.filter((x) => x.id !== id));
   }
+
   function btnSave(id: number) {
     setListbook(
       Listbook.map((x) => (x && x.id === id ? { ...x, saved: !x.saved } : x)),
     );
   }
+
   const TotalBook = Listbook.length;
   const TotalBookSave = Listbook.filter((x) => x.saved).length;
   const TotalPriceSave = Listbook.reduce(
     (acc, cur) => acc + cur.price,
     0,
   );
+
   return (
-    <div>
-      <h3>Tổng sách:{TotalBook}</h3>
-      <h3>Tổng sách đã lưu:{TotalBookSave}</h3>
-      <h3>Tổng tiền sách :{TotalPriceSave}</h3>
-      {/* // Danh sách sách  */}
-      <div>
-        {Listbook.map((x) => (
+    <div style={styles.container}>
+      {/* Thống kê */}
+      <div style={styles.statsBox}>
+        <div style={styles.statItem}>Tổng sách: <strong>{TotalBook}</strong></div>
+        <div style={styles.statItem}>Tổng sách đã lưu: <strong style={{ color: "#3b82f6" }}>{TotalBookSave}</strong></div>
+        <div style={styles.statItem}>Tổng tiền sách: <strong style={{ color: "#10b981" }}>{TotalPriceSave}$</strong></div>
+      </div>
+
+      {/* Danh sách sách */}
+      <div style={styles.listContainer}>
+        {Listbook.map((x) => ( 
           <div key={x.id}>
             <Book
               title={x.title}
@@ -120,37 +132,195 @@ export default function Home() {
           </div>
         ))}
       </div>
-      {/* // Ô nhập liệu */}
-      <div>
-        <form onSubmit={ThemSach}>
-          <input
-            type="text"
-            value={newSach.title}
-            onChange={(e) =>
-              setNewSach({ title: e.target.value, author: newSach.author, price: newSach.price })
-            }
-            placeholder="Nhập tiêu đề"
-          />
-          <input
-            type="text"
-            value={newSach.author}
-            onChange={(e) =>
-              setNewSach({ title: newSach.title, author: e.target.value, price: newSach.price })
-            }
-             placeholder="Nhập Tác giả"
-          />
-          <input
-            type="text"
-            value={newSach.price}
-            onChange={(e) =>
-              setNewSach({ title: newSach.title, author: newSach.author, price: e.target.value })
-            }
-             placeholder="Nhập giá tiền"
-          />
-          <p style={{ color: "red" }}>{loi}</p>
-          <button type="submit" style={{backgroundColor:"gray"}}>Thêm sách</button>
+
+      {/* Ô nhập liệu */}
+      <div style={{ marginTop: "24px" }}>
+        <form onSubmit={ThemSach} style={styles.form}>
+          <h3 style={styles.formTitle}>Thêm sách mới</h3>
+          <div style={styles.inputGroup}>
+            <input
+              type="text"
+              value={newSach.title}
+              onChange={(e) =>
+                setNewSach({ title: e.target.value, author: newSach.author, price: newSach.price })
+              }
+              placeholder="Nhập tiêu đề"
+              style={styles.input}
+            />
+            <input
+              type="text"
+              value={newSach.author}
+              onChange={(e) =>
+                setNewSach({ title: newSach.title, author: e.target.value, price: newSach.price })
+              }
+              placeholder="Nhập Tác giả"
+              style={styles.input}
+            />
+            <input
+              type="text"
+              value={newSach.price}
+              onChange={(e) =>
+                setNewSach({ title: newSach.title, author: newSach.author, price: e.target.value })
+              }
+              placeholder="Nhập giá tiền"
+              style={styles.input}
+            />
+          </div>
+          {loi && <p style={{ color: "#ef4444", fontSize: "13px", margin: "0" }}>Lỗi: {loi}</p>}
+          <button type="submit" style={styles.btnSubmit}>Thêm sách</button>
         </form>
       </div>
     </div>
   );
 }
+
+// 🎨 Cục CSS giao diện viết trực tiếp bằng JS Object (Logic giữ nguyên 100%)
+const styles = {
+  container: {
+    maxWidth: "700px",
+    margin: "30px auto",
+    backgroundColor: "#121212",
+    border: "1px solid #2a2a2a",
+    borderRadius: "14px",
+    padding: "24px",
+    color: "#ffffff",
+    fontFamily: "sans-serif",
+  } as React.CSSProperties,
+
+  statsBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #333",
+    padding: "14px 18px",
+    borderRadius: "10px",
+    marginBottom: "20px",
+    fontSize: "14px",
+  } as React.CSSProperties,
+
+  statItem: {
+    display: "flex",
+    gap: "6px",
+    alignItems: "center",
+  } as React.CSSProperties,
+
+  listContainer: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "12px",
+  } as React.CSSProperties,
+
+  bookCard: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #333",
+    borderRadius: "10px",
+    padding: "16px",
+  } as React.CSSProperties,
+
+  bookInfo: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "4px",
+  } as React.CSSProperties,
+
+  bookTitle: {
+    color: "#ffc107",
+    fontSize: "16px",
+    margin: "0",
+  } as React.CSSProperties,
+
+  bookAuthor: {
+    color: "#aaa",
+    fontSize: "13px",
+    margin: "0",
+  } as React.CSSProperties,
+
+  bookPrice: {
+    color: "#10b981",
+    fontSize: "14px",
+    fontWeight: "bold",
+    margin: "0",
+  } as React.CSSProperties,
+
+  bookActions: {
+    display: "flex",
+    gap: "8px",
+  } as React.CSSProperties,
+
+  btnSaveBtn: {
+    backgroundColor: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    fontSize: "13px",
+    cursor: "pointer",
+  } as React.CSSProperties,
+
+  btnUnsaveBtn: {
+    backgroundColor: "#d97706",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    fontSize: "13px",
+    cursor: "pointer",
+  } as React.CSSProperties,
+
+  btnRemove: {
+    backgroundColor: "#dc2626",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    fontSize: "13px",
+    cursor: "pointer",
+  } as React.CSSProperties,
+
+  form: {
+    backgroundColor: "#18181b",
+    border: "1px solid #333",
+    padding: "18px",
+    borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "12px",
+  } as React.CSSProperties,
+
+  formTitle: {
+    color: "#ffc107",
+    fontSize: "16px",
+    margin: "0 0 4px 0",
+  } as React.CSSProperties,
+
+  inputGroup: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+    gap: "10px",
+  } as React.CSSProperties,
+
+  input: {
+    padding: "10px 14px",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #444",
+    borderRadius: "8px",
+    color: "#fff",
+    fontSize: "14px",
+    outline: "none",
+    boxSizing: "border-box" as const,
+  } as React.CSSProperties,
+
+  btnSubmit: {
+    backgroundColor: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    fontSize: "14px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  } as React.CSSProperties,
+};
