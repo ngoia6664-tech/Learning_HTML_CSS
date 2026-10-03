@@ -128,7 +128,7 @@ export default function Home() {
 // 🎨 Cục CSS giao diện viết trực tiếp bằng JS Object (Logic giữ nguyên 100%)
 const styles = {
   container: {
-    maxWidth: "700px",
+     width:"100vw",
     margin: "30px auto",
     backgroundColor: "#121212",
     border: "1px solid #2a2a2a",

@@ -77,6 +77,7 @@ export default function Home() {
 const styles = {
     container: {
         maxWidth: "1000px",
+        width:"100%",
         margin: "30px auto",
         backgroundColor: "#121212",
         border: "1px solid #2a2a2a",

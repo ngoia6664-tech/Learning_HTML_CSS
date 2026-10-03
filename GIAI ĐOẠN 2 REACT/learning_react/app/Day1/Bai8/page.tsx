@@ -144,7 +144,7 @@ export default function Home() {
 // 🎨 Cục CSS giao diện viết trực tiếp bằng JS Object
 const styles = {
   container: {
-    maxWidth: "700px",
+    width:"100vw",
     margin: "30px auto",
     backgroundColor: "#121212",
     border: "1px solid #2a2a2a",
@@ -178,8 +178,8 @@ const styles = {
   } as React.CSSProperties,
 
   listContainer: {
-    display: "flex",
-    flexDirection: "column",
+    display: "grid",
+    gridTemplateColumns:"repeat(auto-fit , minmax(400px , 1fr))",
     gap: "16px",
   } as React.CSSProperties,
 
