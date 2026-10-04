@@ -43,16 +43,20 @@ function ListBook(props: { title: string; author: string; price: number }) {
 }
 
 export default function Home() {
-  const [Book, setBook] = useState(sachGoc); // state của sách
   const [searchBook, setSeachBook] = useState(""); // State của input
-  const TotalBook = Book.length;
-
+  const TotalBook = sachGoc.length;
   const TuKhoa = searchBook.toLowerCase().trim();
-  const ListNow = TuKhoa === "" ? [] : sachGoc.filter((x) => x.title.toLowerCase().includes(TuKhoa));
-
+  const ListNow = sachGoc.filter((x) => x.title.toLowerCase().includes(TuKhoa));
+  const TotalBookFind = ListNow.length;
   return (
     <div style={styles.container}>
       {/* Ô tìm kiếm kèm khung dropdown gợi ý ngay bên dưới */}
+      <div style={styles.headerRow}>
+        <h2 style={styles.sectionTitle}>📚 Kho Sách Tổng Hợp</h2>
+        <h3 style={styles.totalHeading}>
+          Hiển thị :{TotalBookFind}/{TotalBook}
+        </h3>
+      </div>
       <div style={styles.searchWrapper}>
         <input
           type="text"
@@ -62,35 +66,20 @@ export default function Home() {
           style={styles.input}
         />
         {/* Khối gợi ý kết quả tìm kiếm thả xuống ngay dưới input */}
-        {TuKhoa !== "" && (
-          <div style={styles.dropdown}>
-            {ListNow.length === 0 ? (
-              <div style={styles.dropdownItemEmpty}>Không tìm thấy sách phù hợp</div>
-            ) : (
-              ListNow.map((x) => (
-                <div key={x.id} style={styles.dropdownItem}>
-                  <span style={{ color: "#ffc107", fontWeight: 500 }}>{x.title}</span>
-                  <span style={{ color: "#aaa", fontSize: "12px" }}>({x.author})</span>
-                </div>
-              ))
-            )}
-          </div>
-        )}
-      </div>
 
-      {/* Tiêu đề và tổng số sách */}
-      <div style={styles.headerRow}>
-        <h2 style={styles.sectionTitle}>📚 Kho Sách Tổng Hợp</h2>
-        <h3 style={styles.totalHeading}>Tổng số sách: {TotalBook}</h3>
-      </div>
-
-      {/* Khối tất cả sách dàn ngang thành lưới (Grid) */}
-      <div style={styles.grid}>
-        {Book.map((x) => (
-          <div key={x.id}>
-            <ListBook title={x.title} author={x.author} price={x.price} />
-          </div>
-        ))}
+        <div style={styles.grid}>
+          {ListNow.length === 0 ? (
+            <div style={styles.dropdownItemEmpty}>
+              Không tìm thấy sách phù hợp
+            </div>
+          ) : (
+            ListNow.map((x) => (
+              <div key={x.id} style={styles.dropdownItem}>
+                <ListBook title={x.title} author={x.author} price={x.price} />
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
@@ -99,7 +88,7 @@ export default function Home() {
 // 🎨 Cục CSS giao diện Dark-Mode xịn xò
 const styles = {
   container: {
-     width:"100vw",
+    width: "100vw",
     boxSizing: "border-box" as const,
     margin: "30px auto",
     backgroundColor: "#121212",
@@ -110,8 +99,8 @@ const styles = {
     fontFamily: "sans-serif",
     display: "flex",
     gap: "20px",
-    flexDirection:"column",
-    minWidth:0    
+    flexDirection: "column",
+    minWidth: 0,
   } as React.CSSProperties,
 
   searchWrapper: {
@@ -190,7 +179,7 @@ const styles = {
     // Giảm minmax xuống 220px để dễ dàn ngang hơn khi màn hình vừa phải
     gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
     gap: "16px",
-    minWidth:"0"
+    minWidth: "0",
   } as React.CSSProperties,
 
   bookCard: {

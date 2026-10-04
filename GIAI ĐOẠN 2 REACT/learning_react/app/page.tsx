@@ -19,10 +19,12 @@ export default function Home() {
     },
     {
       day: 2,
-      title: "📅 Day 2:form input ",
-      isOpen: false, // Mặc định đóng gọn lại
+      title: "📅 Day 2: Form input & Lọc dữ liệu",
+      isOpen: true, // Mở sẵn để sếp dễ bấm test
       items: [
-        // Sau này sếp thêm bài tập Day 2 vào đây
+        { id: 1, ten: "Bài 1: Quản lý tủ sách & Thêm sách", href: "/Day2/bai1" },
+        { id: 11, ten: "Bài 11: Tab lọc cho To-do", href: "/Day2/bai11" },
+        { id: 12, ten: "Bài 12: Tra cứu sách thông minh", href: "/Day2/bai12" },
       ],
     },
     // Sau này cứ thế thêm Day 3, Day 4... vào đây thoải mái mà không sợ dài trang!
