@@ -25,11 +25,15 @@ function ListStudent(props: {
   onRemove: () => void;
 }) {
   return (
-    <div>
-      <h3>{props.name}</h3>
-      <span>{props.className}</span>
-      <span>{props.score}</span>
-      <button onClick={props.onRemove}>Xóa</button>
+    <div style={styles.studentCard}>
+      <div style={styles.studentInfo}>
+        <h3 style={styles.studentName}>{props.name}</h3>
+        <span style={styles.studentClass}>Lớp: {props.className}</span>
+      </div>
+      <div style={styles.studentRight}>
+        <span style={styles.studentScore}>Điểm: {props.score}</span>
+        <button onClick={props.onRemove} style={styles.btnRemove}>Xóa</button>
+      </div>
     </div>
   );
 }
@@ -70,10 +74,10 @@ export default function Home() {
     ]);
     setLoi("");
     setNewStd({
-    name: "",
-    className: "",
-    score: "",
-  })
+      name: "",
+      className: "",
+      score: "",
+    })
   }
   function RemoveStd(id: number) {
     setStudent(Student.filter((x) => x.id !== id));
@@ -82,18 +86,21 @@ export default function Home() {
   const AvgScore =
     Student.reduce((acc, cur) => acc + cur.score, 0) / Student.length;
   return (
-    <div>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>🎓 Quản Lý Học Sinh</h2>
       {/* //Khổi hiện điểm và tổng số hs */}
-      <div>
-        <h3>tổng số hs:{TotalStudent}</h3>
-        {Student.length > 0 ? (
-          <h3>điểm trung bình{AvgScore.toFixed(2)}</h3>
-        ) : (
-          <h3>Chưa có học sinh</h3>
-        )}
+      <div style={styles.statsBox}>
+        <div style={styles.statItem}>Tổng số hs: <strong>{TotalStudent}</strong></div>
+        <div style={styles.statItem}>
+          {Student.length > 0 ? (
+            <span>Điểm trung bình: <strong style={{ color: "#10b981" }}>{AvgScore.toFixed(2)}</strong></span>
+          ) : (
+            <span>Chưa có học sinh</span>
+          )}
+        </div>
       </div>
       {/* Khối hiển thị học sinh ban đã có */}
-      <div>
+      <div style={styles.listContainer}>
         {Student.map((x) => (
           <div key={x.id}>
             <ListStudent
@@ -105,32 +112,177 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div>
-        <form onSubmit={AddStudent}>
-          <input
-            type="text"
-            value={newStd.name}
-            onChange={(e) => setNewStd({ ...newStd, name: e.target.value })}
-            placeholder="Nhập tên học sinh"
-          />
-          <input
-            type="text"
-            value={newStd.className}
-            onChange={(e) =>
-              setNewStd({ ...newStd, className: e.target.value })
-            }
-            placeholder="Nhập tên lớp học sinh"
-          />
-          <input
-            type="text"
-            value={newStd.score}
-            onChange={(e) => setNewStd({ ...newStd, score: e.target.value })}
-            placeholder="Nhập điểm học sinh"
-          />
-          <span style={{ color: "red" }}>{Loi}</span>
-          <button type="submit">Thêm</button>
+      <div style={{ marginTop: "24px" }}>
+        <form onSubmit={AddStudent} style={styles.form}>
+          <h3 style={styles.formTitle}>Thêm học sinh mới</h3>
+          <div style={styles.inputGroup}>
+            <input
+              type="text"
+              value={newStd.name}
+              onChange={(e) => setNewStd({ ...newStd, name: e.target.value })}
+              placeholder="Nhập tên học sinh"
+              style={styles.input}
+            />
+            <input
+              type="text"
+              value={newStd.className}
+              onChange={(e) =>
+                setNewStd({ ...newStd, className: e.target.value })
+              }
+              placeholder="Nhập tên lớp học sinh"
+              style={styles.input}
+            />
+            <input
+              type="text"
+              value={newStd.score}
+              onChange={(e) => setNewStd({ ...newStd, score: e.target.value })}
+              placeholder="Nhập điểm học sinh"
+              style={styles.input}
+            />
+          </div>
+          <span style={{ color: "#ef4444", fontSize: "13px", fontWeight: 500 }}>{Loi}</span>
+          <button type="submit" style={styles.btnSubmit}>Thêm</button>
         </form>
       </div>
     </div>
   );
 }
+
+// 🎨 Cục CSS giao diện viết trực tiếp bằng JS Object (Logic giữ nguyên 100%)
+const styles = {
+  container: {
+    maxWidth: "700px",
+    margin: "30px auto",
+    backgroundColor: "#121212",
+    border: "1px solid #2a2a2a",
+    borderRadius: "14px",
+    padding: "24px",
+    color: "#ffffff",
+    fontFamily: "sans-serif",
+    width:"100%"
+  } as React.CSSProperties,
+
+  heading: {
+    color: "#ffc107",
+    fontSize: "24px",
+    marginBottom: "20px",
+    textAlign: "center" as const,
+  } as React.CSSProperties,
+
+  statsBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #333",
+    padding: "14px 18px",
+    borderRadius: "10px",
+    marginBottom: "20px",
+    fontSize: "14px",
+  } as React.CSSProperties,
+
+  statItem: {
+    display: "flex",
+    gap: "6px",
+    alignItems: "center",
+  } as React.CSSProperties,
+
+  listContainer: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "12px",
+  } as React.CSSProperties,
+
+  studentCard: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #333",
+    borderRadius: "10px",
+    padding: "14px 18px",
+  } as React.CSSProperties,
+
+  studentInfo: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "4px",
+  } as React.CSSProperties,
+
+  studentName: {
+    color: "#ffc107",
+    fontSize: "16px",
+    margin: "0",
+  } as React.CSSProperties,
+
+  studentClass: {
+    color: "#aaa",
+    fontSize: "13px",
+  } as React.CSSProperties,
+
+  studentRight: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  } as React.CSSProperties,
+
+  studentScore: {
+    color: "#10b981",
+    fontSize: "15px",
+    fontWeight: "bold",
+  } as React.CSSProperties,
+
+  btnRemove: {
+    backgroundColor: "#dc2626",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    fontSize: "13px",
+    cursor: "pointer",
+    fontWeight: 500,
+  } as React.CSSProperties,
+
+  form: {
+    backgroundColor: "#18181b",
+    border: "1px solid #333",
+    padding: "18px",
+    borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "12px",
+  } as React.CSSProperties,
+
+  formTitle: {
+    color: "#ffc107",
+    fontSize: "16px",
+    margin: "0 0 4px 0",
+  } as React.CSSProperties,
+
+  inputGroup: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+    gap: "10px",
+  } as React.CSSProperties,
+
+  input: {
+    padding: "10px 14px",
+    backgroundColor: "#1e1e1e",
+    border: "1px solid #444",
+    borderRadius: "8px",
+    color: "#fff",
+    fontSize: "14px",
+    outline: "none",
+    boxSizing: "border-box" as const,
+  } as React.CSSProperties,
+
+  btnSubmit: {
+    backgroundColor: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    fontSize: "14px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  } as React.CSSProperties,
+};
