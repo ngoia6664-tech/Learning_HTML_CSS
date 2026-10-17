@@ -21,11 +21,18 @@ function ListTodo(props: {
   done: boolean;
   onClick: () => void;
   onRemove: () => void;
+  m: any; // Nhận thêm object màu để dynamic theo theme
 }) {
   return (
-    <div style={styles.todoCard}>
+    <div
+      style={{
+        ...styles.todoCard,
+        backgroundColor: props.m.cardBg,
+        borderColor: props.m.border,
+      }}
+    >
       <div style={styles.todoInfo}>
-        <h3 style={styles.jobTitle}>{props.job}</h3>
+        <h3 style={{ ...styles.jobTitle, color: props.m.text }}>{props.job}</h3>
         <span style={props.done ? styles.badgeDone : styles.badgeNotDone}>
           {props.done ? "✅ Hoàn thành" : "⏳ Chưa hoàn thành"}
         </span>
@@ -48,8 +55,8 @@ function ListTodo(props: {
 export default function Home() {
   const [List, SetList] = useState(Todo);
   const [tab, setTab] = useState("all");
-  const [flag, setFlag] = useState(false);
-  const [background, setbackground] = useState("toi");
+  const [flag, setFlag] = useState(false); // cờ cho cả 2 key
+  const [background, setbackground] = useState("sang");
   const PageNow = List.filter((x) => {
     if (tab === "complete") return x.done;
     if (tab === "not_complete") return !x.done;
@@ -59,7 +66,7 @@ export default function Home() {
   // Biến hiện tổng số bài
   const TotalTodo = List.length;
   const TotalToDoComplete = List.filter((x) => x.done).length;
-  const [flagbgr, setFlagbgr] = useState(false)
+
   function StateTodo(id: number) {
     SetList(List.map((x) => (x && x.id === id ? { ...x, done: !x.done } : x)));
   }
@@ -74,48 +81,110 @@ export default function Home() {
       ...List,
     ]);
   }
+
   // Lưu và đọc
   useEffect(() => {
     const saveListToDo = localStorage.getItem("Day4_bai3");
-    if (saveListToDo) SetList(JSON.parse(saveListToDo));
+    const luuBgr = localStorage.getItem("bgr");
+    if (saveListToDo) SetList(JSON.parse(saveListToDo)); // lấy data ra
+    if (luuBgr) setbackground(JSON.parse(luuBgr)); // Lấy màu nền cũ đã lưu
     setFlag(true);
+    console.log("Giờ cờ mới là true");
+    
   }, []);
   useEffect(() => {
-    if (!flag) return;
-    localStorage.setItem("Day4_bai3", JSON.stringify(List));
+    if (!flag) {
+      console.log("[data]Cờ vẫn là false chưa được chạy");
+      return;
+    }
+    console.log("Đã lưu vào localStorage");
+    console.log("Cờ đã là true được chạy rồi");
+    localStorage.setItem("Day4_bai3", JSON.stringify(List)); // Lưu data vào
   }, [List, flag]);
   useEffect(() => {
-    const luuBgr = localStorage.getItem("bgr");
-    if(luuBgr) setbackground(luuBgr);
-    setFlagbgr(true);
-  },[]);
-  useEffect (() => {
-    if(!flagbgr) return
-    localStorage.setItem("bgr" , JSON.stringify("bgr"));
-  },[background,flag])
-  const m = background ==="toi" ? mau.toi : mau.sang
+    if (!flag) {
+      console.log("[background]Cờ vẫn là false chưa được chạy");
+     return;
+    }
+    console.log("Cờ đã là true được chạy rồi");
+    console.log("Đã lưu vào localStorage");
+    localStorage.setItem("bgr", JSON.stringify(background)); // Lưu lại vào localStorage
+  }, [background, flag]);
+  console.log("Test xem dòng này chạy trước hay sau useEffect")
+  console.log(flag);
+  
+  const m = background === "toi" ? mau.toi : mau.sang;
+
   return (
-    <div style={{...styles.container , backgroundColor:m.bg , color:m.text}}>
-      <h2 style={{...styles.heading , color:m.heading}}>📋 Quản Lý Công Việc (To-do Tabs)</h2>
-      <button onClick={() =>setbackground(background==="toi" ? "sang" :"toi")}>Đổi màu nền</button>
+    <div
+      style={{
+        ...styles.container,
+        backgroundColor: m.bg,
+        color: m.text,
+        borderColor: m.border,
+      }}
+    >
+      <div style={styles.headerTop}>
+        <h2 style={{ ...styles.heading, color: m.heading }}>
+          📋 Quản Lý Công Việc (To-do Tabs)
+        </h2>
+        <button
+          onClick={() => setbackground(background === "toi" ? "sang" : "toi")}
+          style={{
+            ...styles.btnToggleTheme,
+            backgroundColor: m.cardBg,
+            color: m.text,
+            borderColor: m.border,
+          }}
+        >
+          {background === "toi" ? "☀️ Sáng" : "🌙 Tối"} Đổi màu nền
+        </button>
+      </div>
 
       {/* Các nút Tab chuyển đổi */}
       <div style={styles.tabRow}>
         <button
           onClick={() => setTab("all")}
-          style={tab === "all" ? styles.tabActive : {...styles.tabBtn , backgroundColor:m.cardBg}}
+          style={
+            tab === "all"
+              ? styles.tabActive
+              : {
+                  ...styles.tabBtn,
+                  backgroundColor: m.cardBg,
+                  color: m.text,
+                  borderColor: m.border,
+                }
+          }
         >
           Tất cả công việc
         </button>
         <button
           onClick={() => setTab("complete")}
-           style={tab === "all" ? styles.tabActive : {...styles.tabBtn , backgroundColor:m.cardBg}}
+          style={
+            tab === "complete"
+              ? styles.tabActive
+              : {
+                  ...styles.tabBtn,
+                  backgroundColor: m.cardBg,
+                  color: m.text,
+                  borderColor: m.border,
+                }
+          } // 👉 Đã sửa lỗi check tab === "all"
         >
           Đã hoàn thành
         </button>
         <button
           onClick={() => setTab("not_complete")}
-           style={tab === "all" ? styles.tabActive : {...styles.tabBtn , backgroundColor:m.cardBg}}
+          style={
+            tab === "not_complete"
+              ? styles.tabActive
+              : {
+                  ...styles.tabBtn,
+                  backgroundColor: m.cardBg,
+                  color: m.text,
+                  borderColor: m.border,
+                }
+          } // 👉 Đã sửa lỗi check tab === "all"
         >
           Chưa hoàn thành
         </button>
@@ -124,7 +193,16 @@ export default function Home() {
       {/* Danh sách công việc theo tab */}
       <div style={styles.listContainer}>
         {PageNow.length === 0 ? (
-          <p style={styles.emptyText}>Không có việc nào</p>
+          <p
+            style={{
+              ...styles.emptyText,
+              backgroundColor: m.cardBg,
+              borderColor: m.border,
+              color: m.subText,
+            }}
+          >
+            Không có việc nào
+          </p>
         ) : (
           PageNow.map((x) => (
             <div key={x.id}>
@@ -133,6 +211,7 @@ export default function Home() {
                 done={x.done}
                 onClick={() => StateTodo(x.id)}
                 onRemove={() => RemoveTodo(x.id)}
+                m={m}
               />
             </div>
           ))
@@ -140,16 +219,22 @@ export default function Home() {
       </div>
 
       {/* Thống kê và nút thêm */}
-      <div style={styles.footerBox}>
-        <div style={styles.statsGroup}>
-          <span style={styles.statItem}>
+      <div style={{ ...styles.footerBox, borderColor: m.border }}>
+        <div
+          style={{
+            ...styles.statsGroup,
+            backgroundColor: m.cardBg,
+            borderColor: m.border,
+          }}
+        >
+          <span style={{ ...styles.statItem, color: m.text }}>
             Tổng số công việc: <strong>{TotalTodo}</strong>
           </span>
-          <span style={styles.statItem}>
+          <span style={{ ...styles.statItem, color: m.text }}>
             Hoàn thành:{" "}
             <strong style={{ color: "#10b981" }}>{TotalToDoComplete}</strong>
           </span>
-          <span style={styles.statItem}>
+          <span style={{ ...styles.statItem, color: m.text }}>
             Chưa xong:{" "}
             <strong style={{ color: "#f59e0b" }}>
               {TotalTodo - TotalToDoComplete}
@@ -164,45 +249,60 @@ export default function Home() {
   );
 }
 
-// 🎨 Cục CSS giao diện viết trực tiếp bằng JS Object (Logic giữ nguyên 100%)
 // 🎨 Cục object định nghĩa màu sắc cho 2 chế độ Sáng / Tối
 const mau = {
   sang: {
-    bg: "#f8fafc",          // Màu nền tổng thể sáng
-    cardBg: "#ffffff",      // Màu nền card / form
-    text: "#0f172a",        // Màu chữ chính
-    subText: "#64748b",     // Màu chữ phụ / xám
-    border: "#cbd5e1",      // Màu đường viền
-    inputBg: "#ffffff",     // Màu nền ô input
-    heading: "#b45309",     // Màu tiêu đề
+    bg: "#f8fafc", // Màu nền tổng thể sáng
+    cardBg: "#ffffff", // Màu nền card / form
+    text: "#0f172a", // Màu chữ chính
+    subText: "#64748b", // Màu chữ phụ / xám
+    border: "#cbd5e1", // Màu đường viền
+    inputBg: "#ffffff", // Màu nền ô input
+    heading: "#b45309", // Màu tiêu đề
   },
   toi: {
-    bg: "#121212",          // Màu nền tổng thể tối
-    cardBg: "#1e1e1e",      // Màu nền card / form
-    text: "#ffffff",        // Màu chữ chính
-    subText: "#aaa",        // Màu chữ phụ / xám
-    border: "#333333",      // Màu đường viền
-    inputBg: "#1e1e1e",     // Màu nền ô input
-    heading: "#ffc107",     // Màu tiêu đề vàng gold
+    bg: "#121212", // Màu nền tổng thể tối
+    cardBg: "#1e1e1e", // Màu nền card / form
+    text: "#ffffff", // Màu chữ chính
+    subText: "#aaa", // Màu chữ phụ / xám
+    border: "#333333", // Màu đường viền
+    inputBg: "#1e1e1e", // Màu nền ô input
+    heading: "#ffc107", // Màu tiêu đề vàng gold
   },
 };
+
 const styles = {
   container: {
-    width: "100vw",
+    maxWidth: "750px",
     margin: "30px auto",
-    backgroundColor: "#121212",
     border: "1px solid #2a2a2a",
     borderRadius: "14px",
     padding: "24px",
-    color: "#ffffff",
     fontFamily: "sans-serif",
+    boxSizing: "border-box" as const,
+  } as React.CSSProperties,
+
+  headerTop: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "20px",
+    flexWrap: "wrap" as const,
+    gap: "10px",
   } as React.CSSProperties,
 
   heading: {
-    color: "#ffc107",
     fontSize: "22px",
-    marginBottom: "20px",
-    textAlign: "center" as const,
+    margin: 0,
+  } as React.CSSProperties,
+
+  btnToggleTheme: {
+    padding: "8px 14px",
+    borderRadius: "8px",
+    border: "1px solid",
+    cursor: "pointer",
+    fontSize: "13px",
+    fontWeight: 500,
   } as React.CSSProperties,
 
   tabRow: {
@@ -213,9 +313,7 @@ const styles = {
   } as React.CSSProperties,
 
   tabBtn: {
-    backgroundColor: "#1e1e1e",
-    color: "#aaa",
-    border: "1px solid #333",
+    border: "1px solid",
     padding: "10px 14px",
     borderRadius: "8px",
     cursor: "pointer",
@@ -244,21 +342,18 @@ const styles = {
   } as React.CSSProperties,
 
   emptyText: {
-    color: "#71717a",
     textAlign: "center" as const,
     fontStyle: "italic",
     padding: "30px 0",
-    backgroundColor: "#18181b",
     borderRadius: "10px",
-    border: "1px dashed #333",
+    border: "1px dashed",
   } as React.CSSProperties,
 
   todoCard: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#1e1e1e",
-    border: "1px solid #333",
+    border: "1px solid",
     borderRadius: "10px",
     padding: "14px 18px",
   } as React.CSSProperties,
@@ -270,7 +365,6 @@ const styles = {
   } as React.CSSProperties,
 
   jobTitle: {
-    color: "#fff",
     fontSize: "16px",
     margin: 0,
   } as React.CSSProperties,
@@ -324,7 +418,7 @@ const styles = {
   } as React.CSSProperties,
 
   footerBox: {
-    borderTop: "1px solid #333",
+    borderTop: "1px solid",
     paddingTop: "16px",
     display: "flex",
     flexDirection: "column" as const,
@@ -334,8 +428,7 @@ const styles = {
   statsGroup: {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "#18181b",
-    border: "1px solid #333",
+    border: "1px solid",
     padding: "12px 16px",
     borderRadius: "8px",
     fontSize: "13px",
@@ -343,9 +436,7 @@ const styles = {
     gap: "8px",
   } as React.CSSProperties,
 
-  statItem: {
-    color: "#ccc",
-  } as React.CSSProperties,
+  statItem: {},
 
   btnAdd: {
     backgroundColor: "#10b981",
