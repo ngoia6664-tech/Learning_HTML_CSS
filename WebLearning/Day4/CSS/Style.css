@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  place-content: flex-start;
+  gap: 500px;
+}
+.container-left {
+  border: 1px solid rgb(0, 0, 0);
+  width: 200px;
+  height: 500px;
+}
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 40px;
+}

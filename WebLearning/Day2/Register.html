@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Website của Duy Anh</title>
+    </head>
+    <body>
+         <form>
+            <h1>Chào mừng bạn đến với trang đăng kí</h1>
+            <label for="username">
+                Đăng nhập
+            </label>
+            <br>
+            <input
+             id="username"
+             name="username"
+             type="text"
+             placeholder="Nhập tài khoản"
+             required>
+            <br><br>
+            <label for="email">
+                 Email
+            </label>
+            <br>
+            <input
+            id="email" 
+            name="email"
+            type="email" 
+            placeholder="exam@gmail.com"
+            required>
+            <br><br>
+            <label for="password">
+                Mật khẩu
+            </label>
+            <br>
+            <input
+             id="password"
+             name="password"
+             type="password"
+             placeholder="Nhập mật khẩu"
+             required>
+            <br><br>
+            <label for="re-Enter_password">
+                Nhập lại mật khẩu
+            </label>
+            <br>
+            <input
+             id="re-Enter_password"
+             name="re-Enter_password"
+             type="password" 
+             placeholder="Nhập lại mật khẩu như trên"
+             required>
+             <br><br>
+             <label >
+                Chọn giới tính
+            </label>
+             <br>
+             <input 
+              id="man"
+              type="radio"
+              name="gender"
+              value="male">
+              <label for="man">
+                Nam
+              </label>
+              <br>
+             <input 
+              id="woman"
+              type="radio"
+              name="gender"
+              value="female">
+              <label for="woman">
+                Nữ
+              </label>
+              <br><br>
+              <label for="hometown">Quê quán</label>
+              <select id ="hometown" name="hometown" required>
+                <option value ="HY"selected>Hưng Yên</option>
+                <option value ="HN">Hà Nội</option>
+                <option value ="TPHCM">Thành phố Hồ Chí Minh</option>
+                <option value ="TH">Thanh Hoá</option>
+              </select>
+              <br><br>
+              <label for="bio">Tiểu sử</label>
+              <br>
+                <textarea 
+                 id ="bio" 
+                 rows="5" 
+                 cols="40"
+                 name="bio" 
+                 placeholder="Viết vài dòng về tiểu sử của bạn">Tôi rất đẹp trai</textarea>
+              <br><br>
+             <input
+             id="agree"
+             name="agree"
+             type="checkbox"
+             checked required> 
+             <label for="agree">
+                Tôi đồng ý với điều khoản  
+             </label>
+              <br><br>
+             <button type="submit">
+                Đăng kí
+             </button>
+         </form>
+    </body>
+</html>

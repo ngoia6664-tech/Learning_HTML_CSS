@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset ="UTF-8">
+        <title>Trang đăng nhập Cinema</title>
+    </head>
+    <body>
+        <h1>Cineverse Cinema</h1>
+        <form>
+        <div>
+            <h2>Đăng nhập</h2>
+            <label for="username">Tên Đăng nhập</label>
+            <br>
+            <input 
+            id="username"
+            name="username"
+            value="Nguyễn Văn A"
+            type="Text"
+            required
+            placeholder="Nguyễn Văn A">
+            <br><br>
+            <label for="password">Mật khẩu</label>
+            <br>
+            <input
+            id="password"
+            name="password"
+            value=""
+            type="password"
+            required
+            placeholder="Hãy nhập mật khẩu">
+            <br><br>
+            <label>Giới tính</label>
+            <br>
+            <input 
+            id="men"
+            name="gender"
+            value="male"
+            type="radio">
+            <label for="men">Nam</label>
+            <br>
+            <input
+            id="woman"
+            name="gender"
+            value="female"
+            type="radio">
+            <label for="woman">Nữ</label>
+            <br><br>
+            <label for="date">Ngày sinh</label>
+            <br>
+            <input 
+            id="date"
+            name="date"
+            type="date"
+            required>
+            <br><br>
+            <label for="movie_genre">Thể loại phim yêu thích</label>
+            <br>
+            <select id="movie_genre" name="movie genre" required>
+                <option selected value ="action">Hành động</option>
+                <option value ="romance">Tình cảm</option>
+                <option value ="detective">Trinh thám</option>
+                <option value ="horror">Kinh dị</option>
+            </select>
+            <br><br>
+            <label for="bio">Tiểu sử</label>
+            <br>
+            <textarea
+            id="bio"
+            rows="5"
+            cols="40" 
+            placeholder="Bạn hãy viết tiểu sử của bạn"></textarea>
+            <br><br>
+            <input 
+            id="agree"
+            name="agree"
+            type="checkbox"
+            required>
+            <label for="agree">Tôi đồng ý với điều khoản sử dụng</label>
+            <br><br>
+           <a href="index.html"><button type="button">Đăng nhập</button></a>
+            <br><br><br>
+        </div>
+        <div>
+            <span>Bạn chưa có tài khoản?</span>
+            <br><br>
+             <a href="Register.html">Đăng kí</a>
+        </div>
+        </form>
+    </body>
+</html>

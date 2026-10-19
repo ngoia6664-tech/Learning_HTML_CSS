@@ -1,0 +1,46 @@
+.container{
+    display:flex;
+    height: 100vh;
+    width: 100%;
+    background:#111;
+}
+.sidebar{
+    width: 200px;
+    color:#f1f1f1;
+    padding:20px;
+}
+.sidebar ul{
+    list-style: none;
+    padding:0;
+}
+.sidebar li{
+    margin :15px 0;
+    cursor:pointer;
+}
+.main{
+    flex:1;
+    padding:20px;
+}
+.header{
+    margin-bottom:20px;
+}
+.movies{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.card {
+    background: #eee;
+    padding: 3px;
+    text-align: center;
+    border-radius: 10px;
+    cursor:pointer;
+}
+.card:hover{
+    transform: scale(1.05);
+}
+@media (max-width: 768px) {
+    .movies {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
