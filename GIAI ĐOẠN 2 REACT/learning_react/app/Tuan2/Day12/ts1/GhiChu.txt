@@ -1,0 +1,8 @@
+1. đổi done :false thành done:"false" 
+Máy sẽ báo lỗi ngay lập tức vì đã sai kiểu dữ liệu định nghĩa ban đầu
+-Kiểu dữ liệu của done định nghĩa theo ToDo ban đầu là boolean , sửa done:"false" thì kiểu dữ liệu là string
+=> sai kiểu dữ liệu
+2.Xóa dòng job:"di dạy" của ToDo thứ 2 , đây là thiếu kiểu dữ liệu vì ban đầu ta khai báo
+ToDo bắt buộc phải có key là job, không phải là job? nên nếu thiếu key job máy tính sẽ báo lỗi
+3.Trong ToDoRow đổi props.todo.job thành props.todo.jobb sẽ báo lỗi vì không có key nào là jobb cả 
+4.Thêm ghiChu :5 vào đầu thì cũng khá giống TH1 do 5 thuộc kiểu dữ liệu number , còn ghiChu lại là string 
