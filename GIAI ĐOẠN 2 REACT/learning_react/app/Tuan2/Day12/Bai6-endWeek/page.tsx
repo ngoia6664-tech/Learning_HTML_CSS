@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import HienThiNasaItem from "./components/hienthi";
 import "./global.css";
+import { IconRefresh } from "./components/Icons";
 type NasaResponse = { collection: { items: NasaItem[] } };
 type NasaItem = {
   data: {
@@ -110,20 +111,62 @@ export default function Home() {
   if (Tab === "all") Danghien = ketqua;
   if (Tab === "saved") Danghien = saveIDs;
   return (
-    <div>
-      <div className="Tab">
-        <button onClick={() => setTab("all")}>Tất cả({ketqua.length})</button>
-        <button onClick={() => setTab("saved")}>
-          Đã luu({saveIDs.length})
+    <main className="page">
+      <header className="header">
+        <div>
+          <h1 className="title">Thư viện ảnh NASA</h1>
+          <p className="subtitle">
+            Khám phá ảnh thiên hà từ kho dữ liệu của NASA. Thả tim ảnh em thích
+            và lưu lại để xem sau.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="btn-reset"
+          onClick={() => setReset(!reset)}
+        >
+          <IconRefresh />
+          Reset trang
         </button>
-      </div>
-      <button onClick={() => setReset(!reset)} className="btn btn-reset">
-        Reset trang
-      </button>
-      {loading && <h3>Đang lấy dữ liệu...</h3>}
-      {loi.trim() !== "" ? <p style={{ color: "red" }}>{loi}</p> : null}
+      </header>
+
+      <nav className="tabs" aria-label="Chọn danh sách ảnh">
+        <button
+          type="button"
+          className={Tab === "all" ? "tab tab-active" : "tab"}
+          onClick={() => setTab("all")}
+        >
+          Tất cả <span className="count">{ketqua.length}</span>
+        </button>
+        <button
+          type="button"
+          className={Tab === "saved" ? "tab tab-active" : "tab"}
+          onClick={() => setTab("saved")}
+        >
+          Đã lưu <span className="count">{saveIDs.length}</span>
+        </button>
+      </nav>
+
+      {loading && (
+        <p className="status" role="status">
+          <span className="spinner" />
+          Đang lấy dữ liệu...
+        </p>
+      )}
+      {loi.trim() !== "" ? (
+        <p className="alert" role="alert">
+          {loi}
+        </p>
+      ) : null}
+      {!loading && loi === "" && Danghien.length === 0 && (
+        <p className="empty">
+          {Tab === "saved"
+            ? "Chưa lưu ảnh nào. Bấm biểu tượng đánh dấu trên ảnh để lưu."
+            : "Không có ảnh nào để hiển thị."}
+        </p>
+      )}
       {Danghien.length !== 0 && (
-        <div className="main-content">
+        <div className="grid">
           {Danghien.map((x) => {
             return (
               <HienThiNasaItem
@@ -142,6 +185,6 @@ export default function Home() {
           })}
         </div>
       )}
-    </div>
+    </main>
   );
 }

@@ -1,29 +1,50 @@
+import { IconHeart, IconBookmark, IconCalendar } from "./Icons";
+
 export default function HienThiNasaItem(props: {
   description?: string;
   title: string;
   date_created: string;
   mediaImg?: string;
   nasa_id: string;
-  like:boolean;
-  save:boolean;
-  onLike:() => void;
-  onSave:() => void;
+  like: boolean;
+  save: boolean;
+  onLike: () => void;
+  onSave: () => void;
 }) {
   return (
-    <div className="Item-Nasa">
-      <div className="box-img"><img src={props.mediaImg} alt="Ảnh" width="300px" /></div>
-      <div className="box-description">
-          <h1>Tiêu đề :{props.title}</h1>
-          <p>
-            ID của Nasa:{props.nasa_id}
-            Mô tả:{props.description}
-            Ngày tạo:{new Date(props.date_created).toLocaleDateString("vi-VN")};
-          </p>
+    <article className="card">
+      <div className="card-media">
+        <img src={props.mediaImg} alt={props.title} loading="lazy" />
+        <div className="card-actions">
+          <button
+            type="button"
+            onClick={props.onLike}
+            aria-pressed={props.like}
+            aria-label={props.like ? "Bỏ thích ảnh" : "Thích ảnh"}
+            className={props.like ? "icon-btn icon-like is-on" : "icon-btn icon-like"}
+          >
+            <IconHeart filled={props.like} />
+          </button>
+          <button
+            type="button"
+            onClick={props.onSave}
+            aria-pressed={props.save}
+            aria-label={props.save ? "Bỏ lưu ảnh" : "Lưu ảnh"}
+            className={props.save ? "icon-btn icon-save is-on" : "icon-btn icon-save"}
+          >
+            <IconBookmark filled={props.save} />
+          </button>
+        </div>
       </div>
-      <div className="box-footer">
-        <button onClick={props.onLike} type="button" className="btn btn-like">{props.like ?"Đã thích" :"Thích"}</button>
-        <button onClick={props.onSave} type ="button" className="btn btn-save">{props.save? "Đã lưu " :"Lưu"}</button>
+      <div className="card-body">
+        <h2 className="card-title">{props.title}</h2>
+        <p className="card-meta">
+          <IconCalendar />
+          {new Date(props.date_created).toLocaleDateString("vi-VN")}
+        </p>
+        <p className="card-desc">{props.description}</p>
+        <p className="card-id">Mã NASA: {props.nasa_id}</p>
       </div>
-    </div>
+    </article>
   );
 }
