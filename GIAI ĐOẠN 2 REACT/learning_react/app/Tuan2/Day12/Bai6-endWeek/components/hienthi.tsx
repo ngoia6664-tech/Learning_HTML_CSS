@@ -4,6 +4,10 @@ export default function HienThiNasaItem(props: {
   date_created: string;
   mediaImg?: string;
   nasa_id: string;
+  like:boolean;
+  save:boolean;
+  onLike:() => void;
+  onSave:() => void;
 }) {
   return (
     <div className="Item-Nasa">
@@ -15,7 +19,10 @@ export default function HienThiNasaItem(props: {
             Mô tả:{props.description}
             Ngày tạo:{new Date(props.date_created).toLocaleDateString("vi-VN")};
           </p>
-          
+      </div>
+      <div className="box-footer">
+        <button onClick={props.onLike} type="button" className="btn btn-like">{props.like ?"Đã thích" :"Thích"}</button>
+        <button onClick={props.onSave} type ="button" className="btn btn-save">{props.save? "Đã lưu " :"Lưu"}</button>
       </div>
     </div>
   );
