@@ -1,0 +1,124 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  /* Nền */
+  --bg: #0b1020; /* nền trang */
+  --bg-card: #141b34; /* nền thẻ, khung */
+  --bg-hover: #1b2445; /* nền khi rê chuột */
+  --border: #2a3560; /* viền */
+  --bg-card-padding: 6px 12px;
+  --bg-radius: 12px;
+  --border-card: white;
+
+  /* Chữ */
+  --text: #e8ecf8; /* chữ chính */
+  --text-muted: #9aa6c8; /* chữ phụ, mô tả */
+
+  /* Nút chính */
+  --btn-bg: #3b6cf0;
+  --btn-bg-hover: #5380f5;
+  --btn-text: #ffffff;
+  --btn-padding: 4px 6px;
+  --btn-radius: 8px;
+
+  /* Nút phụ (viền, nền trong) */
+  --btn2-bg: transparent;
+  --btn2-border: #3b6cf0;
+  --btn2-text: #9fbcff;
+
+  /* Trạng thái */
+  --danger: #ff6b6b; /* lỗi */
+  --success: #4cd6a0; /* thành công */
+  --favorite: #ffcc4d; /* yêu thích */
+
+  /* Bo góc */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Khoảng cách */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Đổ bóng và chữ */
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  margin: 0;
+}
+.btn {
+  cursor: pointer;
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  box-shadow: var(--shadow);
+}
+.btn-reset {
+  background-color: var(--btn-bg);
+  border: var(--btn2-border);
+}
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-3);
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+.Item-Nasa {
+  display: grid;
+  grid-template-areas: "box-img box-description";
+  grid-template-columns: 300px auto-fit;
+  grid-template-rows: 400px;
+  border: 2px solid var(--border-card);
+  background-color: var(--bg-card);
+  padding: var(--bg-card-padding);
+  gap: var(--space-3);
+}
+.box-img {
+  grid: box-img;
+}
+.box-description {
+  grid: box-description;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  overflow: hidden;
+  overflow-y: auto;
+}
+p {
+  color: var(--text-muted);
+  overflow: hidden;
+}
+img {
+  cursor: pointer;
+  transition: all 0.15s;
+  border-radius: var(--radius-md);
+}
+img:hover {
+  border: 1px solid red;
+  scale: 1.02;
+}
+.box-footer {
+  display: flex;
+  gap:var(--space-5)
+}
+.btn-like{
+    border:2px solid red;
+}
+.btn-save{
+    border: 2px solid yellow;
+}
+.btn:hover{
+    background-color: var(--btn-bg-hover);
+}
